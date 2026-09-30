@@ -250,7 +250,7 @@ mark.pending { background: var(--pending-bg); color: var(--pending-text); paddin
 .hero .lead { max-width: 580px; margin-bottom: 34px; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
 
-.hero-visual { position: relative; padding: 28px 0 48px 24px; }
+.hero-visual { position: relative; padding: 28px 0 0 24px; }
 .agent-demo {
   margin: 0; background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(10px);
   border: 1px solid var(--border); border-radius: 24px; box-shadow: var(--shadow-lg); padding: 20px;
@@ -273,7 +273,7 @@ mark.pending { background: var(--pending-bg); color: var(--pending-text); paddin
 .float-card {
   position: absolute; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--shadow-lg);
 }
-.chart-card { left: -18px; bottom: -6px; width: 220px; padding: 14px 14px 10px; animation: float 8s ease-in-out infinite reverse; }
+.chart-card { position: relative; width: 230px; margin: -6px 0 0 -24px; padding: 14px 14px 10px; animation: float 8s ease-in-out infinite reverse; }
 .float-card-title { display: flex; align-items: center; gap: 6px; margin: 0 0 8px; font-size: .78rem; font-weight: 700; color: var(--muted); }
 .float-card-title .icon { color: var(--accent); }
 .hero-chart { width: 100%; height: auto; }
@@ -297,8 +297,8 @@ mark.pending { background: var(--pending-bg); color: var(--pending-text); paddin
   .hero { padding: 48px 0 32px; }
   .hero-grid { grid-template-columns: 1fr; gap: 40px; }
   .hero-network { width: 100%; opacity: .3; }
-  .hero-visual { padding: 24px 0 64px; max-width: 520px; }
-  .chart-card { left: auto; right: 0; bottom: 0; width: 200px; }
+  .hero-visual { padding: 24px 0 0; max-width: 520px; }
+  .chart-card { width: 210px; margin-left: auto; margin-right: -8px; }
   .float-chip { right: auto; left: 0; top: -6px; }
 }
 

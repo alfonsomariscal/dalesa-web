@@ -104,7 +104,7 @@ export const visuals = {
     <path d="M60 64C130 80 160 130 210 150S300 186 370 192" class="v-stroke v-stroke-2"/>
     <path d="M56 162h320" class="v-target"/>
     ${text(372, 156, l.target, 'v-small', 'end')}
-    ${[[60, 50], [120, 66], [200, 132], [290, 162], [370, 174]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4.5" class="v-dot"/>`).join('')}
+    ${[[60,  50],  [133.8,  86.5],  [200,  132],  [277.5,  159.0],  [370,  174]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4.5" class="v-dot"/>`).join('')}
     <rect x="236" y="36" width="130" height="50" rx="10" class="v-card"/>
     ${text(250, 56, l.chipTitle, 'v-small', 'start')}
     <rect x="250" y="66" width="100" height="8" rx="4" class="v-soft"/>
@@ -189,7 +189,7 @@ export const serviceArt = {
     <rect x="244" y="54" width="48" height="26" rx="8" class="v-grad-fill"/>
     <rect x="244" y="88" width="48" height="8" rx="4" class="v-line"/><rect x="244" y="102" width="36" height="8" rx="4" class="v-line"/>
     <rect x="244" y="130" width="48" height="18" rx="9" class="v-accent"/>
-    <g class="v-spin"><path d="M281 18a12 12 0 1 1-12-6" class="v-stroke" style="stroke-width:2.5"/><path d="M266 8l4 4-5 3" class="v-stroke" style="stroke-width:2.5"/></g>`),
+    <g transform="translate(268 6)"><circle cx="15" cy="15" r="15" class="v-card"/><g transform="translate(5 5) scale(.8333)"><g class="v-spin v-stroke" style="stroke-width:2.2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /><path d="M21 3v5h-5" /><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /><path d="M8 16H3v5" /></g></g></g>`),
 };
 
 // Gráfico del hero: horas en tareas manuales antes y después (ilustrativo).
