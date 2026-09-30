@@ -316,8 +316,12 @@ export default (d) => ({
       { title: 'Hasta que funciona', text: 'Os acompañamos durante la implantación, no solo en el diseño.' },
     ],
     teamTitle: 'El equipo',
-    teamText:
-      'Somos un equipo con experiencia en proyectos de tecnología para empresas de distintos tamaños y sectores. Estas son las áreas que mejor conocemos:',
+    teamText: [
+      'Somos un grupo de personas a las que nos apasiona la tecnología y el trabajo bien hecho.',
+      'Huimos del modelo de «cuantas más horas, mejor» y de las soluciones de catálogo que no encajan con nadie. Preferimos construir a medida, junto a cada cliente, soluciones de las que sentirnos orgullosos.',
+      'Para nosotros, ayudar es darte las herramientas, acompañarte durante todo el proceso y enseñarte a sacarles partido, para que tu equipo gane autonomía.',
+    ],
+    teamAreas: 'Estas son las áreas que mejor conocemos:',
     certsTitle: 'Certificaciones',
     certs: [], // Añadir certificaciones aquí; si está vacío, el bloque no se muestra.
   },

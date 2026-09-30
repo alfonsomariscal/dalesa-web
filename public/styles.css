@@ -245,6 +245,9 @@ mark.pending { background: var(--pending-bg); color: var(--pending-text); paddin
 .chips li { font-size: .82rem; padding: 4px 10px; border-radius: 999px; background: var(--surface-alt); border: 1px solid var(--border); color: var(--muted); }
 .chips-lg { margin-top: 24px; }
 .chips-lg li { font-size: .95rem; padding: 6px 14px; background: var(--surface); color: var(--text); }
+.team-text { color: var(--muted); }
+.team-areas { margin: 28px 0 0; font-weight: 600; }
+.team-areas + .chips-lg { margin-top: 12px; }
 .plain-list li { color: var(--muted); }
 
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }

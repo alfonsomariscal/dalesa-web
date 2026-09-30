@@ -261,7 +261,9 @@ ${finalCta(t)}`,
       <div class="container team-grid">
         <div>
           <h2 class="section-title">${p.teamTitle}</h2>
-          <p class="lead">${p.teamText}</p>
+          <p class="lead">${p.teamText[0]}</p>
+          ${p.teamText.slice(1).map((x) => `<p class="team-text">${x}</p>`).join('')}
+          <p class="team-areas">${p.teamAreas}</p>
           ${chips(t.expertise)}
           ${p.certs.length ? `<h3 class="subhead">${p.certsTitle}</h3>
           <ul class="plain-list">${p.certs.map((c) => `<li>${c}</li>`).join('')}</ul>` : ''}

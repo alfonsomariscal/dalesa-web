@@ -309,8 +309,12 @@ export default (d) => ({
       { title: 'Until it works', text: 'We stay with you through the rollout, not just the design.' },
     ],
     teamTitle: 'The team',
-    teamText:
-      'We are a team with experience in technology projects for companies of different sizes and industries. These are the areas we know best:',
+    teamText: [
+      'We are a group of people who love technology and work done properly.',
+      'We steer clear of the “more hours, more billing” model and of off-the-shelf solutions that fit no one. We would rather build tailored solutions, together with each client, that we can be proud of.',
+      'To us, helping means giving you the tools, staying with you throughout the process and teaching you to make the most of them, so your team gains independence.',
+    ],
+    teamAreas: 'These are the areas we know best:',
     certsTitle: 'Certifications',
     certs: [], // Add certifications here; when empty, the block is hidden.
   },
