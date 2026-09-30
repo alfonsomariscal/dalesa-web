@@ -7,6 +7,7 @@ Web estática bilingüe (ES/EN) sin dependencias: solo hace falta Node.js.
 | Qué | Dónde |
 | --- | --- |
 | Textos en español / inglés (servicios, casos, cifras, legal…) | `src/content/es.mjs` / `src/content/en.mjs` |
+| Empresas con las que ha trabajado el equipo (logos en `public/logos/`) | `src/content/clients.mjs` |
 | Email, LinkedIn, dominio, formulario, datos fiscales | `site.config.mjs` |
 | Colores de marca (`--accent`, `--accent-2`) | `public/styles.css` (al principio) |
 | Logo y favicon | `public/favicon.svg` y `.brand-mark` en `public/styles.css` |

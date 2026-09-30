@@ -277,6 +277,7 @@ export default (d) => ({
         { label: 'Respuesta preparada', detail: 'Enviada tras revisarla el equipo' },
       ],
     },
+    clientsTitle: 'Nuestro equipo ha trabajado con',
     sectorsTitle: 'Experiencia en sectores como',
     chart: { title: 'Horas en tareas manuales', before: 'Antes', after: 'Con agentes de IA' },
     badge: 'Con revisión humana',
@@ -333,6 +334,7 @@ export default (d) => ({
       { title: 'Resultados, no presentaciones', text: 'Medimos las mejoras en el día a día, no en la diapositiva.' },
       { title: 'Hasta que funciona', text: 'Os acompañamos durante la implantación, no solo en el diseño.' },
     ],
+    clientsTitle: 'Nuestro equipo ha trabajado con',
     sectorsTitle: 'Sectores en los que hemos trabajado',
     teamTitle: 'El equipo',
     teamText: [

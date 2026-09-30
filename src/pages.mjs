@@ -2,6 +2,7 @@
 // y devuelve { title, description, body }.
 import { routes, icon } from './layout.mjs';
 import { visuals, serviceArt, heroChart, heroNetwork } from './visuals.mjs';
+import clients from './content/clients.mjs';
 
 const r = (t, k) => routes[k][t.lang];
 const caseId = (c) => c.id;
@@ -47,6 +48,26 @@ const sectorsStrip = (t, title) => `
         <ul class="sectors">
           ${t.sectors.map((s, i) => `<li ${reveal(i)}>${icon(s.icon)}<span>${s.name}</span></li>`).join('\n          ')}
         </ul>
+      </div>`;
+
+const logoTile = (c, hidden = false) =>
+  `<li class="logo-tile"${hidden ? ' aria-hidden="true"' : ''}><img src="/logos/${c.logo}" alt="${hidden ? '' : c.name}" decoding="async"></li>`;
+
+// Cinta de logos en bucle (inicio): la lista va duplicada para que el desplazamiento sea continuo.
+const clientsMarquee = (title) => `
+      <div class="clients">
+        <p class="clients-title">${title}</p>
+        <div class="marquee">
+          <ul class="marquee-track">
+            ${clients.map((c) => logoTile(c)).join('')}${clients.map((c) => logoTile(c, true)).join('')}
+          </ul>
+        </div>
+      </div>`;
+
+const clientsGrid = (title) => `
+      <div class="clients clients-static">
+        <p class="clients-title">${title}</p>
+        <ul class="logo-grid">${clients.map((c, i) => logoTile(c).replace('<li class="logo-tile"', `<li class="logo-tile" ${reveal(i)}`)).join('')}</ul>
       </div>`;
 
 const stats = (t) => `
@@ -183,6 +204,10 @@ export const pages = {
           <div class="float-chip" aria-hidden="true">${icon('shield-check', 'icon icon-sm')}${h.badge}</div>
         </div>
       </div>
+    </section>
+
+    <section class="trust">
+      ${clientsMarquee(h.clientsTitle)}
       <div class="container">${sectorsStrip(t, h.sectorsTitle)}</div>
     </section>
 
@@ -358,7 +383,10 @@ ${finalCta(t)}`,
           <p>${p.values[3].text}</p>
         </div>
       </div>
-      <div class="container">${sectorsStrip(t, p.sectorsTitle)}</div>
+      <div class="container">
+        ${clientsGrid(p.clientsTitle)}
+        ${sectorsStrip(t, p.sectorsTitle)}
+      </div>
     </section>
 ${finalCta(t)}`,
     };

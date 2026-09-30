@@ -1,5 +1,6 @@
 // Genera la web estática en dist/. Sin dependencias: `node build.mjs`.
-import { cpSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import site from './site.config.mjs';
 import es from './src/content/es.mjs';
@@ -40,7 +41,14 @@ cpSync('public', OUT, { recursive: true });
 
 // Prefija las rutas absolutas internas con la subruta de publicación (GitHub Pages).
 const base = (site.base || '').replace(/\/$/, '');
-const withBase = (html) => (base ? html.replace(/(href|src|action)="\/(?!\/)/g, `$1="${base}/`) : html);
+// Huella de versión en CSS y JS: cada publicación obliga al navegador a descargar la versión nueva.
+const version = (f) => createHash('sha1').update(readFileSync(join('public', f))).digest('hex').slice(0, 8);
+const assets = { '/styles.css': version('styles.css'), '/main.js': version('main.js') };
+const withVersion = (html) => html.replace(/(href|src)="(\/styles\.css|\/main\.js)"/g, (_, a, f) => `${a}="${f}?v=${assets[f]}"`);
+const withBase = (html) => {
+  html = withVersion(html);
+  return base ? html.replace(/(href|src|action)="\/(?!\/)/g, `$1="${base}/`) : html;
+};
 
 const write = (path, html) => {
   const file = join(OUT, path.endsWith('/') ? path + 'index.html' : path);

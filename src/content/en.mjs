@@ -270,6 +270,7 @@ export default (d) => ({
         { label: 'Answer drafted', detail: 'Sent after team review' },
       ],
     },
+    clientsTitle: 'Our team has worked with',
     sectorsTitle: 'Experience in industries such as',
     chart: { title: 'Hours on manual tasks', before: 'Before', after: 'With AI agents' },
     badge: 'Human review built in',
@@ -325,6 +326,7 @@ export default (d) => ({
       { title: 'Results, not slides', text: 'We measure improvements in day-to-day work, not in a presentation.' },
       { title: 'Until it works', text: 'We stay with you through the rollout, not just the design.' },
     ],
+    clientsTitle: 'Our team has worked with',
     sectorsTitle: 'Industries we have worked in',
     teamTitle: 'The team',
     teamText: [
