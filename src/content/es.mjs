@@ -357,7 +357,7 @@ export default (d) => ({
       {
         h: 'Titular del sitio web',
         p: [
-          `En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de que este sitio web es titularidad de <strong>${d.razonSocial}</strong>, con NIF ${d.nif} y domicilio en ${d.domicilio}. ${d.registro}`,
+          `En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de que este sitio web es titularidad de ${d.ident}`,
           `Correo de contacto: ${d.email}.`,
         ],
       },
@@ -370,7 +370,7 @@ export default (d) => ({
       {
         h: 'Propiedad intelectual',
         p: [
-          `Los contenidos de este sitio (textos, diseño, logotipos e imágenes) son propiedad de ${d.razonSocial} o se usan con autorización. No se permite su reproducción sin autorización expresa.`,
+          `Los contenidos de este sitio (textos, diseño, logotipos e imágenes) son propiedad de ${d.titular} o se usan con autorización. No se permite su reproducción sin autorización expresa.`,
         ],
       },
       {
@@ -393,7 +393,7 @@ export default (d) => ({
     sections: [
       {
         h: 'Responsable del tratamiento',
-        p: [`${d.razonSocial}, NIF ${d.nif}, ${d.domicilio}. Contacto: ${d.email}.`],
+        p: [`${d.ident} Contacto: ${d.email}.`],
       },
       {
         h: 'Qué datos tratamos y para qué',

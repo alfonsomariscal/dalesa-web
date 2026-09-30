@@ -351,7 +351,7 @@ export default (d) => ({
       {
         h: 'Website owner',
         p: [
-          `In accordance with Spanish Law 34/2002 on Information Society Services and Electronic Commerce (LSSI-CE), this website is owned by <strong>${d.razonSocial}</strong>, tax ID ${d.nif}, registered address ${d.domicilio}. ${d.registro}`,
+          `In accordance with Spanish Law 34/2002 on Information Society Services and Electronic Commerce (LSSI-CE), this website is owned by ${d.ident}`,
           `Contact email: ${d.email}.`,
         ],
       },
@@ -364,7 +364,7 @@ export default (d) => ({
       {
         h: 'Intellectual property',
         p: [
-          `The content of this site (text, design, logos and images) belongs to ${d.razonSocial} or is used with permission. It may not be reproduced without express authorisation.`,
+          `The content of this site (text, design, logos and images) belongs to ${d.titular} or is used with permission. It may not be reproduced without express authorisation.`,
         ],
       },
       {
@@ -388,7 +388,7 @@ export default (d) => ({
     sections: [
       {
         h: 'Data controller',
-        p: [`${d.razonSocial}, tax ID ${d.nif}, ${d.domicilio}. Contact: ${d.email}.`],
+        p: [`${d.ident} Contact: ${d.email}.`],
       },
       {
         h: 'What data we process and why',

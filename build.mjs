@@ -10,21 +10,28 @@ import { pages, notFound } from './src/pages.mjs';
 const OUT = process.env.OUT_DIR || 'dist';
 const langs = { es, en };
 
-// Datos de site.config.mjs que usan los textos; si faltan, quedan como [PENDIENTE].
-const pendingLabels = {
-  es: { email: 'email', razonSocial: 'razón social', nif: 'NIF', domicilio: 'domicilio', registro: 'datos registrales' },
-  en: { email: 'email', razonSocial: 'company name', nif: 'tax ID', domicilio: 'address', registro: 'registry details' },
-};
+// Datos de site.config.mjs que usan los textos. Los datos legales que falten se omiten
+// en la web (sin frases a medias) y el build avisa al final.
+const legal = site.legal;
+const missingLegal = Object.entries({ 'razón social': legal.razonSocial, NIF: legal.nif, domicilio: legal.domicilio, 'datos registrales': legal.registro })
+  .filter(([, v]) => !v)
+  .map(([k]) => k);
 const dataFor = (lang) => {
-  const p = (w) => (lang === 'es' ? `[PENDIENTE: ${w}]` : `[PENDING: ${w}]`);
-  const L = pendingLabels[lang];
+  const es = lang === 'es';
+  const titular = legal.razonSocial || site.name;
+  const ident = [
+    `<strong>${titular}</strong>`,
+    legal.nif && (es ? `con NIF ${legal.nif}` : `tax ID ${legal.nif}`),
+    legal.domicilio && (es ? `con domicilio en ${legal.domicilio}` : `registered address ${legal.domicilio}`),
+  ]
+    .filter(Boolean)
+    .join(', ');
   return {
     name: site.name,
-    email: site.email || p(L.email),
-    razonSocial: site.legal.razonSocial || p(L.razonSocial),
-    nif: site.legal.nif || p(L.nif),
-    domicilio: site.legal.domicilio || p(L.domicilio),
-    registro: site.legal.registro || p(L.registro),
+    email: site.email || (es ? '[PENDIENTE: email]' : '[PENDING: email]'),
+    titular,
+    // "<strong>Titular</strong>, con NIF X, con domicilio en Y. Registro…"
+    ident: `${ident}.${legal.registro ? ` ${legal.registro}` : ''}`,
   };
 };
 
@@ -73,5 +80,6 @@ if (site.preview) {
 
 console.log(`✔ ${urls.length + 1} páginas generadas en ${OUT}/${base ? ` (subruta ${base})` : ''}`);
 if (pending.size) console.warn(`⚠ Quedan ${pending.size} textos [PENDIENTE] distintos, marcados en amarillo en la web.`);
+if (missingLegal.length) console.warn(`⚠ Faltan datos legales en site.config.mjs (obligatorios antes de lanzar): ${missingLegal.join(', ')}.`);
 if (site.preview) console.warn('⚠ Modo preview: la web pide a los buscadores que no la indexen.');
 if (!site.url && !site.preview) console.warn('⚠ Falta `url` en site.config.mjs: no se generan canonical, sitemap.xml ni robots.txt.');

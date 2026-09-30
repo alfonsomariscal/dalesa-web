@@ -12,7 +12,7 @@ export default {
   // Versión de trabajo: pide a los buscadores que no indexen la web. Poner a false al lanzar.
   preview: true,
 
-  email: '', // correo de contacto público, p. ej. 'hola@dalesa.es'
+  email: 'info@dalesa.com', // provisional
   linkedin: '', // URL de la página de empresa en LinkedIn
 
   // Endpoint del formulario de contacto (p. ej. Formspree: 'https://formspree.io/f/xxxxxxx').
