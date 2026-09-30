@@ -141,3 +141,77 @@ export const visuals = {
     ${text(301, 248, l.after)}`,
     ),
 };
+
+// Ilustraciones de cabecera de cada servicio (sin texto, valen para los dos idiomas).
+const art = (inner) => `<svg class="service-art" viewBox="0 0 320 170" aria-hidden="true">${inner}</svg>`;
+
+export const serviceArt = {
+  // Agente de IA: conversación + documentos procesados
+  ia: art(`
+    <rect x="22" y="22" width="150" height="40" rx="14" class="v-card"/>
+    <rect x="36" y="36" width="96" height="6" rx="3" class="v-line"/><rect x="36" y="47" width="64" height="6" rx="3" class="v-line"/>
+    <rect x="96" y="74" width="178" height="52" rx="14" class="v-grad-fill"/>
+    <rect x="112" y="89" width="120" height="6" rx="3" class="v-white"/><rect x="112" y="101" width="140" height="6" rx="3" class="v-white" opacity=".7"/><rect x="112" y="113" width="84" height="6" rx="3" class="v-white" opacity=".7"/>
+    <circle cx="286" cy="70" r="16" class="v-card"/>
+    <path d="M280 70h12M286 64v12" class="v-stroke" style="stroke-width:2"/>
+    <g class="v-float">
+      <rect x="30" y="112" width="44" height="52" rx="8" class="v-card"/>
+      <rect x="38" y="124" width="28" height="4" rx="2" class="v-line"/><rect x="38" y="133" width="22" height="4" rx="2" class="v-line"/><rect x="38" y="142" width="26" height="4" rx="2" class="v-line"/>
+      <circle cx="70" cy="114" r="8" class="v-accent2"/><path d="M66.5 114l2.5 2.5 4.5-4.5" class="v-check"/>
+    </g>
+    <path d="M262 22l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" class="v-accent2 v-twinkle"/>
+    <path d="M232 138l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" class="v-accent v-twinkle" style="animation-delay:.8s"/>`),
+
+  // Proceso: pasos conectados, uno eliminado y otro automatizado
+  procesos: art(`
+    <path d="M62 50h56M150 50h28M210 50c24 0 24 60 48 60M62 110h120" class="v-link"/>
+    <path d="M62 50h56M150 50h28M210 50c24 0 24 60 48 60M62 110h120" class="v-link-flow"/>
+    <rect x="22" y="32" width="40" height="36" rx="10" class="v-card"/><circle cx="42" cy="50" r="6" class="v-accent"/>
+    <rect x="118" y="32" width="32" height="36" rx="10" class="v-dashed"/><path d="M128 44l12 12M140 44l-12 12" class="v-x"/>
+    <rect x="178" y="32" width="32" height="36" rx="10" class="v-card"/><circle cx="194" cy="50" r="6" class="v-accent"/>
+    <rect x="22" y="92" width="40" height="36" rx="10" class="v-card"/><circle cx="42" cy="110" r="6" class="v-accent"/>
+    <rect x="182" y="90" width="120" height="40" rx="12" class="v-grad-fill"/>
+    <path d="M204 101l-6 10h7l-4 9 11-13h-7l4-6z" class="v-white"/>
+    <rect x="224" y="104" width="62" height="6" rx="3" class="v-white"/><rect x="224" y="114" width="40" height="6" rx="3" class="v-white" opacity=".7"/>
+    <rect x="236" y="36" width="66" height="28" rx="14" class="v-soft"/>
+    <path d="M250 50h38" class="v-stroke" style="stroke-width:3"/><circle cx="276" cy="50" r="5" class="v-accent2"/>`),
+
+  // Modernización: web + móvil renovados
+  modernizacion: art(`
+    <rect x="22" y="20" width="200" height="130" rx="12" class="v-card"/>
+    <rect x="22" y="20" width="200" height="20" rx="12" class="v-soft"/>
+    <circle cx="36" cy="30" r="3" class="v-accent"/><circle cx="46" cy="30" r="3" class="v-accent2"/><circle cx="56" cy="30" r="3" class="v-line"/>
+    <rect x="36" y="52" width="70" height="8" rx="4" class="v-line"/>
+    <rect x="36" y="68" width="112" height="66" rx="8" class="v-soft"/>
+    <path d="M46 120l18-16 16 8 18-22 16 10 22-20" class="v-stroke v-draw"/>
+    <rect x="158" y="68" width="50" height="30" rx="6" class="v-soft"/><rect x="158" y="104" width="50" height="30" rx="6" class="v-soft"/>
+    <rect x="232" y="38" width="72" height="124" rx="16" class="v-phone"/>
+    <rect x="244" y="54" width="48" height="26" rx="8" class="v-grad-fill"/>
+    <rect x="244" y="88" width="48" height="8" rx="4" class="v-line"/><rect x="244" y="102" width="36" height="8" rx="4" class="v-line"/>
+    <rect x="244" y="130" width="48" height="18" rx="9" class="v-accent"/>
+    <g class="v-spin"><path d="M281 18a12 12 0 1 1-12-6" class="v-stroke" style="stroke-width:2.5"/><path d="M266 8l4 4-5 3" class="v-stroke" style="stroke-width:2.5"/></g>`),
+};
+
+// Gráfico del hero: horas en tareas manuales antes y después (ilustrativo).
+export const heroChart = (l) => {
+  const bars = [62, 58, 64, 60, 34, 26, 20, 16];
+  return `<svg class="hero-chart" viewBox="0 0 200 84" role="img" aria-label="${l.title}">
+    ${bars
+      .map(
+        (h, i) =>
+          `<rect x="${6 + i * 24}" y="${72 - h}" width="14" height="${h}" rx="4" class="${i < 4 ? 'v-bar-old' : 'v-bar-new'}" style="--i:${i}"/>`,
+      )
+      .join('')}
+    <path d="M100 4v70" class="v-divider"/>
+  </svg>`;
+};
+
+// Red de nodos decorativa detrás del hero.
+export const heroNetwork = () => {
+  const n = [[40, 60], [150, 30], [260, 90], [360, 40], [90, 170], [210, 200], [330, 180], [440, 120], [470, 230], [120, 280], [280, 300], [400, 300]];
+  const e = [[0, 1], [1, 2], [2, 3], [0, 4], [4, 5], [5, 2], [5, 6], [6, 3], [6, 7], [7, 3], [7, 8], [4, 9], [9, 10], [10, 5], [10, 11], [11, 8], [6, 11]];
+  return `<svg class="hero-network" viewBox="0 0 500 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    ${e.map(([a, b]) => `<line x1="${n[a][0]}" y1="${n[a][1]}" x2="${n[b][0]}" y2="${n[b][1]}"/>`).join('')}
+    ${n.map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="${i % 3 ? 3 : 4.5}" style="--i:${i}"/>`).join('')}
+  </svg>`;
+};

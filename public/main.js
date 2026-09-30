@@ -74,3 +74,39 @@ if (form) {
     }
   });
 }
+
+// Animación de entrada al hacer scroll y contador de cifras (+14, +40…).
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const countUp = (el) => {
+  const m = el.dataset.count.match(/^(\D*)(\d+)(\D*)$/);
+  if (!m || reduceMotion) return;
+  const [, pre, num, post] = m;
+  const end = Number(num);
+  const start = performance.now();
+  // Seguro: si el navegador pausa la animación (pestaña en segundo plano), deja el valor final.
+  setTimeout(() => (el.textContent = el.dataset.count), 1500);
+  const tick = (now) => {
+    const p = Math.min((now - start) / 1200, 1);
+    el.textContent = `${pre}${Math.round(end * (1 - Math.pow(1 - p, 3)))}${post}`;
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+};
+
+const revealed = document.querySelectorAll('[data-reveal]');
+if ('IntersectionObserver' in window && !reduceMotion) {
+  const io = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        e.target.querySelectorAll('[data-count]').forEach(countUp);
+        io.unobserve(e.target);
+      }),
+    { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
+  );
+  revealed.forEach((el) => io.observe(el));
+} else {
+  revealed.forEach((el) => el.classList.add('in'));
+}

@@ -29,7 +29,7 @@ export default (d) => ({
   services: [
     {
       id: 'ia',
-      icon: 'sparkle',
+      icon: 'bot',
       title: 'AI agents',
       short:
         'AI assistants that answer questions, handle documents or prepare reports, so your team can focus on the work that really adds value.',
@@ -45,7 +45,7 @@ export default (d) => ({
     },
     {
       id: 'procesos',
-      icon: 'flow',
+      icon: 'workflow',
       title: 'Process improvement',
       short:
         'We look at how your team works, find the bottlenecks and redesign processes so they are faster and more efficient.',
@@ -60,7 +60,7 @@ export default (d) => ({
     },
     {
       id: 'modernizacion',
-      icon: 'phone',
+      icon: 'smartphone',
       title: 'Application modernisation & mobile',
       short:
         'We update your systems and tools so they are faster, more secure and easier to use, on mobile too, without starting from scratch.',
@@ -98,10 +98,20 @@ export default (d) => ({
     'Systems integration',
   ],
 
+  sectors: [
+    { icon: 'landmark', name: 'Banking' },
+    { icon: 'shield-check', name: 'Insurance' },
+    { icon: 'ham', name: 'Food production' },
+    { icon: 'shirt', name: 'Textiles' },
+    { icon: 'truck', name: 'Transport' },
+    { icon: 'fuel', name: 'Oil & gas' },
+  ],
+
   // Case studies: same order and structure as es.mjs.
   cases: [
     {
       id: 'textiles',
+      icon: 'shirt',
       featured: true,
       service: 'ia',
       visual: 'sizes',
@@ -131,6 +141,7 @@ export default (d) => ({
     },
     {
       id: 'insurance-claims',
+      icon: 'shield-check',
       featured: true,
       service: 'ia',
       visual: 'extract',
@@ -159,6 +170,7 @@ export default (d) => ({
     },
     {
       id: 'insurance-mobile',
+      icon: 'shield-check',
       service: 'modernizacion',
       visual: 'claim',
       sector: 'Insurance',
@@ -187,6 +199,7 @@ export default (d) => ({
     },
     {
       id: 'food-production',
+      icon: 'ham',
       featured: true,
       service: 'procesos',
       visual: 'curve',
@@ -214,6 +227,7 @@ export default (d) => ({
     },
     {
       id: 'banking',
+      icon: 'landmark',
       featured: true,
       service: 'modernizacion',
       visual: 'modernize',
@@ -256,6 +270,9 @@ export default (d) => ({
         { label: 'Answer drafted', detail: 'Sent after team review' },
       ],
     },
+    sectorsTitle: 'Experience in industries such as',
+    chart: { title: 'Hours on manual tasks', before: 'Before', after: 'With AI agents' },
+    badge: 'Human review built in',
     problemTitle: 'Every day, hours are lost that nobody sees',
     problems: [
       { title: 'Repetitive tasks', text: 'Copying data from one place to another, answering the same questions, hunting for documents.' },
@@ -286,7 +303,7 @@ export default (d) => ({
   casesPage: {
     title: `Case studies · ${d.name}`,
     description: 'AI, process improvement and application modernisation projects.',
-    h1: 'Case studies',
+    h1: 'Real projects, results you can see',
     lead: 'Some of the projects we have worked on. For confidentiality reasons we do not always name the client.',
   },
 
@@ -308,6 +325,7 @@ export default (d) => ({
       { title: 'Results, not slides', text: 'We measure improvements in day-to-day work, not in a presentation.' },
       { title: 'Until it works', text: 'We stay with you through the rollout, not just the design.' },
     ],
+    sectorsTitle: 'Industries we have worked in',
     teamTitle: 'The team',
     teamText: [
       'We are a group of people who love technology and work done properly.',
@@ -336,6 +354,14 @@ export default (d) => ({
       ok: 'Thank you. We will get back to you as soon as possible.',
       error: 'The message could not be sent. Please email us directly at the address shown.',
       mailSubject: 'Contact from the website',
+    },
+    next: {
+      title: 'What happens next?',
+      items: [
+        { icon: 'mail', title: 'We reply', text: 'We read your message and get back to you as soon as possible.' },
+        { icon: 'message-circle', title: 'First conversation', text: 'We talk about your case, free and with no commitment.' },
+        { icon: 'lightbulb', title: 'A concrete proposal', text: 'If it is a fit, we propose clear, prioritised improvements.' },
+      ],
     },
     asideTitle: 'You can also reach us at',
     emailLabel: 'Email',

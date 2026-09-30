@@ -10,7 +10,9 @@ Web estática bilingüe (ES/EN) sin dependencias: solo hace falta Node.js.
 | Email, LinkedIn, dominio, formulario, datos fiscales | `site.config.mjs` |
 | Colores de marca (`--accent`, `--accent-2`) | `public/styles.css` (al principio) |
 | Logo y favicon | `public/favicon.svg` y `.brand-mark` en `public/styles.css` |
-| Ilustraciones de los casos | `src/visuals.mjs` |
+| Ilustraciones (casos, servicios, hero) | `src/visuals.mjs` |
+| Iconos (Lucide, ISC) | `src/icons.mjs`; para añadir uno, copiar su SVG de lucide.dev |
+| Tipografía (Manrope, OFL) | `public/fonts/` |
 
 Lo que falta por rellenar aparece como `[PENDIENTE: …]` resaltado en amarillo, y el build dice cuántos quedan.
 

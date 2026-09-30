@@ -30,7 +30,7 @@ export default (d) => ({
   services: [
     {
       id: 'ia',
-      icon: 'sparkle',
+      icon: 'bot',
       title: 'Agentes de inteligencia artificial',
       short:
         'Asistentes de IA que responden consultas, gestionan documentos o preparan informes, para que tu equipo se centre en lo que de verdad aporta valor.',
@@ -46,7 +46,7 @@ export default (d) => ({
     },
     {
       id: 'procesos',
-      icon: 'flow',
+      icon: 'workflow',
       title: 'Mejora de procesos',
       short:
         'Analizamos cómo trabaja tu equipo, detectamos cuellos de botella y rediseñamos los procesos para que sean más ágiles y eficientes.',
@@ -62,7 +62,7 @@ export default (d) => ({
     },
     {
       id: 'modernizacion',
-      icon: 'phone',
+      icon: 'smartphone',
       title: 'Modernización de aplicaciones y movilidad',
       short:
         'Actualizamos tus sistemas y herramientas para que sean más rápidos, seguros y fáciles de usar, también desde el móvil, sin empezar de cero.',
@@ -101,12 +101,23 @@ export default (d) => ({
     'Integración de sistemas',
   ],
 
+  // Sectores en los que hemos trabajado (icono de src/icons.mjs).
+  sectors: [
+    { icon: 'landmark', name: 'Banca' },
+    { icon: 'shield-check', name: 'Seguros' },
+    { icon: 'ham', name: 'Alimentación' },
+    { icon: 'shirt', name: 'Textil' },
+    { icon: 'truck', name: 'Transporte' },
+    { icon: 'fuel', name: 'Petróleo y gas' },
+  ],
+
   // Casos: uno por bloque. `service` debe coincidir con un id de `services`.
   // `visual`: modernize | extract | curve | sizes (ilustraciones de src/visuals.mjs).
   // Por confidencialidad, los clientes se describen por sector.
   cases: [
     {
       id: 'textil',
+      icon: 'shirt',
       featured: true,
       service: 'ia',
       visual: 'sizes',
@@ -136,6 +147,7 @@ export default (d) => ({
     },
     {
       id: 'seguros-siniestros',
+      icon: 'shield-check',
       featured: true,
       service: 'ia',
       visual: 'extract',
@@ -164,6 +176,7 @@ export default (d) => ({
     },
     {
       id: 'seguros-movilidad',
+      icon: 'shield-check',
       service: 'modernizacion',
       visual: 'claim',
       sector: 'Seguros',
@@ -192,6 +205,7 @@ export default (d) => ({
     },
     {
       id: 'alimentacion',
+      icon: 'ham',
       featured: true,
       service: 'procesos',
       visual: 'curve',
@@ -220,6 +234,7 @@ export default (d) => ({
     },
     {
       id: 'banca',
+      icon: 'landmark',
       featured: true,
       service: 'modernizacion',
       visual: 'modernize',
@@ -262,6 +277,9 @@ export default (d) => ({
         { label: 'Respuesta preparada', detail: 'Enviada tras revisarla el equipo' },
       ],
     },
+    sectorsTitle: 'Experiencia en sectores como',
+    chart: { title: 'Horas en tareas manuales', before: 'Antes', after: 'Con agentes de IA' },
+    badge: 'Con revisión humana',
     problemTitle: 'Cada día se pierden horas que nadie ve',
     problems: [
       { title: 'Tareas repetitivas', text: 'Copiar datos de un sitio a otro, responder siempre las mismas preguntas, buscar documentos.' },
@@ -293,7 +311,7 @@ export default (d) => ({
   casesPage: {
     title: `Casos · ${d.name}`,
     description: 'Proyectos de inteligencia artificial, mejora de procesos y modernización de aplicaciones.',
-    h1: 'Casos',
+    h1: 'Proyectos reales, resultados que se notan',
     lead: 'Algunos proyectos en los que hemos trabajado. Por confidencialidad, no siempre citamos el nombre del cliente.',
   },
 
@@ -315,6 +333,7 @@ export default (d) => ({
       { title: 'Resultados, no presentaciones', text: 'Medimos las mejoras en el día a día, no en la diapositiva.' },
       { title: 'Hasta que funciona', text: 'Os acompañamos durante la implantación, no solo en el diseño.' },
     ],
+    sectorsTitle: 'Sectores en los que hemos trabajado',
     teamTitle: 'El equipo',
     teamText: [
       'Somos un grupo de personas a las que nos apasiona la tecnología y el trabajo bien hecho.',
@@ -343,6 +362,14 @@ export default (d) => ({
       ok: 'Gracias. Te responderemos lo antes posible.',
       error: 'No se ha podido enviar. Escríbenos directamente al correo de la derecha.',
       mailSubject: 'Contacto desde la web',
+    },
+    next: {
+      title: '¿Qué pasa después?',
+      items: [
+        { icon: 'mail', title: 'Te respondemos', text: 'Leemos tu mensaje y te contestamos lo antes posible.' },
+        { icon: 'message-circle', title: 'Primera conversación', text: 'Hablamos de tu caso, sin compromiso y sin coste.' },
+        { icon: 'lightbulb', title: 'Propuesta concreta', text: 'Si encaja, te proponemos mejoras claras y priorizadas.' },
+      ],
     },
     asideTitle: 'También puedes escribirnos',
     emailLabel: 'Correo',

@@ -1,21 +1,85 @@
 // Cuerpo de cada página. Cada función recibe `t` (textos del idioma) y `site` (site.config.mjs)
 // y devuelve { title, description, body }.
 import { routes, icon } from './layout.mjs';
-import { visuals } from './visuals.mjs';
+import { visuals, serviceArt, heroChart, heroNetwork } from './visuals.mjs';
 
 const r = (t, k) => routes[k][t.lang];
-const serviceAnchor = (s) => `${s.id}`;
 const caseId = (c) => c.id;
-
-const serviceCard = (t, s) => `
-      <article class="card service-card">
-        <div class="icon-badge">${icon(s.icon)}</div>
-        <h3>${s.title}</h3>
-        <p>${s.short}</p>
-        <a class="link-arrow" href="${r(t, 'services')}#${serviceAnchor(s)}">${t.ui.learnMore} ${icon('arrow', 'icon icon-sm')}</a>
-      </article>`;
-
 const serviceTitle = (t, id) => t.services.find((s) => s.id === id)?.title ?? '';
+
+// Iconos por posición (compartidos por los dos idiomas).
+const ICONS = {
+  problems: ['repeat', 'shuffle', 'hourglass'],
+  steps: ['ear', 'search', 'lightbulb', 'handshake'],
+  values: ['ear', 'puzzle', 'target', 'badge-check'],
+  stats: ['calendar-clock', 'briefcase', 'building-2'],
+  bullets: {
+    ia: ['message-square', 'file-text', 'bar-chart-3', 'plug', 'shield-check'],
+    procesos: ['users', 'search', 'git-compare', 'zap', 'gauge'],
+    modernizacion: ['refresh-cw', 'smartphone', 'globe', 'plug', 'lock'],
+  },
+};
+
+// `data-reveal` activa la animación de entrada al hacer scroll (main.js).
+const reveal = (i = 0) => `data-reveal style="--d:${i * 80}ms"`;
+const arrow = () => icon('arrow-right', 'icon icon-sm');
+
+const sectionHead = (title, lead, extra = '') => `
+        <div class="section-head" ${reveal()}>
+          <h2 class="section-title">${title}</h2>
+          ${lead ? `<p class="lead">${lead}</p>` : ''}
+          ${extra}
+        </div>`;
+
+const pageHeader = (eyebrowIcon, eyebrow, h1, lead) => `
+    <section class="page-header">
+      <div class="page-header-bg" aria-hidden="true"></div>
+      <div class="container narrow">
+        ${eyebrow ? `<p class="eyebrow eyebrow-icon">${icon(eyebrowIcon, 'icon icon-sm')}${eyebrow}</p>` : ''}
+        <h1>${h1}</h1>
+        ${lead ? `<p class="lead">${lead}</p>` : ''}
+      </div>
+    </section>`;
+
+const sectorsStrip = (t, title) => `
+      <div class="sectors-strip">
+        <p class="sectors-title">${title}</p>
+        <ul class="sectors">
+          ${t.sectors.map((s, i) => `<li ${reveal(i)}>${icon(s.icon)}<span>${s.name}</span></li>`).join('\n          ')}
+        </ul>
+      </div>`;
+
+const stats = (t) => `
+      <dl class="stats">
+        ${t.stats
+          .map(
+            (s, i) => `<div class="stat" ${reveal(i)}>
+          <span class="stat-icon">${icon(ICONS.stats[i])}</span>
+          <div><dd data-count="${s.value}">${s.value}</dd><dt>${s.label}</dt></div>
+        </div>`,
+          )
+          .join('\n        ')}
+      </dl>`;
+
+const chips = (items) => `<ul class="chips chips-lg">${items.map((x) => `<li>${x}</li>`).join('')}</ul>`;
+
+const serviceCard = (t, s, i, featured) => `
+      <article class="card service-card${featured ? ' service-card-featured' : ''}" ${reveal(i)}>
+        <div class="service-art-wrap">${serviceArt[s.id] ?? ''}</div>
+        <div class="service-card-body">
+          <div class="service-card-title"><span class="icon-badge">${icon(s.icon)}</span><h3>${s.title}</h3></div>
+          <p>${s.short}</p>
+          ${
+            featured
+              ? `<ul class="mini-list">${s.bullets
+                  .slice(0, 3)
+                  .map((b, j) => `<li>${icon(ICONS.bullets[s.id][j], 'icon icon-sm')}<span>${b}</span></li>`)
+                  .join('')}</ul>`
+              : ''
+          }
+          <a class="link-arrow" href="${r(t, 'services')}#${s.id}">${t.ui.learnMore} ${arrow()}</a>
+        </div>
+      </article>`;
 
 const caseVisual = (t, c) => `
         <div class="case-art">
@@ -23,63 +87,51 @@ const caseVisual = (t, c) => `
           <span class="case-art-note">${t.ui.illustrative}</span>
         </div>`;
 
+const caseTag = (c) => `<span class="tag">${icon(c.icon, 'icon icon-xs')}${c.sector}</span>`;
+
 // Tarjeta compacta (inicio)
-const caseCard = (t, c) => `
-      <a class="card case-card" href="${r(t, 'cases')}#${caseId(c)}">
+const caseCard = (t, c, i) => `
+      <a class="card case-card" href="${r(t, 'cases')}#${caseId(c)}" ${reveal(i)}>
         ${caseVisual(t, c)}
-        <p class="case-meta"><span class="tag">${c.sector}</span><span>${serviceTitle(t, c.service)}</span></p>
+        <p class="case-meta">${caseTag(c)}<span>${serviceTitle(t, c.service)}</span></p>
         <h3>${c.title}</h3>
         <p class="case-summary">${c.summary}</p>
-        <span class="link-arrow">${t.ui.learnMore} ${icon('arrow', 'icon icon-sm')}</span>
+        <span class="link-arrow">${t.ui.learnMore} ${arrow()}</span>
       </a>`;
 
 // Ficha completa (página de casos)
 const caseFeature = (t, c, i) => `
-      <article class="case-feature${i % 2 ? ' reverse' : ''}" id="${caseId(c)}" data-service="${c.service}">
+      <article class="case-feature${i % 2 ? ' reverse' : ''}" id="${caseId(c)}" data-service="${c.service}" ${reveal()}>
         ${caseVisual(t, c)}
         <div class="case-content">
-          <p class="case-meta"><span class="tag">${c.sector}</span><span>${c.client}</span><span>· ${serviceTitle(t, c.service)}</span></p>
+          <p class="case-meta">${caseTag(c)}<span>${c.client}</span><span>· ${serviceTitle(t, c.service)}</span></p>
           <h2>${c.title}</h2>
           <p class="lead">${c.summary}</p>
           <dl class="case-body">
             <div><dt>${t.caseLabels.challenge}</dt><dd>${c.challenge}</dd></div>
             <div><dt>${t.caseLabels.solution}</dt><dd><ul class="checklist">${c.solution.map((x) => `<li>${icon('check', 'icon icon-sm')}<span>${x}</span></li>`).join('')}</ul></dd></div>
-            <div class="case-result"><dt>${t.caseLabels.result}</dt><dd>${c.result}</dd></div>
+            <div class="case-result"><dt>${icon('trending-down', 'icon icon-sm')}${t.caseLabels.result}</dt><dd>${c.result}</dd></div>
           </dl>
           <ul class="chips">${c.tech.map((x) => `<li>${x}</li>`).join('')}</ul>
         </div>
       </article>`;
 
-const stats = (t) => `
-      <dl class="stats">
-        ${t.stats.map((s) => `<div class="stat"><dt>${s.label}</dt><dd>${s.value}</dd></div>`).join('')}
-      </dl>`;
-
-const chips = (items) => `<ul class="chips chips-lg">${items.map((x) => `<li>${x}</li>`).join('')}</ul>`;
-
-const pageHeader = (h1, lead) => `
-    <section class="page-header">
-      <div class="container narrow">
-        <h1>${h1}</h1>
-        <p class="lead">${lead}</p>
-      </div>
-    </section>`;
-
 const finalCta = (t) => `
     <section class="section">
       <div class="container">
-        <div class="cta-band">
-          <div>
+        <div class="cta-band" ${reveal()}>
+          <div class="cta-band-art" aria-hidden="true">${icon('sparkles', 'icon')}</div>
+          <div class="cta-band-copy">
             <h2>${t.home.finalTitle}</h2>
             <p>${t.home.finalText}</p>
           </div>
-          <a class="btn btn-light" href="${r(t, 'contact')}">${t.ui.cta} ${icon('arrow', 'icon icon-sm')}</a>
+          <a class="btn btn-light" href="${r(t, 'contact')}">${t.ui.cta} ${arrow()}</a>
         </div>
       </div>
     </section>`;
 
 const prose = (t, page) => `
-    ${pageHeader(page.h1, page.intro ?? '')}
+    ${pageHeader('file-text', '', page.h1, page.intro ?? '')}
     <section class="section section-tight">
       <div class="container narrow prose">
         ${page.sections.map((s) => `<h2>${s.h}</h2>${s.p.map((p) => `<p>${p}</p>`).join('')}`).join('\n        ')}
@@ -89,74 +141,90 @@ const prose = (t, page) => `
 export const pages = {
   home: (t) => {
     const h = t.home;
+    const [feature, ...rest] = t.services;
     return {
       title: h.title,
       description: h.description,
       body: `
     <section class="hero">
+      <div class="hero-bg" aria-hidden="true">${heroNetwork()}</div>
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">${h.eyebrow}</p>
           <h1>${h.h1}</h1>
           <p class="lead">${h.lead}</p>
           <div class="actions">
-            <a class="btn btn-primary" href="${r(t, 'contact')}">${h.ctaPrimary} ${icon('arrow', 'icon icon-sm')}</a>
+            <a class="btn btn-primary" href="${r(t, 'contact')}">${h.ctaPrimary} ${arrow()}</a>
             <a class="btn btn-ghost" href="#servicios">${h.ctaSecondary}</a>
           </div>
-          <p class="note">${h.note}</p>
+          <p class="note">${icon('check', 'icon icon-sm')}${h.note}</p>
         </div>
-        <figure class="agent-demo" aria-label="${t.ui.illustrative}: ${h.demo.title}">
-          <div class="agent-demo-head">
-            <span class="agent-dot" aria-hidden="true"></span>
-            <strong>${h.demo.title}</strong>
-            <span class="agent-demo-tag">${t.ui.illustrative}</span>
+        <div class="hero-visual">
+          <figure class="agent-demo" aria-label="${t.ui.illustrative}: ${h.demo.title}">
+            <div class="agent-demo-head">
+              <span class="agent-avatar">${icon('bot', 'icon icon-sm')}</span>
+              <strong>${h.demo.title}</strong>
+              <span class="agent-demo-tag">${t.ui.illustrative}</span>
+            </div>
+            <ol class="agent-steps">
+              ${h.demo.steps
+                .map(
+                  (s, i) =>
+                    `<li style="--i:${i}"><span class="step-check">${icon(['message-circle', 'database', 'send'][i], 'icon icon-sm')}</span><div><strong>${s.label}</strong><span>${s.detail}</span></div></li>`,
+                )
+                .join('\n              ')}
+            </ol>
+          </figure>
+          <div class="float-card chart-card" aria-hidden="true">
+            <p class="float-card-title">${icon('bar-chart-3', 'icon icon-xs')}${h.chart.title}</p>
+            ${heroChart(h.chart)}
+            <p class="chart-legend"><span class="lg-old">${h.chart.before}</span><span class="lg-new">${h.chart.after}</span></p>
           </div>
-          <ol class="agent-steps">
-            ${h.demo.steps
-              .map(
-                (s, i) => `<li style="--i:${i}"><span class="step-check">${icon('check', 'icon icon-sm')}</span><div><strong>${s.label}</strong><span>${s.detail}</span></div></li>`,
-              )
-              .join('\n            ')}
-          </ol>
-        </figure>
+          <div class="float-chip" aria-hidden="true">${icon('shield-check', 'icon icon-sm')}${h.badge}</div>
+        </div>
       </div>
+      <div class="container">${sectorsStrip(t, h.sectorsTitle)}</div>
     </section>
 
     <section class="section section-alt">
       <div class="container">
-        <h2 class="section-title">${h.problemTitle}</h2>
+        ${sectionHead(h.problemTitle, '')}
         <div class="grid grid-3">
-          ${h.problems.map((p) => `<div class="problem"><h3>${p.title}</h3><p>${p.text}</p></div>`).join('\n          ')}
+          ${h.problems
+            .map(
+              (p, i) => `<div class="problem" ${reveal(i)}><span class="problem-icon">${icon(ICONS.problems[i])}</span><h3>${p.title}</h3><p>${p.text}</p></div>`,
+            )
+            .join('\n          ')}
         </div>
       </div>
     </section>
 
     <section class="section" id="servicios">
       <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">${h.servicesTitle}</h2>
-          <p class="lead">${h.servicesLead}</p>
-        </div>
-        <div class="grid grid-3">${t.services.map((s) => serviceCard(t, s)).join('')}
+        ${sectionHead(h.servicesTitle, h.servicesLead)}
+        <div class="bento">
+          ${serviceCard(t, feature, 0, true)}
+          ${rest.map((s, i) => serviceCard(t, s, i + 1, false)).join('')}
         </div>
       </div>
     </section>
 
     <section class="section section-alt">
       <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">${h.howTitle}</h2>
-          <p class="lead">${h.howLead}</p>
-        </div>
-        <ol class="steps">
-          ${t.steps.map((s) => `<li><h3>${s.title}</h3><p>${s.text}</p></li>`).join('\n          ')}
+        ${sectionHead(h.howTitle, h.howLead)}
+        <ol class="timeline">
+          ${t.steps
+            .map(
+              (s, i) => `<li ${reveal(i)}><span class="timeline-icon">${icon(ICONS.steps[i])}<b>${i + 1}</b></span><h3>${s.title}</h3><p>${s.text}</p></li>`,
+            )
+            .join('\n          ')}
         </ol>
       </div>
     </section>
 
     <section class="section">
       <div class="container team-grid">
-        <div>
+        <div ${reveal()}>
           <h2 class="section-title">${h.teamTitle}</h2>
           <p class="lead">${h.teamLead}</p>
           ${chips(t.expertise)}
@@ -167,14 +235,11 @@ export const pages = {
 
     <section class="section section-alt">
       <div class="container">
-        <div class="section-head section-head-row">
-          <div>
-            <h2 class="section-title">${h.casesTitle}</h2>
-            <p class="lead">${h.casesLead}</p>
-          </div>
-          <a class="link-arrow" href="${r(t, 'cases')}">${t.ui.allCases} ${icon('arrow', 'icon icon-sm')}</a>
-        </div>
-        <div class="grid grid-2">${t.cases.filter((c) => c.featured).map((c) => caseCard(t, c)).join('')}
+        ${sectionHead(h.casesTitle, h.casesLead, `<a class="link-arrow" href="${r(t, 'cases')}">${t.ui.allCases} ${arrow()}</a>`)}
+        <div class="grid grid-2">${t.cases
+          .filter((c) => c.featured)
+          .map((c, i) => caseCard(t, c, i))
+          .join('')}
         </div>
       </div>
     </section>
@@ -188,21 +253,27 @@ ${finalCta(t)}`,
       title: p.title,
       description: p.description,
       body: `
-    ${pageHeader(p.h1, p.lead)}
+    ${pageHeader('sparkles', t.nav.services, p.h1, p.lead)}
+    <nav class="container service-jump" aria-label="${t.nav.services}">
+      ${t.services.map((s) => `<a href="#${s.id}">${icon(s.icon, 'icon icon-sm')}${s.title}</a>`).join('')}
+    </nav>
     ${t.services
       .map(
         (s, i) => `
-    <section class="section ${i % 2 ? 'section-alt' : ''}" id="${serviceAnchor(s)}">
-      <div class="container service-detail">
-        <div>
+    <section class="section ${i % 2 ? 'section-alt' : ''}" id="${s.id}">
+      <div class="container service-detail${i % 2 ? ' reverse' : ''}">
+        <div ${reveal()}>
           <div class="icon-badge icon-badge-lg">${icon(s.icon)}</div>
           <h2>${s.title}</h2>
           <p class="lead">${s.short}</p>
           <p>${s.intro}</p>
+          <div class="service-art-wrap service-art-lg">${serviceArt[s.id] ?? ''}</div>
         </div>
-        <div class="card">
-          <h3>${p.listTitle}</h3>
-          <ul class="checklist">${s.bullets.map((b) => `<li>${icon('check', 'icon icon-sm')}<span>${b}</span></li>`).join('')}</ul>
+        <div>
+          <h3 class="subhead-top">${p.listTitle}</h3>
+          <ul class="feature-list">${s.bullets
+            .map((b, j) => `<li ${reveal(j)}><span class="feature-icon">${icon(ICONS.bullets[s.id][j])}</span><span>${b}</span></li>`)
+            .join('')}</ul>
         </div>
       </div>
     </section>`,
@@ -219,12 +290,12 @@ ${finalCta(t)}`,
       title: p.title,
       description: p.description,
       body: `
-    ${pageHeader(p.h1, p.lead)}
+    ${pageHeader('briefcase', t.nav.cases, p.h1, p.lead)}
     <section class="section section-tight">
       <div class="container">
         <div class="filters" role="group" aria-label="${t.nav.services}" hidden>
-          <button type="button" class="filter" aria-pressed="true" data-filter="all">${t.ui.all}</button>
-          ${used.map((s) => `<button type="button" class="filter" aria-pressed="false" data-filter="${s.id}">${s.title}</button>`).join('\n          ')}
+          <button type="button" class="filter" aria-pressed="true" data-filter="all">${icon('layers', 'icon icon-sm')}${t.ui.all}</button>
+          ${used.map((s) => `<button type="button" class="filter" aria-pressed="false" data-filter="${s.id}">${icon(s.icon, 'icon icon-sm')}${s.title}</button>`).join('\n          ')}
         </div>
         <div class="cases-list">${t.cases.map((c, i) => caseFeature(t, c, i)).join('')}
         </div>
@@ -240,36 +311,54 @@ ${finalCta(t)}`,
       title: p.title,
       description: p.description,
       body: `
-    ${pageHeader(p.h1, p.lead)}
+    ${pageHeader('users', t.nav.about, p.h1, p.lead)}
     <section class="section section-tight">
-      <div class="container narrow prose">
-        <h2>${p.storyTitle}</h2>
-        ${p.story.map((x) => `<p>${x}</p>`).join('')}
+      <div class="container story-grid">
+        <div class="prose" ${reveal()}>
+          <h2>${p.storyTitle}</h2>
+          ${p.story.map((x) => `<p>${x}</p>`).join('')}
+        </div>
+        ${stats(t)}
       </div>
     </section>
 
     <section class="section section-alt">
       <div class="container">
-        <h2 class="section-title">${p.valuesTitle}</h2>
+        ${sectionHead(p.valuesTitle, '')}
         <div class="grid grid-4">
-          ${p.values.map((v) => `<div class="problem"><h3>${v.title}</h3><p>${v.text}</p></div>`).join('\n          ')}
+          ${p.values
+            .map(
+              (v, i) => `<div class="card value-card" ${reveal(i)}><span class="icon-badge">${icon(ICONS.values[i])}</span><h3>${v.title}</h3><p>${v.text}</p></div>`,
+            )
+            .join('\n          ')}
         </div>
       </div>
     </section>
 
     <section class="section">
       <div class="container team-grid">
-        <div>
+        <div ${reveal()}>
           <h2 class="section-title">${p.teamTitle}</h2>
           <p class="lead">${p.teamText[0]}</p>
-          ${p.teamText.slice(1).map((x) => `<p class="team-text">${x}</p>`).join('')}
+          ${p.teamText
+            .slice(1)
+            .map((x) => `<p class="team-text">${x}</p>`)
+            .join('')}
           <p class="team-areas">${p.teamAreas}</p>
           ${chips(t.expertise)}
-          ${p.certs.length ? `<h3 class="subhead">${p.certsTitle}</h3>
-          <ul class="plain-list">${p.certs.map((c) => `<li>${c}</li>`).join('')}</ul>` : ''}
+          ${
+            p.certs.length
+              ? `<h3 class="subhead">${p.certsTitle}</h3>
+          <ul class="plain-list">${p.certs.map((c) => `<li>${c}</li>`).join('')}</ul>`
+              : ''
+          }
         </div>
-        ${stats(t)}
+        <div class="team-quote" ${reveal(1)}>
+          ${icon('handshake', 'icon team-quote-icon')}
+          <p>${p.values[3].text}</p>
+        </div>
       </div>
+      <div class="container">${sectorsStrip(t, p.sectorsTitle)}</div>
     </section>
 ${finalCta(t)}`,
     };
@@ -278,12 +367,11 @@ ${finalCta(t)}`,
   contact: (t, site) => {
     const p = t.contactPage;
     const f = p.form;
-    const email = site.email || t.pending(t.lang === 'es' ? 'email en site.config.mjs' : 'email in site.config.mjs');
     return {
       title: p.title,
       description: p.description,
       body: `
-    ${pageHeader(p.h1, p.lead)}
+    ${pageHeader('send', t.nav.contact, p.h1, p.lead)}
     <section class="section section-tight">
       <div class="container contact-grid">
         <form class="card contact-form" method="POST" action="${site.formEndpoint || '#'}"
@@ -297,16 +385,21 @@ ${finalCta(t)}`,
           <label>${f.message}<textarea name="message" rows="6" required placeholder="${f.messageHint}"></textarea></label>
           <label class="checkbox"><input type="checkbox" name="consent" required><span>${f.consent.replace('{privacy}', r(t, 'privacy'))}</span></label>
           <div class="visually-hidden" aria-hidden="true"><input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></div>
-          <button class="btn btn-primary" type="submit">${f.submit} ${icon('arrow', 'icon icon-sm')}</button>
+          <button class="btn btn-primary" type="submit">${f.submit} ${icon('send', 'icon icon-sm')}</button>
           <p class="form-status" role="status" aria-live="polite"></p>
         </form>
         <aside class="contact-aside">
-          <h2>${p.asideTitle}</h2>
-          <ul class="contact-list">
-            <li>${icon('mail')}<div><span>${p.emailLabel}</span>${site.email ? `<a href="mailto:${site.email}">${site.email}</a>` : email}</div></li>
-            ${site.linkedin ? `<li>${icon('linkedin')}<div><span>${p.linkedinLabel}</span><a href="${site.linkedin}" rel="noopener">${site.name}</a></div></li>` : ''}
-          </ul>
-          <p class="note">${t.home.note}</p>
+          <h2>${p.next.title}</h2>
+          <ol class="next-steps">
+            ${p.next.items
+              .map((it, i) => `<li ${reveal(i)}><span class="icon-badge">${icon(it.icon)}</span><div><strong>${it.title}</strong><span>${it.text}</span></div></li>`)
+              .join('\n            ')}
+          </ol>
+          <div class="contact-box">
+            <p>${p.asideTitle}</p>
+            ${site.email ? `<a href="mailto:${site.email}">${icon('mail', 'icon icon-sm')}${site.email}</a>` : ''}
+            ${site.linkedin ? `<a href="${site.linkedin}" rel="noopener">${icon('linkedin', 'icon icon-sm')}LinkedIn</a>` : ''}
+          </div>
         </aside>
       </div>
     </section>`,
@@ -322,8 +415,9 @@ export const notFound = (t) => ({
   description: t.notFound.text,
   body: `
     <section class="page-header page-404">
+      <div class="page-header-bg" aria-hidden="true"></div>
       <div class="container narrow">
-        <p class="eyebrow">404</p>
+        <p class="eyebrow eyebrow-icon">${icon('search', 'icon icon-sm')}404</p>
         <h1>${t.notFound.h1}</h1>
         <p class="lead">${t.notFound.text}</p>
         <div class="actions"><a class="btn btn-primary" href="${r(t, 'home')}">${t.notFound.back}</a></div>

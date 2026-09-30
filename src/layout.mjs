@@ -1,4 +1,5 @@
 // Rutas de cada página por idioma y plantilla común (cabecera, pie, <head>).
+import lucide from './icons.mjs';
 
 export const routes = {
   home: { es: '/', en: '/en/' },
@@ -12,21 +13,18 @@ export const routes = {
 
 const PENDING_RE = /\[(?:PENDIENTE|PENDING)(?::[^\]]*)?\]/g;
 
-export const icons = {
-  sparkle:
-    '<path d="M12 3.5l1.9 5.1 5.1 1.9-5.1 1.9L12 17.5l-1.9-5.1L5 10.5l5.1-1.9z"/><path d="M18.5 16v4M16.5 18h4"/>',
-  flow:
-    '<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 6h7M18 8.5v7M7.8 7.8l8.4 8.4"/>',
-  phone: '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
-  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
-  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
-  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/>',
-  linkedin:
-    '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V16M8 7.5v.01M12 16v-3.2a2.3 2.3 0 0 1 4.6 0V16M12 10.5V16"/>',
-};
+// Alias de nombres antiguos → iconos de Lucide.
+const alias = { arrow: 'arrow-right', sparkle: 'sparkles', flow: 'workflow', phone: 'smartphone' };
 
 export const icon = (name, cls = 'icon') =>
-  `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]}</svg>`;
+  `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${lucide[alias[name] ?? name] ?? ''}</svg>`;
+
+// Logotipo provisional: cuadrado con degradado y una "D" con un punto de "chispa".
+let logoCount = 0;
+export const logo = () => {
+  const id = `lg${logoCount++}`;
+  return `<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-2)"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#${id})"/><path d="M10 8.5h6.2a7.5 7.5 0 0 1 0 15H10z" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round"/><circle cx="22.6" cy="9.4" r="2.2" fill="#fff"/></svg>`;
+};
 
 export const markPending = (html) => html.replace(PENDING_RE, (m) => `<mark class="pending">${m}</mark>`);
 export const pendingIn = (html) => html.match(PENDING_RE) || [];
@@ -74,6 +72,7 @@ export function layout({ t, site, key, title, description, body, noindex = false
   <meta name="theme-color" content="#0b0d17" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/manrope-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/styles.css">
   <script>document.documentElement.classList.add('js')</script>
   <script src="/main.js" defer></script>
@@ -83,7 +82,7 @@ export function layout({ t, site, key, title, description, body, noindex = false
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="${r('home')}" aria-label="${site.name}">
-        <span class="brand-mark" aria-hidden="true"></span><span class="brand-name">${site.name}</span>
+        ${logo()}<span class="brand-name">${site.name}</span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-bars" aria-hidden="true"></span><span class="visually-hidden">${t.ui.menu}</span>
@@ -103,7 +102,7 @@ ${markPending(body)}
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a class="brand" href="${r('home')}"><span class="brand-mark" aria-hidden="true"></span><span class="brand-name">${site.name}</span></a>
+        <a class="brand" href="${r('home')}">${logo()}<span class="brand-name">${site.name}</span></a>
         <p>${t.home.note}</p>
         <div class="footer-social">${socials}</div>
       </div>
