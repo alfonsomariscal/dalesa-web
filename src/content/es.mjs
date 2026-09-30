@@ -87,12 +87,13 @@ export default (d) => ({
 
   // Experiencia colectiva del equipo: sin nombres ni fotos.
   stats: [
-    { value: '[PENDIENTE: nº]', label: 'años de experiencia acumulada del equipo' },
-    { value: '[PENDIENTE: nº]', label: 'proyectos en los que hemos participado' },
-    { value: '4+', label: 'sectores: banca, seguros, alimentación y textil' },
+    { value: '+14', label: 'años de experiencia del equipo' },
+    { value: '+40', label: 'proyectos en los que hemos participado' },
+    { value: '+6', label: 'sectores: banca, seguros, alimentación, textil, transporte, petróleo y gas…' },
   ],
   expertise: [
     'IA generativa y agentes',
+    'Ciencia de datos',
     'Automatización de procesos',
     'SAP',
     'Apps iOS y Android',
@@ -121,8 +122,9 @@ export default (d) => ({
         'Informes con gráficas, listos para compartir',
         'Análisis e inferencia de la talla según las características del usuario',
       ],
-      result: '[PENDIENTE: resultado, p. ej. horas ahorradas en informes o menos devoluciones por talla]',
-      tech: ['IA', 'Análisis de datos', '[PENDIENTE: tecnologías]'],
+      result:
+        'Informes que antes se preparaban a mano se generan ahora solos y siempre actualizados, y una mejora significativa en el acierto de talla para cada cliente.',
+      tech: ['Ciencia de datos', 'Machine learning', 'IA generativa', 'Python'],
       v: {
         alt: 'Ilustración: recomendación de talla a partir de las características del usuario',
         inputs: ['Altura', 'Peso', 'Complexión'],
@@ -150,8 +152,9 @@ export default (d) => ({
         'Clasificación y priorización de los siniestros',
         'Asistente de IA que responde a agentes y mediadores sobre condicionados y coberturas',
       ],
-      result: '[PENDIENTE: resultado, p. ej. tiempo de tramitación o consultas resueltas por el asistente]',
-      tech: ['IA generativa', 'Extracción de documentos', '[PENDIENTE: tecnologías]'],
+      result:
+        'Tramitación de siniestros más ágil, con los casos urgentes identificados desde el primer momento, y mediadores que resuelven sus dudas al instante sin esperar a la central.',
+      tech: ['IA generativa', 'Visión artificial', 'Extracción de documentos', 'RAG'],
       v: {
         alt: 'Ilustración: extracción y clasificación de datos de un siniestro',
         fields: ['Póliza', 'Tipo de siniestro', 'Prioridad alta'],
@@ -175,8 +178,9 @@ export default (d) => ({
         'App para los peritos que trabajan en campo',
         'Modernización del portal de agentes y del tarificador web',
       ],
-      result: '[PENDIENTE: resultado, p. ej. siniestros declarados desde la app o valoración de los usuarios]',
-      tech: ['iOS', 'Android', 'Web', '[PENDIENTE: tecnologías]'],
+      result:
+        'Clientes que declaran un siniestro desde el móvil en pocos minutos, peritos con toda la información a mano en campo y un portal de agentes más rápido y fácil de usar.',
+      tech: ['iOS', 'Android', 'Web', 'APIs'],
       v: {
         alt: 'Ilustración: un cliente declara un siniestro con fotos y el perito lo gestiona en campo',
         button: 'Enviar parte',
@@ -200,11 +204,12 @@ export default (d) => ({
         'Buena parte de los cálculos de producción se hacían a mano o en hojas de cálculo, con el tiempo que eso supone y el riesgo de errores.',
       solution: [
         'Revisión de los procesos de producción junto al equipo',
-        'Automatización de cálculos de todo tipo [PENDIENTE: ejemplos, p. ej. pesos, lotes, tiempos de curación]',
+        'Automatización de los cálculos de producción y del control del proceso de curación',
+        'Cuadros de mando con los datos de producción, siempre al día',
         'Menos trabajo manual y datos disponibles al momento',
       ],
-      result: 'Menos horas en cálculos manuales y datos más fiables para decidir. [PENDIENTE: cifra si la hay]',
-      tech: ['Automatización', '[PENDIENTE: tecnologías]'],
+      result: 'Mejora significativa del tiempo dedicado a cálculos, menos errores y datos fiables en tiempo real para tomar decisiones.',
+      tech: ['Automatización', 'Ciencia de datos', 'Cuadros de mando'],
       v: {
         alt: 'Ilustración: seguimiento de la curación por lotes',
         y: 'Peso',
@@ -230,8 +235,9 @@ export default (d) => ({
         'Migración a tecnologías actuales en móvil y web',
         'Renovación de la experiencia de uso',
       ],
-      result: 'Aplicaciones modernas y más fáciles de evolucionar. [PENDIENTE: cifra si la hay, p. ej. nº de apps o usuarios]',
-      tech: ['iOS', 'Android', 'Web', '[PENDIENTE: tecnologías]'],
+      result:
+        'Aplicaciones modernas, más fáciles de mantener y de evolucionar, y una experiencia de uso claramente mejor para los clientes del banco.',
+      tech: ['iOS', 'Android', 'Web', 'APIs'],
       v: { alt: 'Ilustración: aplicación antigua frente a aplicación modernizada', before: 'Antes', after: 'Después' },
     },
   ],
@@ -298,7 +304,10 @@ export default (d) => ({
     lead:
       'DALESA nace para que la tecnología resuelva problemas concretos del día a día de las empresas: menos tareas repetitivas, procesos más ágiles y herramientas que da gusto usar.',
     storyTitle: 'Nuestra historia',
-    story: ['[PENDIENTE: cómo y cuándo nace DALESA, en dos o tres frases]'],
+    story: [
+      'Detrás de DALESA hay un equipo con más de 14 años de experiencia en proyectos de tecnología para sectores como la banca, los seguros, la alimentación, el textil, el transporte o la energía: aplicaciones móviles y web, SAP, ciencia de datos e inteligencia artificial.',
+      'En todos esos proyectos vimos repetirse los mismos problemas: horas perdidas en tareas repetitivas, procesos que nadie revisaba y herramientas que se habían quedado atrás. Creamos DALESA para resolverlos con tecnología práctica, empezando por la inteligencia artificial.',
+    ],
     valuesTitle: 'Cómo trabajamos',
     values: [
       { title: 'Escuchar primero', text: 'Entendemos cómo trabajáis antes de proponer nada.' },
@@ -310,7 +319,7 @@ export default (d) => ({
     teamText:
       'Somos un equipo con experiencia en proyectos de tecnología para empresas de distintos tamaños y sectores. Estas son las áreas que mejor conocemos:',
     certsTitle: 'Certificaciones',
-    certs: ['[PENDIENTE: certificaciones del equipo, p. ej. SAP, cloud, Apple, o quitar este bloque]'],
+    certs: [], // Añadir certificaciones aquí; si está vacío, el bloque no se muestra.
   },
 
   contactPage: {

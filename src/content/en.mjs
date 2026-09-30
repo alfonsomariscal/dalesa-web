@@ -84,12 +84,13 @@ export default (d) => ({
   ],
 
   stats: [
-    { value: '[PENDING: no.]', label: 'combined years of team experience' },
-    { value: '[PENDING: no.]', label: 'projects we have worked on' },
-    { value: '4+', label: 'industries: banking, insurance, food and textiles' },
+    { value: '14+', label: 'years of team experience' },
+    { value: '40+', label: 'projects we have worked on' },
+    { value: '6+', label: 'industries: banking, insurance, food, textiles, transport, oil & gas…' },
   ],
   expertise: [
     'Generative AI & agents',
+    'Data science',
     'Process automation',
     'SAP',
     'iOS & Android apps',
@@ -116,8 +117,9 @@ export default (d) => ({
         'Reports with charts, ready to share',
         'Analysis and inference of size based on the user’s characteristics',
       ],
-      result: '[PENDING: outcome, e.g. hours saved on reports or fewer size-related returns]',
-      tech: ['AI', 'Data analysis', '[PENDING: technologies]'],
+      result:
+        'Reports that used to be prepared by hand are now generated automatically and always up to date, with a significant improvement in size accuracy for each customer.',
+      tech: ['Data science', 'Machine learning', 'Generative AI', 'Python'],
       v: {
         alt: 'Illustration: size recommendation based on user characteristics',
         inputs: ['Height', 'Weight', 'Build'],
@@ -145,8 +147,9 @@ export default (d) => ({
         'Claim classification and prioritisation',
         'AI assistant that answers agents and brokers about policy terms and coverage',
       ],
-      result: '[PENDING: outcome, e.g. handling time or questions answered by the assistant]',
-      tech: ['Generative AI', 'Document extraction', '[PENDING: technologies]'],
+      result:
+        'Faster claims handling, with urgent cases flagged from the start, and brokers who get answers instantly instead of waiting for head office.',
+      tech: ['Generative AI', 'Computer vision', 'Document extraction', 'RAG'],
       v: {
         alt: 'Illustration: extracting and classifying claim data',
         fields: ['Policy', 'Claim type', 'High priority'],
@@ -170,8 +173,9 @@ export default (d) => ({
         'App for loss adjusters working in the field',
         'Modernisation of the agent portal and the web quoting tool',
       ],
-      result: '[PENDING: outcome, e.g. claims filed through the app or user ratings]',
-      tech: ['iOS', 'Android', 'Web', '[PENDING: technologies]'],
+      result:
+        'Customers who file a claim from their phone in minutes, adjusters with all the information at hand in the field, and an agent portal that is faster and easier to use.',
+      tech: ['iOS', 'Android', 'Web', 'APIs'],
       v: {
         alt: 'Illustration: a customer files a claim with photos and the adjuster handles it in the field',
         button: 'File claim',
@@ -194,11 +198,12 @@ export default (d) => ({
         'Many production calculations were done by hand or in spreadsheets, which took time and risked errors.',
       solution: [
         'Review of production processes with the team',
-        'Automation of all kinds of calculations [PENDING: examples, e.g. weights, batches, curing times]',
+        'Automation of production calculations and curing process control',
+        'Dashboards with production data, always up to date',
         'Less manual work and data available instantly',
       ],
-      result: 'Fewer hours on manual calculations and more reliable data for decisions. [PENDING: figure if available]',
-      tech: ['Automation', '[PENDING: technologies]'],
+      result: 'A significant reduction in time spent on calculations, fewer errors and reliable real-time data for decision-making.',
+      tech: ['Automation', 'Data science', 'Dashboards'],
       v: {
         alt: 'Illustration: tracking curing by batch',
         y: 'Weight',
@@ -224,8 +229,9 @@ export default (d) => ({
         'Migration to current mobile and web technologies',
         'A refreshed user experience',
       ],
-      result: 'Modern applications that are easier to evolve. [PENDING: figure if available, e.g. number of apps or users]',
-      tech: ['iOS', 'Android', 'Web', '[PENDING: technologies]'],
+      result:
+        'Modern applications that are easier to maintain and evolve, and a clearly better experience for the bank’s customers.',
+      tech: ['iOS', 'Android', 'Web', 'APIs'],
       v: { alt: 'Illustration: legacy application versus modernised application', before: 'Before', after: 'After' },
     },
   ],
@@ -291,7 +297,10 @@ export default (d) => ({
     lead:
       'DALESA was founded so that technology solves concrete, everyday problems for businesses: fewer repetitive tasks, leaner processes and tools people enjoy using.',
     storyTitle: 'Our story',
-    story: ['[PENDING: how and when DALESA started, in two or three sentences]'],
+    story: [
+      'Behind DALESA is a team with more than 14 years of experience in technology projects across industries such as banking, insurance, food, textiles, transport and energy: mobile and web applications, SAP, data science and artificial intelligence.',
+      'Across all those projects we saw the same problems again and again: hours lost to repetitive tasks, processes nobody reviewed and tools that had fallen behind. We founded DALESA to solve them with practical technology, starting with artificial intelligence.',
+    ],
     valuesTitle: 'How we work',
     values: [
       { title: 'Listen first', text: 'We understand how you work before proposing anything.' },
@@ -303,7 +312,7 @@ export default (d) => ({
     teamText:
       'We are a team with experience in technology projects for companies of different sizes and industries. These are the areas we know best:',
     certsTitle: 'Certifications',
-    certs: ['[PENDING: team certifications, e.g. SAP, cloud, Apple, or remove this block]'],
+    certs: [], // Add certifications here; when empty, the block is hidden.
   },
 
   contactPage: {

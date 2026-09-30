@@ -263,8 +263,8 @@ ${finalCta(t)}`,
           <h2 class="section-title">${p.teamTitle}</h2>
           <p class="lead">${p.teamText}</p>
           ${chips(t.expertise)}
-          <h3 class="subhead">${p.certsTitle}</h3>
-          <ul class="plain-list">${p.certs.map((c) => `<li>${c}</li>`).join('')}</ul>
+          ${p.certs.length ? `<h3 class="subhead">${p.certsTitle}</h3>
+          <ul class="plain-list">${p.certs.map((c) => `<li>${c}</li>`).join('')}</ul>` : ''}
         </div>
         ${stats(t)}
       </div>
