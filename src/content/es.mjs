@@ -105,6 +105,8 @@ export default (d) => ({
   // Por confidencialidad, los clientes se describen por sector.
   cases: [
     {
+      id: 'textil',
+      featured: true,
       service: 'ia',
       visual: 'sizes',
       sector: 'Textil',
@@ -131,24 +133,62 @@ export default (d) => ({
       },
     },
     {
+      id: 'seguros-siniestros',
+      featured: true,
       service: 'ia',
       visual: 'extract',
       sector: 'Seguros',
       client: 'Aseguradora',
-      title: '[PENDIENTE: título del caso de seguros]',
-      summary: '[PENDIENTE: resumen en una frase]',
-      challenge: '[PENDIENTE: qué problema tenía el cliente]',
-      solution: ['[PENDIENTE: qué hicimos]'],
-      result: '[PENDIENTE: resultado]',
-      tech: ['[PENDIENTE: tecnologías]'],
+      title: 'IA para la gestión de siniestros y la red de mediadores',
+      summary:
+        'Un sistema que lee la documentación de cada siniestro y lo clasifica, y un asistente que resuelve las dudas de agentes y mediadores sobre pólizas y coberturas.',
+      challenge:
+        'Cada siniestro llegaba con partes, fotos e informes de peritos que había que revisar a mano antes de tramitarlo, y agentes y mediadores consultaban a menudo dudas sobre condicionados y coberturas.',
+      solution: [
+        'Lectura automática de partes, fotos e informes de peritos',
+        'Extracción de los datos clave de cada siniestro',
+        'Clasificación y priorización de los siniestros',
+        'Asistente de IA que responde a agentes y mediadores sobre condicionados y coberturas',
+      ],
+      result: '[PENDIENTE: resultado, p. ej. tiempo de tramitación o consultas resueltas por el asistente]',
+      tech: ['IA generativa', 'Extracción de documentos', '[PENDIENTE: tecnologías]'],
       v: {
-        alt: 'Ilustración: extracción de datos de documentación de seguros',
-        fields: ['Póliza', 'Asegurado', 'Siniestro'],
-        before: 'Documentación',
-        after: 'Datos extraídos',
+        alt: 'Ilustración: extracción y clasificación de datos de un siniestro',
+        fields: ['Póliza', 'Tipo de siniestro', 'Prioridad alta'],
+        before: 'Parte, fotos e informes',
+        after: 'Siniestro clasificado',
       },
     },
     {
+      id: 'seguros-movilidad',
+      service: 'modernizacion',
+      visual: 'claim',
+      sector: 'Seguros',
+      client: 'Aseguradora',
+      title: 'Apps para clientes y peritos, y un portal de agentes renovado',
+      summary:
+        'Llevamos al móvil y a la web la relación con clientes, peritos y agentes: declarar un siniestro con fotos, peritar en campo y tarificar desde un portal actual.',
+      challenge:
+        'Clientes, peritos y agentes trabajaban con herramientas que no estaban pensadas para el móvil, y el portal de agentes y el tarificador web se habían quedado anticuados.',
+      solution: [
+        'App de clientes para declarar un siniestro con fotos y consultar sus pólizas',
+        'App para los peritos que trabajan en campo',
+        'Modernización del portal de agentes y del tarificador web',
+      ],
+      result: '[PENDIENTE: resultado, p. ej. siniestros declarados desde la app o valoración de los usuarios]',
+      tech: ['iOS', 'Android', 'Web', '[PENDIENTE: tecnologías]'],
+      v: {
+        alt: 'Ilustración: un cliente declara un siniestro con fotos y el perito lo gestiona en campo',
+        button: 'Enviar parte',
+        visit: 'Visita del perito',
+        items: ['Fotos revisadas', 'Daños valorados', 'Informe enviado'],
+        before: 'App de clientes',
+        after: 'App de peritos',
+      },
+    },
+    {
+      id: 'alimentacion',
+      featured: true,
       service: 'procesos',
       visual: 'curve',
       sector: 'Alimentación',
@@ -174,6 +214,8 @@ export default (d) => ({
       },
     },
     {
+      id: 'banca',
+      featured: true,
       service: 'modernizacion',
       visual: 'modernize',
       sector: 'Banca',

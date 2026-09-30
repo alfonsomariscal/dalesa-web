@@ -5,7 +5,7 @@ import { visuals } from './visuals.mjs';
 
 const r = (t, k) => routes[k][t.lang];
 const serviceAnchor = (s) => `${s.id}`;
-const caseId = (c) => c.sector.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const caseId = (c) => c.id;
 
 const serviceCard = (t, s) => `
       <article class="card service-card">
@@ -174,7 +174,7 @@ export const pages = {
           </div>
           <a class="link-arrow" href="${r(t, 'cases')}">${t.ui.allCases} ${icon('arrow', 'icon icon-sm')}</a>
         </div>
-        <div class="grid grid-2">${t.cases.map((c) => caseCard(t, c)).join('')}
+        <div class="grid grid-2">${t.cases.filter((c) => c.featured).map((c) => caseCard(t, c)).join('')}
         </div>
       </div>
     </section>

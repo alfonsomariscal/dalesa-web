@@ -100,6 +100,8 @@ export default (d) => ({
   // Case studies: same order and structure as es.mjs.
   cases: [
     {
+      id: 'textiles',
+      featured: true,
       service: 'ia',
       visual: 'sizes',
       sector: 'Fashion & textiles',
@@ -126,24 +128,62 @@ export default (d) => ({
       },
     },
     {
+      id: 'insurance-claims',
+      featured: true,
       service: 'ia',
       visual: 'extract',
       sector: 'Insurance',
       client: 'Insurance company',
-      title: '[PENDING: insurance case title]',
-      summary: '[PENDING: one-sentence summary]',
-      challenge: '[PENDING: the problem the client had]',
-      solution: ['[PENDING: what we did]'],
-      result: '[PENDING: outcome]',
-      tech: ['[PENDING: technologies]'],
+      title: 'AI for claims handling and the broker network',
+      summary:
+        'A system that reads the documents for each claim and classifies it, and an assistant that answers agents’ and brokers’ questions about policies and coverage.',
+      challenge:
+        'Every claim arrived with forms, photos and loss adjuster reports that had to be reviewed by hand before processing, and agents and brokers frequently asked about policy terms and coverage.',
+      solution: [
+        'Automatic reading of claim forms, photos and adjuster reports',
+        'Extraction of the key data for each claim',
+        'Claim classification and prioritisation',
+        'AI assistant that answers agents and brokers about policy terms and coverage',
+      ],
+      result: '[PENDING: outcome, e.g. handling time or questions answered by the assistant]',
+      tech: ['Generative AI', 'Document extraction', '[PENDING: technologies]'],
       v: {
-        alt: 'Illustration: extracting data from insurance documents',
-        fields: ['Policy', 'Policyholder', 'Claim'],
-        before: 'Documents',
-        after: 'Extracted data',
+        alt: 'Illustration: extracting and classifying claim data',
+        fields: ['Policy', 'Claim type', 'High priority'],
+        before: 'Forms, photos, reports',
+        after: 'Claim classified',
       },
     },
     {
+      id: 'insurance-mobile',
+      service: 'modernizacion',
+      visual: 'claim',
+      sector: 'Insurance',
+      client: 'Insurance company',
+      title: 'Apps for customers and adjusters, and a renewed agent portal',
+      summary:
+        'We brought customers, loss adjusters and agents onto mobile and web: filing a claim with photos, assessing in the field and quoting from a modern portal.',
+      challenge:
+        'Customers, adjusters and agents relied on tools that were not designed for mobile, and the agent portal and web quoting tool had become outdated.',
+      solution: [
+        'Customer app to file a claim with photos and check policies',
+        'App for loss adjusters working in the field',
+        'Modernisation of the agent portal and the web quoting tool',
+      ],
+      result: '[PENDING: outcome, e.g. claims filed through the app or user ratings]',
+      tech: ['iOS', 'Android', 'Web', '[PENDING: technologies]'],
+      v: {
+        alt: 'Illustration: a customer files a claim with photos and the adjuster handles it in the field',
+        button: 'File claim',
+        visit: 'Adjuster visit',
+        items: ['Photos reviewed', 'Damage assessed', 'Report sent'],
+        before: 'Customer app',
+        after: 'Adjuster app',
+      },
+    },
+    {
+      id: 'food-production',
+      featured: true,
       service: 'procesos',
       visual: 'curve',
       sector: 'Food production',
@@ -168,6 +208,8 @@ export default (d) => ({
       },
     },
     {
+      id: 'banking',
+      featured: true,
       service: 'modernizacion',
       visual: 'modernize',
       sector: 'Banking',

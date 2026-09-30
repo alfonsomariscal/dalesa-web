@@ -23,15 +23,12 @@ node build.mjs && python3 -m http.server 4321 -d dist
 
 ## Publicar
 
-```sh
-./deploy.sh
-```
-
-Genera la web con la subruta del repo y la sube a la rama `gh-pages`, que es la que sirve GitHub Pages
-(https://alfonsomariscal.github.io/dalesa-web/). La rama `main` guarda el código fuente.
+Cada push a `main` genera y publica la web en GitHub Pages con GitHub Actions
+(`.github/workflows/deploy.yml`): https://alfonsomariscal.github.io/dalesa-web/
+El progreso se ve en la pestaña *Actions* del repo.
 También vale Netlify (`netlify.toml`) o cualquier hosting estático sirviendo `dist/`.
 
 Antes de lanzar de verdad:
 - `preview: false` y `url` con el dominio en `site.config.mjs` (activa indexación, canonical y sitemap).
-- Con dominio propio en GitHub Pages, lanzar `BASE_PATH= ./deploy.sh` (sin subruta) y añadir el fichero `public/CNAME`.
+- Con dominio propio en GitHub Pages, poner `BASE_PATH: ''` en el workflow y configurar el dominio en *Settings → Pages*.
 - Configurar `formEndpoint` (p. ej. Formspree); sin él, el formulario abre el cliente de correo.

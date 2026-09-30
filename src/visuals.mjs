@@ -57,6 +57,40 @@ export const visuals = {
     ${text(306, 248, l.after)}`,
     ),
 
+  // App de cliente (declarar siniestro con fotos) → app del perito en campo
+  claim: (l) =>
+    svg(
+      l.alt,
+      `
+    <rect x="44" y="24" width="108" height="206" rx="18" class="v-phone"/>
+    <rect x="56" y="40" width="84" height="10" rx="5" class="v-line"/>
+    ${[[56, 58], [100, 58], [56, 102], [100, 102]]
+      .map(
+        ([x, y], i) => `<rect x="${x}" y="${y}" width="40" height="38" rx="6" class="${i === 3 ? 'v-highlight' : 'v-soft'}"/>
+    ${i < 3 ? `<path d="M${x + 8} ${y + 28}l9-10 7 7 5-5 6 8" class="v-stroke" style="stroke-width:1.5"/><circle cx="${x + 29}" cy="${y + 11}" r="3" class="v-accent2"/>` : `<path d="M${x + 20} ${y + 12}v14M${x + 13} ${y + 19}h14" class="v-stroke"/>`}`,
+      )
+      .join('')}
+    <rect x="56" y="152" width="84" height="8" rx="4" class="v-line"/>
+    <rect x="56" y="166" width="60" height="8" rx="4" class="v-line"/>
+    <rect x="56" y="188" width="84" height="26" rx="13" class="v-accent"/>
+    ${text(98, 205, l.button, 'v-btn')}
+    ${text(98, 250, l.before)}
+    ${arrow(172, 126)}
+    <rect x="230" y="36" width="150" height="180" rx="16" class="v-card"/>
+    <circle cx="252" cy="60" r="10" class="v-soft"/>
+    <path d="M247 60h10M252 55v10" class="v-stroke" style="stroke-width:1.5"/>
+    ${text(270, 64, l.visit, 'v-field', 'start')}
+    ${l.items
+      .map(
+        (s, i) => `
+    <circle cx="252" cy="${100 + i * 36}" r="9" class="${i === l.items.length - 1 ? 'v-accent2' : 'v-accent'}"/>
+    <path d="M247.5 ${100 + i * 36}l3 3 6-6" class="v-check"/>
+    ${text(270, 104 + i * 36, s, 'v-field', 'start')}`,
+      )
+      .join('')}
+    ${text(305, 250, l.after)}`,
+    ),
+
   // Curva de curación por lote con objetivo
   curve: (l) =>
     svg(

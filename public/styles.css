@@ -298,6 +298,7 @@ mark.pending { background: var(--pending-bg); color: var(--pending-text); paddin
 .v-label { font-size: 13px; font-weight: 650; fill: var(--muted); }
 .v-small { font-size: 11px; font-weight: 600; fill: var(--muted); }
 .v-field { font-size: 13px; font-weight: 600; fill: var(--text); }
+.v-btn { font-size: 10px; font-weight: 700; fill: var(--accent-ink); }
 .v-big { font-size: 48px; font-weight: 800; fill: var(--accent); }
 .v-card { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; }
 .v-phone { fill: var(--surface); stroke: var(--accent); stroke-width: 2; }
