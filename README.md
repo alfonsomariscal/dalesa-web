@@ -9,13 +9,18 @@ Web estática bilingüe (ES/EN) sin dependencias: solo hace falta Node.js.
 | Textos en español / inglés (servicios, casos, cifras, legal…) | `src/content/es.mjs` / `src/content/en.mjs` |
 | Empresas con las que ha trabajado el equipo (logos en `public/logos/`) | `src/content/clients.mjs` |
 | Email, LinkedIn, dominio, formulario, datos fiscales | `site.config.mjs` |
-| Colores de marca (`--accent`, `--accent-2`) | `public/styles.css` (al principio) |
-| Logo y favicon | `public/favicon.svg` y `.brand-mark` en `public/styles.css` |
+| Colores de los tres diseños (violeta, dorado, blanco y negro) | `public/styles.css` (al principio: `:root`, `[data-theme="oro"]`, `[data-theme="mono"]`) |
+| Logo (máscaras que se pintan con el color del diseño) y favicons | `public/brand/` y `.brand-mark` / `.brand-word` en `public/styles.css` |
 | Ilustraciones (casos, servicios, hero) | `src/visuals.mjs` |
 | Iconos (Lucide, ISC) | `src/icons.mjs`; para añadir uno, copiar su SVG de lucide.dev |
 | Tipografía (Manrope, OFL) | `public/fonts/` |
 
 Lo que falta por rellenar aparece como `[PENDIENTE: …]` resaltado en amarillo, y el build dice cuántos quedan.
+
+## Diseños de color
+
+El selector de arriba a la derecha cambia entre los tres diseños y recuerda la elección en el navegador.
+Se puede enlazar uno directamente con `?diseno=violeta`, `?diseno=oro` o `?diseno=mono`.
 
 ## Ver en local
 

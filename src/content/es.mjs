@@ -16,6 +16,8 @@ export default (d) => ({
     all: 'Todos',
     rights: 'Todos los derechos reservados.',
     illustrative: 'Ejemplo ilustrativo',
+    theme: 'Diseño',
+    themes: ['Diseño 1 · Violeta', 'Diseño 2 · Dorado', 'Diseño 3 · Blanco y negro'],
   },
 
   nav: {

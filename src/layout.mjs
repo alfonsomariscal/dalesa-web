@@ -19,12 +19,13 @@ const alias = { arrow: 'arrow-right', sparkle: 'sparkles', flow: 'workflow', pho
 export const icon = (name, cls = 'icon') =>
   `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${lucide[alias[name] ?? name] ?? ''}</svg>`;
 
-// Logotipo provisional: cuadrado con degradado y una "D" con un punto de "chispa".
-let logoCount = 0;
-export const logo = () => {
-  const id = `lg${logoCount++}`;
-  return `<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-2)"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#${id})"/><path d="M10 8.5h6.2a7.5 7.5 0 0 1 0 15H10z" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round"/><circle cx="22.6" cy="9.4" r="2.2" fill="#fff"/></svg>`;
-};
+// Logotipo: luna con lobo y palabra DALESA. Son máscaras (public/brand/) que se pintan
+// con los colores del diseño activo (variables --logo-mark y --logo-word de styles.css).
+export const logo = (name) =>
+  `<span class="brand-mark" aria-hidden="true"></span><span class="brand-word" aria-hidden="true"></span><span class="visually-hidden">${name}</span>`;
+
+// Diseños de color disponibles. El primero es el de por defecto.
+export const themes = ['violeta', 'oro', 'mono'];
 
 export const markPending = (html) => html.replace(PENDING_RE, (m) => `<mark class="pending">${m}</mark>`);
 export const pendingIn = (html) => html.match(PENDING_RE) || [];
@@ -71,10 +72,10 @@ export function layout({ t, site, key, title, description, body, noindex = false
   ${base ? `<meta property="og:url" content="${abs(path)}">` : ''}
   <meta name="theme-color" content="#0b0d17" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/brand/favicon-violeta.png" type="image/png">
   <link rel="preload" href="/fonts/manrope-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/styles.css">
-  <script>document.documentElement.classList.add('js')</script>
+  <script>(function(d){d.classList.add('js');try{var q=new URLSearchParams(location.search).get('diseno'),t=q||localStorage.getItem('dalesa-theme');if(q)localStorage.setItem('dalesa-theme',q);if(${JSON.stringify(themes.slice(1))}.indexOf(t)>-1)d.dataset.theme=t}catch(e){}})(document.documentElement)</script>
   <script src="/main.js" defer></script>
 </head>
 <body>
@@ -82,8 +83,16 @@ export function layout({ t, site, key, title, description, body, noindex = false
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="${r('home')}" aria-label="${site.name}">
-        ${logo()}<span class="brand-name">${site.name}</span>
+        ${logo(site.name)}
       </a>
+      <div class="theme-switch" role="group" aria-label="${t.ui.theme}">
+        ${themes
+          .map(
+            (th, i) =>
+              `<button class="theme-opt" type="button" data-theme-set="${th}" aria-pressed="${i === 0}" title="${t.ui.themes[i]}"><span class="swatch swatch-${th}" aria-hidden="true"></span><span class="visually-hidden">${t.ui.themes[i]}</span></button>`,
+          )
+          .join('')}
+      </div>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-bars" aria-hidden="true"></span><span class="visually-hidden">${t.ui.menu}</span>
       </button>
@@ -102,7 +111,7 @@ ${markPending(body)}
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a class="brand" href="${r('home')}">${logo()}<span class="brand-name">${site.name}</span></a>
+        <a class="brand" href="${r('home')}">${logo(site.name)}</a>
         <p>${t.home.note}</p>
         <div class="footer-social">${socials}</div>
       </div>
