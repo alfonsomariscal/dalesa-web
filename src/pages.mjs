@@ -2,12 +2,16 @@
 // y devuelve { title, description, body }.
 import { routes, icon, brandIcon, phoneHref, phoneLabel, whatsappHref } from './layout.mjs';
 import { visuals, serviceArt, heroChart, heroNetwork } from './visuals.mjs';
+import { readFileSync } from 'node:fs';
 import clients from './content/clients.mjs';
 
 const r = (t, k) => routes[k][t.lang];
 const callHref = (t) => `${r(t, 'contact')}#${t.lang === 'es' ? 'llamada' : 'call'}`;
 const caseId = (c) => c.id;
 const serviceTitle = (t, id) => t.services.find((s) => s.id === id)?.title ?? '';
+// Un caso puede tener uno o varios servicios (service: 'ia' o ['ia', 'modernizacion']).
+const caseServices = (c) => [].concat(c.service);
+const caseServiceTitles = (t, c) => caseServices(c).map((id) => serviceTitle(t, id)).join(' · ');
 
 // Iconos por posición (compartidos por los dos idiomas).
 const ICONS = {
@@ -115,7 +119,7 @@ const caseTag = (c) => `<span class="tag">${icon(c.icon, 'icon icon-xs')}${c.sec
 const caseCard = (t, c, i) => `
       <a class="card case-card" href="${r(t, 'cases')}#${caseId(c)}" ${reveal(i)}>
         ${caseVisual(t, c)}
-        <p class="case-meta">${caseTag(c)}<span>${serviceTitle(t, c.service)}</span></p>
+        <p class="case-meta">${caseTag(c)}<span>${caseServiceTitles(t, c)}</span></p>
         <h3>${c.title}</h3>
         <p class="case-summary">${c.summary}</p>
         <span class="link-arrow">${t.ui.learnMore} ${arrow()}</span>
@@ -123,10 +127,10 @@ const caseCard = (t, c, i) => `
 
 // Ficha completa (página de casos)
 const caseFeature = (t, c, i) => `
-      <article class="case-feature${i % 2 ? ' reverse' : ''}" id="${caseId(c)}" data-service="${c.service}" ${reveal()}>
+      <article class="case-feature${i % 2 ? ' reverse' : ''}" id="${caseId(c)}" data-service="${caseServices(c).join(' ')}" ${reveal()}>
         ${caseVisual(t, c)}
         <div class="case-content">
-          <p class="case-meta">${caseTag(c)}<span>${c.client}</span><span>· ${serviceTitle(t, c.service)}</span></p>
+          <p class="case-meta">${caseTag(c)}<span>${c.client}</span><span>· ${caseServiceTitles(t, c)}</span></p>
           <h2>${c.title}</h2>
           <p class="lead">${c.summary}</p>
           <dl class="case-body">
@@ -137,6 +141,13 @@ const caseFeature = (t, c, i) => `
           <ul class="chips">${c.tech.map((x) => `<li>${x}</li>`).join('')}</ul>
         </div>
       </article>`;
+
+// Imágenes del proceso completo (public/proceso-completo/, generadas con demos/exportar.py) y su tamaño.
+const EXAMPLE_IMG = JSON.parse(readFileSync(new URL('./content/example-images.json', import.meta.url)));
+const exampleImg = (name, alt, lazy = true) =>
+  `<img src="/proceso-completo/${name}.webp" width="${EXAMPLE_IMG[name][0]}" height="${EXAMPLE_IMG[name][1]}" alt="${alt}"${lazy ? ' loading="lazy" decoding="async"' : ''}>`;
+// Paso del proceso completo que enseña cada servicio.
+const EXAMPLE_FOR = { ia: 'factura', procesos: '', modernizacion: 'pedido' };
 
 const finalCta = (t) => `
     <section class="section">
@@ -180,7 +191,7 @@ export const pages = {
           <p class="lead">${h.lead}</p>
           <div class="actions">
             <a class="btn btn-primary" href="${r(t, 'contact')}">${h.ctaPrimary} ${arrow()}</a>
-            <a class="btn btn-ghost" href="#servicios">${h.ctaSecondary}</a>
+            <a class="btn btn-ghost" href="${r(t, 'example')}" data-track="Proceso completo · portada">${icon('workflow', 'icon icon-sm')}${h.ctaSecondary}</a>
           </div>
           <p class="note">${icon('check', 'icon icon-sm')}${h.note}<a class="note-link" href="${callHref(t)}">${icon('telephone', 'icon icon-xs')}${t.ui.callMe}</a></p>
         </div>
@@ -213,6 +224,20 @@ export const pages = {
     <section class="trust">
       ${clientsMarquee(h.clientsTitle)}
       <div class="container">${sectorsStrip(t, h.sectorsTitle)}</div>
+    </section>
+
+    <section class="section example-teaser-section">
+      <div class="container">
+        <a class="example-teaser" href="${r(t, 'example')}" data-track="Proceso completo · bloque" ${reveal()}>
+          <div class="example-teaser-copy">
+            <p class="eyebrow eyebrow-icon">${icon('workflow', 'icon icon-sm')}${t.examplePage.eyebrow}</p>
+            <h2>${t.examplePage.teaserTitle}</h2>
+            <p>${t.examplePage.teaserText}</p>
+            <span class="btn btn-light">${t.examplePage.teaserCta} ${arrow()}</span>
+          </div>
+          <div class="example-teaser-art">${exampleImg('fiori', t.examplePage.steps[2].alt)}</div>
+        </a>
+      </div>
     </section>
 
     <section class="section section-alt">
@@ -322,6 +347,7 @@ ${finalCta(t)}`,
           <h2>${s.title}</h2>
           <p class="lead">${s.short}</p>
           <p>${s.intro}</p>
+          <a class="link-arrow" href="${r(t, 'example')}${EXAMPLE_FOR[s.id] ? `#${EXAMPLE_FOR[s.id]}` : ''}">${t.examplePage.serviceLink} ${arrow()}</a>
           <div class="service-art-wrap service-art-lg">${serviceArt[s.id] ?? ''}</div>
         </div>
         <div>
@@ -340,7 +366,7 @@ ${finalCta(t)}`,
 
   cases: (t) => {
     const p = t.casesPage;
-    const used = t.services.filter((s) => t.cases.some((c) => c.service === s.id));
+    const used = t.services.filter((s) => t.cases.some((c) => caseServices(c).includes(s.id)));
     return {
       title: p.title,
       description: p.description,
@@ -416,6 +442,45 @@ ${finalCta(t)}`,
       <div class="container">
         ${clientsGrid(p.clientsTitle)}
         ${sectorsStrip(t, p.sectorsTitle)}
+      </div>
+    </section>
+${finalCta(t)}`,
+    };
+  },
+
+  example: (t) => {
+    const p = t.examplePage;
+    return {
+      title: p.title,
+      description: p.description,
+      body: `
+    ${pageHeader('workflow', p.eyebrow, p.h1, p.lead)}
+    <div class="container narrow example-note"><p class="note">${icon('lightbulb', 'icon icon-sm')}${p.note}</p></div>
+    <nav class="container service-jump example-jump" aria-label="${p.eyebrow}">
+      ${p.steps.map((s, i) => `<a href="#${s.id}"><b>${i + 1}</b>${s.tag}</a>`).join('')}
+    </nav>
+    ${p.steps
+      .map(
+        (s, i) => `
+    <section class="section ${i % 2 ? '' : 'section-alt'}" id="${s.id}">
+      <div class="container example-step${i % 2 ? ' reverse' : ''}">
+        <div class="example-copy" ${reveal()}>
+          <p class="example-num"><b>${p.stepLabel} ${i + 1}</b><span class="tag">${s.tag}</span></p>
+          <h2>${s.title}</h2>
+          <p class="lead">${s.text}</p>
+          <ul class="checklist">${s.points.map((x) => `<li>${icon('check', 'icon icon-sm')}<span>${x}</span></li>`).join('')}</ul>
+        </div>
+        <figure class="example-shot" ${reveal(1)}>${exampleImg(s.image, s.alt, i > 0)}</figure>
+      </div>
+    </section>`,
+      )
+      .join('')}
+    <section class="section">
+      <div class="container">
+        ${sectionHead(p.changesTitle, '')}
+        <div class="grid grid-4">
+          ${p.changes.map((c, i) => `<div class="card value-card" ${reveal(i)}><span class="icon-badge">${icon(c.icon)}</span><h3>${c.title}</h3><p>${c.text}</p></div>`).join('\n          ')}
+        </div>
       </div>
     </section>
 ${finalCta(t)}`,

@@ -30,6 +30,8 @@ export default (d) => ({
     contact: 'Contacto',
     legal: 'Aviso legal',
     privacy: 'Privacidad y cookies',
+    example: 'Proceso completo',
+    exampleShort: 'Proceso completo',
   },
 
   services: [
@@ -120,7 +122,7 @@ export default (d) => ({
     { icon: 'shopping-cart', name: 'Gran consumo' },
   ],
 
-  // Casos: uno por bloque. `service` debe coincidir con un id de `services`.
+  // Casos: uno por bloque. `service` es un id de `services`, o varios en una lista.
   // `visual`: modernize | extract | curve | sizes (ilustraciones de src/visuals.mjs).
   // Por confidencialidad, los clientes se describen por sector.
   cases: [
@@ -128,29 +130,31 @@ export default (d) => ({
       id: 'textil',
       icon: 'shirt',
       featured: true,
-      service: 'ia',
+      service: ['ia', 'modernizacion'],
       visual: 'sizes',
       sector: 'Textil',
-      client: 'Empresa del sector textil',
-      title: 'Informes automáticos y recomendación de tallas con IA',
+      client: 'Gran cadena internacional de moda',
+      title: 'App para encargados de tienda y talla acertada con IA',
       summary:
-        'Convertimos todos sus datos en documentación e informes con gráficas, y creamos un modelo que infiere la talla adecuada para cada cliente.',
+        'Durante cuatro años trabajamos con una gran cadena de moda en una app móvil para los encargados de tienda y en modelos de IA que ayudan a cada cliente a acertar con su talla.',
       challenge:
-        'Mucha información repartida entre datos e informes, y la necesidad de acertar con la talla de cada cliente a partir de sus características.',
+        'Los encargados necesitaban ver al momento el stock, las tallas disponibles y las ventas de su tienda, y los clientes devolvían prendas por no acertar con la talla.',
       solution: [
-        'Generación automática de documentación a partir de todos sus datos',
-        'Informes con gráficas, listos para compartir',
-        'Análisis e inferencia de la talla según las características del usuario',
+        'App móvil para encargados de tienda: stock, tallas disponibles y ventas al momento',
+        'Pedidos de ropa desde la propia app',
+        'Recomendación de talla a partir de las medidas del cliente y de sus pedidos anteriores',
+        'Análisis de devoluciones: si quienes usan una S devuelven una prenda y se quedan con la M, el sistema detecta que esa prenda talla pequeño',
+        'Informes automáticos con gráficas a partir de todos sus datos',
       ],
       result:
-        'Informes que antes se preparaban a mano se generan ahora solos y siempre actualizados, y una mejora significativa en el acierto de talla para cada cliente.',
-      tech: ['Ciencia de datos', 'Machine learning', 'IA generativa', 'Python'],
+        'Encargados con la información de su tienda siempre en el bolsillo y una mejora significativa en el acierto de talla, sabiendo qué prendas tallan grande o pequeño.',
+      tech: ['Apps iOS y Android', 'Machine learning', 'Ciencia de datos', 'IA generativa'],
       v: {
-        alt: 'Ilustración: recomendación de talla a partir de las características del usuario',
-        inputs: ['Altura', 'Peso', 'Complexión'],
+        alt: 'Ilustración: recomendación de talla a partir de las medidas, los pedidos y las devoluciones',
+        inputs: ['Tus medidas', 'Tus pedidos', 'Devoluciones'],
         result: 'Talla recomendada',
-        confidence: 'Ajuste estimado',
-        before: 'Características',
+        confidence: 'Esta prenda talla pequeño',
+        before: 'Datos del cliente',
         after: 'Recomendación',
       },
     },
@@ -276,7 +280,7 @@ export default (d) => ({
     lead:
       'Implantamos agentes de inteligencia artificial, rediseñamos procesos y creamos o modernizamos aplicaciones web y móviles, para que tu equipo deje de perder horas en tareas repetitivas.',
     ctaPrimary: 'Cuéntanos tu caso',
-    ctaSecondary: 'Qué hacemos',
+    ctaSecondary: 'Ver un proceso completo',
     note: 'La primera conversación corre de nuestra cuenta.',
     demo: {
       title: 'Agente de consultas',
@@ -380,6 +384,103 @@ export default (d) => ({
     teamAreas: 'Estas son las áreas que mejor conocemos:',
     certsTitle: 'Certificaciones',
     certs: [], // Añadir certificaciones aquí; si está vacío, el bloque no se muestra.
+  },
+
+  // Proceso completo de ejemplo con una empresa inventada (Montera). Imágenes en public/proceso-completo/.
+  examplePage: {
+    title: `Proceso completo · ${d.name}`,
+    description:
+      'Cómo sería un proyecto completo con DALESA en una distribuidora alimentaria: app móvil, portal de clientes, SAP Fiori, agente de IA y panel de previsión.',
+    eyebrow: 'Un proceso completo',
+    h1: 'Un pedido, de principio a fin',
+    lead:
+      'Así es un proceso completo en una distribuidora de alimentación, del pedido en la calle a la previsión de demanda, pasando por SAP y la inteligencia artificial. Está construido a partir del tipo de proyectos que hacemos.',
+    note: 'Por confidencialidad con nuestros clientes, los nombres, las empresas y las cifras son ficticios.',
+    stepLabel: 'Paso',
+    steps: [
+      {
+        id: 'pedido',
+        image: 'movil',
+        tag: 'App móvil',
+        title: 'El comercial toma el pedido en la ruta',
+        text: 'Javier visita bares y tiendas con una app en el móvil: ve su ruta del día, la ficha de cada cliente y lo que suele pedir. El asistente de IA le avisa de lo que el cliente está a punto de necesitar.',
+        points: [
+          'Ruta del día con mapa y estado de cada visita',
+          'Sugerencias de la IA según el historial del cliente',
+          'Firma del cliente y foto del albarán, sin papeles',
+          'El pedido entra en SAP sin teclearlo dos veces',
+        ],
+        alt: 'Cuatro pantallas de la app móvil: ruta del día, ficha del cliente, nuevo pedido y confirmación de entrega',
+      },
+      {
+        id: 'portal',
+        image: 'portal',
+        tag: 'Portal web',
+        title: 'El cliente sigue su pedido y repite el habitual',
+        text: 'Rosa, la dueña de La Tasca, entra en el portal de clientes: ve cuándo llega el reparto, descarga sus facturas y repite su pedido de siempre en un par de clics, con los precios de su tarifa.',
+        points: [
+          'Seguimiento del reparto en tiempo real',
+          'Facturas y albaranes siempre a mano',
+          'Productos habituales sugeridos antes de que se agoten',
+          'Catálogo y carrito con su tarifa y sus promociones',
+        ],
+        alt: 'Portal web de clientes en un portátil: seguimiento del pedido, productos habituales y facturas',
+      },
+      {
+        id: 'compras',
+        image: 'fiori',
+        tag: 'SAP Fiori',
+        title: 'Compras repone stock y se aprueba en SAP Fiori',
+        text: 'Para reponer, compras lanza un pedido al proveedor. La responsable lo aprueba en una app SAP Fiori hecha a medida, desde el ordenador o desde el móvil, con las posiciones y el presupuesto a la vista.',
+        points: [
+          'Pedidos pendientes ordenados por urgencia',
+          'Posiciones, condiciones y presupuesto en una pantalla',
+          'Aprobar o rechazar con una nota para el solicitante',
+          'La misma app en el ordenador, la tableta y el móvil',
+        ],
+        alt: 'App SAP Fiori de aprobación de pedidos de compra en un portátil y en un móvil',
+      },
+      {
+        id: 'factura',
+        image: 'agente',
+        tag: 'Agente de IA',
+        title: 'El agente de IA revisa la factura del proveedor',
+        text: 'Cuando llega la factura por correo, el agente la lee, la cruza con el pedido, el albarán y la tarifa en SAP y detecta que el jamón viene más caro de lo pactado. Propone retener la diferencia y reclamarla, con el correo ya redactado. La decisión es de una persona.',
+        points: [
+          'Lee facturas en PDF que llegan por correo',
+          'Comprueba proveedor, cantidades y precios en SAP',
+          'Registra sola las correctas y explica las que no cuadran',
+          'Responde preguntas sobre cada factura',
+        ],
+        alt: 'Agente de IA revisando una factura de proveedor: datos extraídos, comprobaciones y propuesta',
+      },
+      {
+        id: 'panel',
+        image: 'panel',
+        tag: 'Panel e IA',
+        title: 'Dirección lo ve todo y se anticipa',
+        text: 'Todo lo anterior acaba en un panel con las ventas, los márgenes y las rutas, y una previsión de demanda hecha con IA. El asistente avisa antes de que falte stock por un festivo, de lo que va a caducar y de los clientes que empiezan a pedir menos.',
+        points: [
+          'Ventas, margen y rutas actualizados cada mañana',
+          'Previsión de demanda que tiene en cuenta festivos y pedidos abiertos',
+          'Avisos de stock, caducidades y clientes en riesgo',
+          'Cada aviso, con la acción propuesta',
+        ],
+        alt: 'Panel de ventas y previsión de demanda en un portátil',
+      },
+    ],
+    changesTitle: 'Lo que cambia',
+    changes: [
+      { icon: 'repeat', title: 'Cada dato se teclea una vez', text: 'El pedido nace en el móvil y llega a SAP, al portal y al panel sin volver a escribirlo.' },
+      { icon: 'shield-check', title: 'Menos errores', text: 'Las comprobaciones que antes se hacían a ojo las hace el sistema, y avisa de lo que no cuadra.' },
+      { icon: 'users', title: 'Las personas deciden', text: 'La IA prepara, compara y avisa; aprobar, reclamar o pedir sigue en manos del equipo.' },
+      { icon: 'plug', title: 'Sobre lo que ya tienes', text: 'Todo se apoya en SAP y en las herramientas de siempre, sin cambiar de sistemas.' },
+    ],
+    teaserTitle: 'Un proceso completo, de principio a fin',
+    teaserText:
+      'Un proceso completo en una distribuidora de alimentación: del pedido en la calle a la previsión de demanda, pasando por el portal de clientes, SAP Fiori y un agente de IA.',
+    teaserCta: 'Ver el proceso completo',
+    serviceLink: 'Verlo en un proceso completo',
   },
 
   contactPage: {
@@ -488,7 +589,7 @@ export default (d) => ({
       {
         h: 'Qué datos tratamos y para qué',
         p: [
-          'Tratamos los datos que nos envías a través del formulario de contacto o por correo (nombre, empresa, correo electrónico y el contenido del mensaje) con la única finalidad de responder a tu consulta y, si procede, preparar una propuesta.',
+          'Tratamos los datos que nos envías a través de los formularios, por correo, por teléfono o por WhatsApp (nombre, empresa, correo electrónico, teléfono, la franja en que prefieres que te llamemos y el contenido del mensaje) con la única finalidad de responder a tu consulta y, si procede, preparar una propuesta.',
         ],
       },
       {
@@ -512,9 +613,12 @@ export default (d) => ({
         ],
       },
       {
-        h: 'Cookies',
+        h: 'Cookies y estadísticas',
         p: [
-          'Este sitio no utiliza cookies propias ni de terceros con fines analíticos o publicitarios, ni carga recursos de servicios externos al navegar. Por eso no mostramos un aviso de cookies.',
+          d.analytics
+            ? `Este sitio no utiliza cookies. Para saber cuántas personas nos visitan y qué páginas consultan usamos ${d.analytics}, una herramienta de estadísticas que no usa cookies ni recoge datos personales: solo cuenta visitas y acciones de forma agregada y anónima. Por eso no mostramos un aviso de cookies.`
+            : 'Este sitio no utiliza cookies propias ni de terceros con fines analíticos o publicitarios, ni carga recursos de servicios externos al navegar. Por eso no mostramos un aviso de cookies.',
+          'La web solo guarda en tu navegador el diseño de colores que elijas, para recordarlo en tu próxima visita. Ese dato no sale de tu dispositivo.',
         ],
       },
     ],

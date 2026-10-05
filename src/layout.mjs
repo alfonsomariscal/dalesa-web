@@ -6,6 +6,7 @@ export const routes = {
   services: { es: '/servicios/', en: '/en/services/' },
   cases: { es: '/casos/', en: '/en/case-studies/' },
   about: { es: '/nosotros/', en: '/en/about/' },
+  example: { es: '/proceso-completo/', en: '/en/end-to-end/' },
   contact: { es: '/contacto/', en: '/en/contact/' },
   legal: { es: '/aviso-legal/', en: '/en/legal-notice/' },
   privacy: { es: '/privacidad/', en: '/en/privacy/' },
@@ -34,6 +35,17 @@ export const brandIcon = (name, cls = 'icon') =>
 export const phoneLabel = (n) => n.replace(/^(\d{3})(\d{2})(\d{2})(\d{2})$/, '$1 $2 $3 $4');
 export const phoneHref = (n) => `tel:+34${n}`;
 export const whatsappHref = (site, t) => `https://wa.me/34${site.whatsapp}?text=${encodeURIComponent(t.ui.whatsappText)}`;
+
+// Analítica sin cookies (site.analytics). Los eventos los envía main.js con window.dalesaTrack.
+const analyticsTag = ({ provider, id } = {}) => {
+  if (!id) return '';
+  if (provider === 'plausible')
+    return `<script defer data-domain="${id}" src="https://plausible.io/js/script.js"></script>
+  <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>`;
+  if (provider === 'umami') return `<script defer src="https://cloud.umami.is/script.js" data-website-id="${id}"></script>`;
+  if (provider === 'goatcounter') return `<script data-goatcounter="https://${id}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>`;
+  return '';
+};
 
 // Ficha de empresa para buscadores (schema.org). `pub` es la URL pública con la que se comparte.
 const organization = (t, site, pub) =>
@@ -66,8 +78,8 @@ export function layout({ t, site, key, title, description, body, noindex = false
   const path = routes[key]?.[lang] ?? r('home');
   const altPath = routes[key]?.[other] ?? routes.home[other];
 
-  const navItems = ['services', 'cases', 'about', 'contact']
-    .map((k) => `<li><a href="${r(k)}"${k === key ? ' aria-current="page"' : ''}>${t.nav[k]}</a></li>`)
+  const navItems = ['services', 'example', 'cases', 'about', 'contact']
+    .map((k) => `<li><a href="${r(k)}"${k === key ? ' aria-current="page"' : ''}>${k === 'example' ? t.nav.exampleShort : t.nav[k]}</a></li>`)
     .join('');
 
   const alternates = routes[key]
@@ -112,6 +124,7 @@ export function layout({ t, site, key, title, description, body, noindex = false
   <link rel="stylesheet" href="/styles.css">
   <script>(function(d){d.classList.add('js');try{var q=new URLSearchParams(location.search).get('diseno'),t=q||localStorage.getItem('dalesa-theme');if(q)localStorage.setItem('dalesa-theme',q);if(${JSON.stringify(themes.slice(1))}.indexOf(t)>-1)d.dataset.theme=t}catch(e){}})(document.documentElement)</script>
   <script src="/main.js" defer></script>
+  ${analyticsTag(site.analytics)}
 </head>
 <body>
   <a class="skip-link" href="#main">${t.ui.skip}</a>
@@ -152,7 +165,7 @@ ${markPending(body)}
       </div>
       <nav class="footer-nav" aria-label="Footer">
         <ul>
-          ${['services', 'cases', 'about', 'contact'].map((k) => `<li><a href="${r(k)}">${t.nav[k]}</a></li>`).join('')}
+          ${['services', 'example', 'cases', 'about', 'contact'].map((k) => `<li><a href="${r(k)}">${t.nav[k]}</a></li>`).join('')}
         </ul>
         <ul>
           <li><a href="${r('legal')}">${t.nav.legal}</a></li>

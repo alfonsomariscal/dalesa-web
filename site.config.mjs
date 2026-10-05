@@ -16,7 +16,7 @@ export default {
   // Versión de trabajo: pide a los buscadores que no indexen la web. Poner a false al lanzar.
   preview: true,
 
-  email: 'info@dalesa.com', // provisional
+  email: 'info@dalesasolutions.com',
   linkedin: '', // URL de la página de empresa en LinkedIn
 
   // Teléfonos de atención (sin espacios; la web los muestra como 636 89 21 31).
@@ -30,6 +30,13 @@ export default {
   // envíe un formulario, FormSubmit manda al primer correo un email para activarlo.
   notify: [],
 
+  // Analítica sin cookies (no necesita aviso de cookies). Vacío = sin analítica.
+  //   provider 'plausible'   → id: el dominio dado de alta en Plausible (p. ej. 'dalesasolutions.com')
+  //   provider 'umami'       → id: el «Website ID» de Umami Cloud
+  //   provider 'goatcounter' → id: el código de la cuenta (el de https://<código>.goatcounter.com)
+  // La política de privacidad se adapta sola al proveedor elegido.
+  analytics: { provider: '', id: '' },
+
   // Endpoint propio de los formularios (p. ej. Formspree: 'https://formspree.io/f/xxxxxxx').
   // Si se rellena, tiene prioridad sobre `notify`. Sin ninguno de los dos, los formularios
   // abren el cliente de correo con el mensaje ya redactado.
@@ -37,9 +44,9 @@ export default {
 
   // Datos para el aviso legal (LSSI) y la política de privacidad (RGPD).
   legal: {
-    razonSocial: '',
-    nif: '',
-    domicilio: '',
-    registro: '', // p. ej. 'Registro Mercantil de Madrid, tomo X, folio Y, hoja M-Z'
+    razonSocial: 'DALESA TECHNOLOGY SOLUTIONS, S.L.',
+    nif: 'B72931991',
+    domicilio: 'calle Ruiz de Alda, 4, 3.º B, 28342 Valdemoro (Madrid)',
+    registro: 'Inscrita en el Registro Mercantil de Madrid, tomo 44428, folio 40, sección 8, hoja M-782892, inscripción 1ª.',
   },
 };

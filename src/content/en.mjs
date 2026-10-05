@@ -29,6 +29,8 @@ export default (d) => ({
     contact: 'Contact',
     legal: 'Legal notice',
     privacy: 'Privacy & cookies',
+    example: 'End to end',
+    exampleShort: 'End to end',
   },
 
   services: [
@@ -122,29 +124,31 @@ export default (d) => ({
       id: 'textiles',
       icon: 'shirt',
       featured: true,
-      service: 'ia',
+      service: ['ia', 'modernizacion'],
       visual: 'sizes',
       sector: 'Fashion & textiles',
-      client: 'Textile company',
-      title: 'Automated reporting and AI size recommendation',
+      client: 'Large international fashion retailer',
+      title: 'An app for store managers and the right size with AI',
       summary:
-        'We turned all their data into documentation and reports with charts, and built a model that infers the right size for each customer.',
+        'For four years we worked with a large fashion retailer on a mobile app for store managers and on AI models that help each customer get their size right.',
       challenge:
-        'Information scattered across data and reports, and the need to get each customer’s size right based on their characteristics.',
+        'Store managers needed to see their store’s stock, available sizes and sales at a glance, and customers were returning garments because the size was wrong.',
       solution: [
-        'Automatic generation of documentation from all their data',
-        'Reports with charts, ready to share',
-        'Analysis and inference of size based on the user’s characteristics',
+        'Mobile app for store managers: stock, available sizes and sales in real time',
+        'Clothing orders from the app itself',
+        'Size recommendation based on the customer’s measurements and previous orders',
+        'Returns analysis: if people who wear an S return a garment and keep the M, the system detects that it runs small',
+        'Automatic reports with charts built from all their data',
       ],
       result:
-        'Reports that used to be prepared by hand are now generated automatically and always up to date, with a significant improvement in size accuracy for each customer.',
-      tech: ['Data science', 'Machine learning', 'Generative AI', 'Python'],
+        'Store managers with their store’s information always in their pocket and a significant improvement in size accuracy, knowing which garments run large or small.',
+      tech: ['iOS and Android apps', 'Machine learning', 'Data science', 'Generative AI'],
       v: {
-        alt: 'Illustration: size recommendation based on user characteristics',
-        inputs: ['Height', 'Weight', 'Build'],
+        alt: 'Illustration: size recommendation from measurements, orders and returns',
+        inputs: ['Measurements', 'Your orders', 'Returns'],
         result: 'Recommended size',
-        confidence: 'Estimated fit',
-        before: 'Characteristics',
+        confidence: 'This item runs small',
+        before: 'Customer data',
         after: 'Recommendation',
       },
     },
@@ -269,7 +273,7 @@ export default (d) => ({
     lead:
       'We deploy AI agents, redesign processes and build or modernise web and mobile applications, so your team stops losing hours to repetitive tasks.',
     ctaPrimary: 'Tell us about your case',
-    ctaSecondary: 'What we do',
+    ctaSecondary: 'See an end-to-end process',
     note: 'The first conversation is on us.',
     demo: {
       title: 'Customer query agent',
@@ -370,6 +374,102 @@ export default (d) => ({
     teamAreas: 'These are the areas we know best:',
     certsTitle: 'Certifications',
     certs: [], // Add certifications here; when empty, the block is hidden.
+  },
+
+  examplePage: {
+    title: `End-to-end process · ${d.name}`,
+    description:
+      'What a complete project with DALESA could look like at a food distributor: mobile app, customer portal, SAP Fiori, an AI agent and a forecasting dashboard.',
+    eyebrow: 'An end-to-end process',
+    h1: 'One order, from start to finish',
+    lead:
+      'This is what an end-to-end process looks like at a food distributor, from the order on the road to the demand forecast, via SAP and artificial intelligence. It is built on the kind of projects we deliver.',
+    note: 'To protect our clients’ confidentiality, names, companies and figures are fictitious.',
+    stepLabel: 'Step',
+    steps: [
+      {
+        id: 'pedido',
+        image: 'movil',
+        tag: 'Mobile app',
+        title: 'The sales rep takes the order on the road',
+        text: 'Javier visits bars and shops with an app on his phone: he sees his route for the day, each customer’s profile and what they usually order. The AI assistant tells him what the customer is about to run out of.',
+        points: [
+          'Daily route with a map and the status of each visit',
+          'AI suggestions based on the customer’s history',
+          'Customer signature and delivery-note photo, no paper',
+          'The order reaches SAP without being typed twice',
+        ],
+        alt: 'Four screens of the mobile app: daily route, customer profile, new order and delivery confirmation',
+      },
+      {
+        id: 'portal',
+        image: 'portal',
+        tag: 'Web portal',
+        title: 'The customer tracks the order and reorders the usual',
+        text: 'Rosa, who owns La Tasca, logs into the customer portal: she sees when the delivery will arrive, downloads her invoices and repeats her usual order in a couple of clicks, at her own prices.',
+        points: [
+          'Real-time delivery tracking',
+          'Invoices and delivery notes always at hand',
+          'Usual products suggested before they run out',
+          'Catalogue and basket with her prices and promotions',
+        ],
+        alt: 'Customer web portal on a laptop: order tracking, usual products and invoices',
+      },
+      {
+        id: 'compras',
+        image: 'fiori',
+        tag: 'SAP Fiori',
+        title: 'Purchasing restocks and it is approved in SAP Fiori',
+        text: 'To restock, purchasing raises an order with the supplier. The manager approves it in a custom SAP Fiori app, on a computer or on her phone, with the items and the budget in view.',
+        points: [
+          'Pending orders sorted by urgency',
+          'Items, terms and budget on one screen',
+          'Approve or reject with a note for the requester',
+          'The same app on computer, tablet and phone',
+        ],
+        alt: 'SAP Fiori purchase order approval app on a laptop and a phone',
+      },
+      {
+        id: 'factura',
+        image: 'agente',
+        tag: 'AI agent',
+        title: 'The AI agent checks the supplier’s invoice',
+        text: 'When the invoice arrives by email, the agent reads it, matches it against the order, the goods receipt and the price list in SAP, and spots that the ham has been charged above the agreed price. It suggests withholding the difference and claiming it back, with the email already drafted. A person makes the call.',
+        points: [
+          'Reads PDF invoices arriving by email',
+          'Checks supplier, quantities and prices in SAP',
+          'Posts the correct ones and explains the ones that do not match',
+          'Answers questions about each invoice',
+        ],
+        alt: 'AI agent reviewing a supplier invoice: extracted data, checks and proposal',
+      },
+      {
+        id: 'panel',
+        image: 'panel',
+        tag: 'Dashboard & AI',
+        title: 'Management sees everything and gets ahead',
+        text: 'All of the above ends up in a dashboard with sales, margins and routes, plus an AI demand forecast. The assistant flags stock that will run short over a bank holiday, products about to expire and customers who start ordering less.',
+        points: [
+          'Sales, margin and routes updated every morning',
+          'Demand forecast that accounts for holidays and open orders',
+          'Alerts on stock, expiry dates and at-risk customers',
+          'Every alert comes with a suggested action',
+        ],
+        alt: 'Sales and demand forecasting dashboard on a laptop',
+      },
+    ],
+    changesTitle: 'What changes',
+    changes: [
+      { icon: 'repeat', title: 'Every piece of data is entered once', text: 'The order starts on the phone and reaches SAP, the portal and the dashboard without being retyped.' },
+      { icon: 'shield-check', title: 'Fewer mistakes', text: 'Checks that used to be done by eye are done by the system, which flags anything that does not add up.' },
+      { icon: 'users', title: 'People make the decisions', text: 'AI prepares, compares and alerts; approving, claiming or ordering stays with the team.' },
+      { icon: 'plug', title: 'Built on what you already have', text: 'Everything runs on SAP and your usual tools, with no change of systems.' },
+    ],
+    teaserTitle: 'A complete process, from start to finish',
+    teaserText:
+      'A complete process at a food distributor: from the order on the road to the demand forecast, via the customer portal, SAP Fiori and an AI agent.',
+    teaserCta: 'See the complete process',
+    serviceLink: 'See it in a complete process',
   },
 
   contactPage: {
@@ -480,7 +580,7 @@ export default (d) => ({
       {
         h: 'What data we process and why',
         p: [
-          'We process the data you send us through the contact form or by email (name, company, email address and the content of your message) solely to answer your enquiry and, where appropriate, prepare a proposal.',
+          'We process the data you send us through the forms, by email, by phone or on WhatsApp (name, company, email address, phone number, the time you would like us to call and the content of your message) solely to answer your enquiry and, where appropriate, prepare a proposal.',
         ],
       },
       {
@@ -504,9 +604,12 @@ export default (d) => ({
         ],
       },
       {
-        h: 'Cookies',
+        h: 'Cookies and statistics',
         p: [
-          'This site does not use first- or third-party cookies for analytics or advertising, and does not load resources from external services while you browse. That is why we do not show a cookie banner.',
+          d.analytics
+            ? `This site does not use cookies. To know how many people visit us and which pages they read we use ${d.analytics}, a statistics tool that uses no cookies and collects no personal data: it only counts visits and actions in aggregate, anonymously. That is why we do not show a cookie banner.`
+            : 'This site does not use first- or third-party cookies for analytics or advertising, and does not load resources from external services while you browse. That is why we do not show a cookie banner.',
+          'The site only stores in your browser the colour design you choose, so it is remembered on your next visit. That setting never leaves your device.',
         ],
       },
     ],

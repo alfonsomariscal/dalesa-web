@@ -17,6 +17,7 @@ const legal = site.legal;
 const missingLegal = Object.entries({ 'razón social': legal.razonSocial, NIF: legal.nif, domicilio: legal.domicilio, 'datos registrales': legal.registro })
   .filter(([, v]) => !v)
   .map(([k]) => k);
+const ANALYTICS_NAMES = { plausible: 'Plausible Analytics', umami: 'Umami', goatcounter: 'GoatCounter' };
 const dataFor = (lang) => {
   const es = lang === 'es';
   const titular = legal.razonSocial || site.name;
@@ -33,6 +34,8 @@ const dataFor = (lang) => {
     titular,
     // "<strong>Titular</strong>, con NIF X, con domicilio en Y. Registro…"
     ident: `${ident}.${legal.registro ? ` ${legal.registro}` : ''}`,
+    // Nombre de la herramienta de analítica, para la política de privacidad ('' si no hay).
+    analytics: site.analytics?.id ? ANALYTICS_NAMES[site.analytics.provider] ?? '' : '',
   };
 };
 

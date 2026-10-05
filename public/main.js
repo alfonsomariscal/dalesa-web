@@ -1,5 +1,24 @@
 // Selector de diseño, menú móvil, filtro de casos y envío del formulario de contacto.
 
+// Analítica sin cookies: cuenta acciones (no personas). Funciona con Plausible, Umami o GoatCounter
+// si están configurados en site.config.mjs; si no, no hace nada.
+const track = (name) => {
+  try {
+    if (window.plausible) window.plausible(name);
+    else if (window.umami) window.umami.track(name);
+    else if (window.goatcounter?.count) window.goatcounter.count({ path: name, title: name, event: true });
+  } catch {}
+};
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[href]');
+  if (!a) return;
+  const href = a.getAttribute('href');
+  if (href.startsWith('https://wa.me/')) track('WhatsApp');
+  else if (href.startsWith('tel:')) track('Llamada');
+  else if (href.startsWith('mailto:')) track('Correo');
+  else if (a.dataset.track) track(a.dataset.track);
+});
+
 // Selector de diseño (colores). El diseño inicial lo pone el script del <head> para que no parpadee.
 const root = document.documentElement;
 const themeButtons = document.querySelectorAll('[data-theme-set]');
@@ -48,7 +67,7 @@ if (filters) {
     btn.addEventListener('click', () => {
       const f = btn.dataset.filter;
       buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
-      cards.forEach((c) => (c.hidden = f !== 'all' && c.dataset.service !== f));
+      cards.forEach((c) => (c.hidden = f !== 'all' && !c.dataset.service.split(' ').includes(f)));
     }),
   );
 }
@@ -127,6 +146,7 @@ document.querySelectorAll('.contact-form').forEach((form) => {
       if (!res.ok || json.success === 'false' || json.success === false) throw new Error(res.status);
       form.reset();
       show(ok, 'ok');
+      track(form.dataset.kind === 'callback' ? 'Petición de llamada' : 'Formulario de contacto');
     } catch {
       show(error, 'error');
     } finally {

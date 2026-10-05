@@ -25,6 +25,23 @@ Lo que falta por rellenar aparece como `[PENDIENTE: …]` resaltado en amarillo,
 El selector de arriba a la derecha cambia entre los tres diseños y recuerda la elección en el navegador.
 Se puede enlazar uno directamente con `?diseno=violeta`, `?diseno=oro` o `?diseno=mono`.
 
+## Demos (capturas de proyectos de ejemplo)
+
+Cinco demos de Montera (las usa la página «Proceso completo»), una distribuidora alimentaria **ficticia**, para enseñar el tipo de trabajo sin usar
+material de clientes. Cada una tiene su código en `demos/<nombre>/build.mjs` y genera sus capturas en
+`public/demos/<nombre>/` (incluido `montaje.png`, con la pantalla dentro de un móvil o un portátil):
+
+| Demo | Carpeta |
+| --- | --- |
+| App móvil del comercial en ruta | `demos/movil` |
+| App SAP Fiori de aprobación de pedidos (OpenUI5, tema Horizon en rojo) | `demos/fiori` |
+| Portal web de clientes | `demos/portal` |
+| Agente de IA que revisa facturas de proveedores | `demos/agente` |
+| Panel de ventas y previsión de demanda | `demos/panel` |
+
+Para regenerar una tras cambiar textos o datos: `node demos/<nombre>/build.mjs` (Node 20+, con Chrome
+instalado; la de Fiori necesita conexión para cargar OpenUI5).
+
 ## Ver en local
 
 ```sh
