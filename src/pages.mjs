@@ -18,7 +18,7 @@ const ICONS = {
   bullets: {
     ia: ['message-square', 'file-text', 'bar-chart-3', 'plug', 'shield-check'],
     procesos: ['users', 'search', 'git-compare', 'zap', 'gauge'],
-    modernizacion: ['sparkles', 'smartphone', 'globe', 'refresh-cw', 'plug', 'lock'],
+    modernizacion: ['sparkles', 'smartphone', 'globe', 'layers', 'refresh-cw', 'plug', 'lock'],
   },
 };
 
