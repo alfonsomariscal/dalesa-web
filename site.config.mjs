@@ -28,7 +28,7 @@ export default {
   // Con al menos uno, los formularios envían por FormSubmit (formsubmit.co, gratis y sin cuenta):
   // el primero es el destinatario principal y el resto van en copia. La primera vez que alguien
   // envíe un formulario, FormSubmit manda al primer correo un email para activarlo.
-  notify: [],
+  notify: ['info@dalesasolutions.com'],
 
   // Analítica sin cookies (no necesita aviso de cookies). Vacío = sin analítica.
   //   provider 'plausible'   → id: el dominio dado de alta en Plausible (p. ej. 'dalesasolutions.com')
