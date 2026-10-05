@@ -25,12 +25,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      # En GitHub Pages de proyecto la web cuelga de /<nombre-del-repo>/.
-      # Con dominio propio, cambiar a BASE_PATH: ''
+      # Publicada en el dominio propio (dalesasolutions.com), sin subruta.
+      # En GitHub Pages de proyecto sin dominio, usar BASE_PATH: /<nombre-del-repo>.
       - run: node build.mjs
         env:
-          BASE_PATH: /${{ github.event.repository.name }}
-          SHARE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          BASE_PATH: ''
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

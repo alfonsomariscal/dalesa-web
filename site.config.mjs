@@ -3,7 +3,7 @@ export default {
   name: 'DALESA',
 
   // Dominio definitivo, sin barra final. Con él se generan canonical, sitemap.xml y robots.txt.
-  url: '', // p. ej. 'https://www.dalesa.es'
+  url: 'https://dalesasolutions.com',
 
   // URL pública mientras no haya dominio (GitHub Pages), para la imagen al compartir en
   // WhatsApp/LinkedIn y la ficha de empresa. La pone el workflow de publicación; con `url` no hace falta.
