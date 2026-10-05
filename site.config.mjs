@@ -19,10 +19,10 @@ export default {
   email: 'info@dalesasolutions.com',
   linkedin: '', // URL de la página de empresa en LinkedIn
 
-  // Teléfonos de atención (sin espacios; la web los muestra como 636 89 21 31).
-  phones: ['636892131', '665514510'],
+  // Teléfonos de atención (sin espacios; la web los muestra como 687 84 28 27).
+  phones: ['687842827', '665514510'],
   // Número con WhatsApp (botón flotante y enlaces wa.me). Vacío para quitarlo.
-  whatsapp: '636892131',
+  whatsapp: '687842827',
 
   // Correos de DALESA que reciben los mensajes de los formularios (contacto y «Te llamamos»).
   // Con al menos uno, los formularios envían por FormSubmit (formsubmit.co, gratis y sin cuenta):

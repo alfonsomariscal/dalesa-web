@@ -31,7 +31,7 @@ export const themes = ['violeta', 'oro', 'mono'];
 export const brandIcon = (name, cls = 'icon') =>
   `<svg class="${cls}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${brands[name] ?? ''}</svg>`;
 
-// Teléfonos: '636892131' → '636 89 21 31' y enlace tel: con prefijo de España.
+// Teléfonos: '687842827' → '687 84 28 27' y enlace tel: con prefijo de España.
 export const phoneLabel = (n) => n.replace(/^(\d{3})(\d{2})(\d{2})(\d{2})$/, '$1 $2 $3 $4');
 export const phoneHref = (n) => `tel:+34${n}`;
 export const whatsappHref = (site, t) => `https://wa.me/34${site.whatsapp}?text=${encodeURIComponent(t.ui.whatsappText)}`;
