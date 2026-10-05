@@ -68,15 +68,16 @@ export default (d) => ({
     {
       id: 'modernizacion',
       icon: 'smartphone',
-      title: 'Modernización de aplicaciones y movilidad',
+      title: 'Aplicaciones web y móviles a medida',
       short:
-        'Actualizamos tus sistemas y herramientas para que sean más rápidos, seguros y fáciles de usar, también desde el móvil, sin empezar de cero.',
+        'Creamos aplicaciones nuevas hechas a la medida de cómo trabajáis y modernizamos las que ya tenéis para que sean más rápidas, seguras y fáciles de usar, también desde el móvil.',
       intro:
-        'Aprovechamos lo que ya funciona y cambiamos lo que frena. Llevamos vuestras herramientas al móvil cuando el trabajo ocurre fuera de la oficina.',
+        'Si la herramienta que necesitáis no existe, la construimos desde cero. Si ya la tenéis, aprovechamos lo que funciona y cambiamos lo que frena, sin rehacerlo todo.',
       bullets: [
-        'Evolución de aplicaciones existentes sin rehacerlo todo',
-        'Apps móviles (iOS y Android) para equipos en la calle, el almacén o la planta',
-        'Aplicaciones y portales web',
+        'Aplicaciones web y móviles a medida, creadas desde cero',
+        'Apps móviles (iOS y Android) para vuestros clientes o para equipos en la calle, el almacén o la planta',
+        'Portales web para clientes, empleados o colaboradores',
+        'Evolución y modernización de aplicaciones existentes sin rehacerlo todo',
         'Integración con los sistemas que ya tenéis, como SAP',
         'Mejoras de rendimiento, seguridad y facilidad de uso',
       ],
@@ -268,11 +269,11 @@ export default (d) => ({
   home: {
     title: `${d.name} · Agentes de IA y tecnología práctica para empresas`,
     description:
-      'Ayudamos a las empresas a trabajar mejor, no más: agentes de inteligencia artificial, mejora de procesos y modernización de aplicaciones web y móviles.',
+      'Ayudamos a las empresas a trabajar mejor, no más: agentes de inteligencia artificial, mejora de procesos y aplicaciones web y móviles a medida.',
     eyebrow: 'Inteligencia artificial aplicada',
     h1: 'Ayudamos a las empresas a <em>trabajar mejor</em>, no más.',
     lead:
-      'Implantamos agentes de inteligencia artificial, rediseñamos procesos y modernizamos aplicaciones, también en el móvil, para que tu equipo deje de perder horas en tareas repetitivas.',
+      'Implantamos agentes de inteligencia artificial, rediseñamos procesos y creamos o modernizamos aplicaciones web y móviles, para que tu equipo deje de perder horas en tareas repetitivas.',
     ctaPrimary: 'Cuéntanos tu caso',
     ctaSecondary: 'Qué hacemos',
     note: 'La primera conversación corre de nuestra cuenta.',
@@ -325,7 +326,7 @@ export default (d) => ({
       items: [
         { q: '¿Cuánto cuesta?', a: 'Depende del alcance, por eso no damos precios cerrados sin conocer el caso. La primera conversación es gratis y, si encaja, te damos una propuesta con el coste de cada paso antes de empezar.' },
         { q: '¿Cuánto se tarda en ver resultados?', a: 'Preferimos empezar por algo acotado que se note pronto y crecer desde ahí, en lugar de grandes proyectos que tardan meses en dar fruto. En la propuesta verás los plazos de cada fase.' },
-        { q: '¿Tenemos que cambiar nuestros sistemas?', a: 'No. Trabajamos sobre lo que ya usáis (ERP, SAP, correo, hojas de cálculo, aplicaciones propias) y lo conectamos. Modernizar no significa empezar de cero.' },
+        { q: '¿Tenemos que cambiar nuestros sistemas?', a: 'No. Trabajamos sobre lo que ya usáis (ERP, SAP, correo, hojas de cálculo, aplicaciones propias) y lo conectamos. Modernizar no significa empezar de cero, y si necesitáis una herramienta nueva, la creamos a medida.' },
         { q: '¿La IA va a sustituir a mi equipo?', a: 'No es la idea. La IA se encarga de las tareas repetitivas para que tu equipo dedique su tiempo a lo que aporta valor, y las decisiones importantes siguen pasando por personas.' },
         { q: '¿Trabajáis con empresas pequeñas y medianas?', a: 'Sí. El equipo ha trabajado con grandes bancos, aseguradoras y energéticas, pero también con empresas medianas, como el secadero de jamones de nuestros casos. Lo que importa es que haya algo que mejorar.' },
         { q: '¿Cómo se mide si ha funcionado?', a: 'Antes de empezar acordamos qué medir: horas dedicadas, errores, tiempos de respuesta… y lo revisamos contigo una vez implantado, en el día a día.' },
@@ -336,7 +337,7 @@ export default (d) => ({
   servicesPage: {
     title: `Servicios · ${d.name}`,
     description:
-      'Agentes de inteligencia artificial, mejora de procesos y modernización de aplicaciones web y móviles para empresas.',
+      'Agentes de inteligencia artificial, mejora de procesos y aplicaciones web y móviles a medida para empresas.',
     h1: 'Tecnología práctica, que se note en los resultados',
     lead: 'No solo en la presentación. Estas son las tres líneas en las que trabajamos.',
     listTitle: 'Qué incluye',
@@ -344,7 +345,7 @@ export default (d) => ({
 
   casesPage: {
     title: `Casos · ${d.name}`,
-    description: 'Proyectos de inteligencia artificial, mejora de procesos y modernización de aplicaciones.',
+    description: 'Proyectos de inteligencia artificial, mejora de procesos y aplicaciones web y móviles.',
     h1: 'Proyectos reales, resultados que se notan',
     lead: 'Algunos proyectos en los que hemos trabajado. Por confidencialidad, no siempre citamos el nombre del cliente.',
   },
@@ -392,7 +393,7 @@ export default (d) => ({
       topics: [
         { icon: 'bot', label: 'Agentes de IA' },
         { icon: 'workflow', label: 'Mejora de procesos' },
-        { icon: 'smartphone', label: 'Modernizar aplicaciones' },
+        { icon: 'smartphone', label: 'Aplicaciones web o móviles' },
         { icon: 'lightbulb', label: 'Otra cosa' },
       ],
       name: 'Nombre',

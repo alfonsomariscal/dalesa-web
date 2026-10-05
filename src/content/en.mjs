@@ -66,15 +66,16 @@ export default (d) => ({
     {
       id: 'modernizacion',
       icon: 'smartphone',
-      title: 'Application modernisation & mobile',
+      title: 'Custom web & mobile applications',
       short:
-        'We update your systems and tools so they are faster, more secure and easier to use, on mobile too, without starting from scratch.',
+        'We build new applications tailored to the way you work and modernise the ones you already have so they are faster, more secure and easier to use, on mobile too.',
       intro:
-        'We keep what already works and change what holds you back. When work happens away from the office, we bring your tools to mobile.',
+        'If the tool you need does not exist, we build it from scratch. If you already have it, we keep what works and change what holds you back, without rebuilding everything.',
       bullets: [
-        'Evolving existing applications without rebuilding everything',
-        'Mobile apps (iOS and Android) for field, warehouse or shop-floor teams',
-        'Web applications and portals',
+        'Custom web and mobile applications, built from scratch',
+        'Mobile apps (iOS and Android) for your customers or for field, warehouse or shop-floor teams',
+        'Web portals for customers, employees or partners',
+        'Evolving and modernising existing applications without rebuilding everything',
         'Integration with the systems you already have, such as SAP',
         'Better performance, security and usability',
       ],
@@ -261,11 +262,11 @@ export default (d) => ({
   home: {
     title: `${d.name} · AI agents and practical technology for businesses`,
     description:
-      'We help companies work better, not harder: AI agents, process improvement and modernisation of web and mobile applications.',
+      'We help companies work better, not harder: AI agents, process improvement and custom web and mobile applications.',
     eyebrow: 'Applied artificial intelligence',
     h1: 'We help companies <em>work better</em>, not harder.',
     lead:
-      'We deploy AI agents, redesign processes and modernise applications, on mobile too, so your team stops losing hours to repetitive tasks.',
+      'We deploy AI agents, redesign processes and build or modernise web and mobile applications, so your team stops losing hours to repetitive tasks.',
     ctaPrimary: 'Tell us about your case',
     ctaSecondary: 'What we do',
     note: 'The first conversation is on us.',
@@ -316,7 +317,7 @@ export default (d) => ({
       items: [
         { q: 'How much does it cost?', a: 'It depends on the scope, so we do not quote fixed prices without understanding the case. The first conversation is free and, if it is a fit, we give you a proposal with the cost of each step before we start.' },
         { q: 'How long until we see results?', a: 'We prefer to start with something focused that pays off early and grow from there, rather than large projects that take months to deliver. The proposal sets out the timing of each phase.' },
-        { q: 'Do we need to change our systems?', a: 'No. We work with what you already use (ERP, SAP, email, spreadsheets, in-house applications) and connect it. Modernising does not mean starting from scratch.' },
+        { q: 'Do we need to change our systems?', a: 'No. We work with what you already use (ERP, SAP, email, spreadsheets, in-house applications) and connect it. Modernising does not mean starting from scratch, and if you need a new tool, we build it for you.' },
         { q: 'Will AI replace my team?', a: 'That is not the idea. AI takes care of repetitive tasks so your team can spend its time on what adds value, and important decisions still go through people.' },
         { q: 'Do you work with small and medium-sized companies?', a: 'Yes. The team has worked with large banks, insurers and energy companies, but also with mid-sized businesses such as the ham curing plant in our case studies. What matters is that there is something to improve.' },
         { q: 'How do we know it has worked?', a: 'Before we start, we agree on what to measure: hours spent, errors, response times… and we review it with you once it is up and running, day to day.' },
@@ -326,7 +327,7 @@ export default (d) => ({
 
   servicesPage: {
     title: `Services · ${d.name}`,
-    description: 'AI agents, process improvement and modernisation of web and mobile applications for businesses.',
+    description: 'AI agents, process improvement and custom web and mobile applications for businesses.',
     h1: 'Practical technology that shows in the results',
     lead: 'Not just in the slide deck. These are the three areas we work in.',
     listTitle: 'What it includes',
@@ -334,7 +335,7 @@ export default (d) => ({
 
   casesPage: {
     title: `Case studies · ${d.name}`,
-    description: 'AI, process improvement and application modernisation projects.',
+    description: 'AI, process improvement and web and mobile application projects.',
     h1: 'Real projects, results you can see',
     lead: 'Some of the projects we have worked on. For confidentiality reasons we do not always name the client.',
   },
@@ -382,7 +383,7 @@ export default (d) => ({
       topics: [
         { icon: 'bot', label: 'AI agents' },
         { icon: 'workflow', label: 'Process improvement' },
-        { icon: 'smartphone', label: 'Modernise applications' },
+        { icon: 'smartphone', label: 'Web or mobile apps' },
         { icon: 'lightbulb', label: 'Something else' },
       ],
       name: 'Name',
