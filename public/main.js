@@ -53,11 +53,45 @@ if (filters) {
   );
 }
 
-// Formulario de contacto: envía al endpoint configurado o, si no hay, abre el correo.
-const form = document.querySelector('.contact-form');
-if (form) {
+// Pestañas de contacto: «Escríbenos» / «Te llamamos». Sin JS se ven los dos formularios.
+// Con #llamada en la URL se abre directamente «Te llamamos».
+const tabs = [...document.querySelectorAll('.contact-tabs [role="tab"]')];
+if (tabs.length) {
+  const select = (tab, focus = false) => {
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (focus) tab.focus();
+  };
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => select(tab));
+    tab.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (d) select(tabs[(i + d + tabs.length) % tabs.length], true);
+    });
+  });
+  select(location.hash === '#llamada' || location.hash === '#call' ? tabs[1] : tabs[0]);
+}
+
+// Formularios de contacto y de «Te llamamos»: envían al endpoint configurado
+// (FormSubmit o propio) o, si no hay, abren el cliente de correo con el mensaje redactado.
+const mailBody = (form, data) => {
+  const who = `${data.get('name')}${data.get('company') ? ` (${data.get('company')})` : ''}`;
+  if (form.dataset.kind === 'callback') return `${who}\n${data.get('phone')}\n${form.dataset.when} ${data.get('when')}`;
+  const chosen = data.getAll('topics').join(', ');
+  return `${chosen ? `${form.dataset.topics} ${chosen}\n\n` : ''}${data.get('message')}\n\n— ${who}\n${data.get('email')}`;
+};
+
+document.querySelectorAll('.contact-form').forEach((form) => {
   const status = form.querySelector('.form-status');
   const { endpoint, email, subject, sending, ok, error } = form.dataset;
+  const show = (text, cls = '') => {
+    status.textContent = text;
+    status.className = `form-status ${cls}`;
+  };
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -66,34 +100,59 @@ if (form) {
     if (data.get('_gotcha')) return;
 
     if (!endpoint) {
-      if (!email) {
-        status.textContent = error;
-        status.className = 'form-status error';
-        return;
-      }
-      const body = `${data.get('message')}\n\n— ${data.get('name')}${data.get('company') ? ` (${data.get('company')})` : ''}\n${data.get('email')}`;
-      window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      if (!email) return show(error, 'error');
+      window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(mailBody(form, data))}`;
       return;
     }
 
+    // JSON: lo aceptan tanto FormSubmit como Formspree. En el correo cada dato lleva el texto
+    // de su etiqueta («Nombre», «Teléfono»…) y las casillas múltiples van juntas.
+    const payload = {};
+    for (const key of new Set(data.keys())) {
+      if (key === '_gotcha' || key === 'consent') continue;
+      const el = form.querySelector(`[name="${key}"]`);
+      const label = key.startsWith('_') ? key : el.closest('.field')?.querySelector('.field-label')?.textContent ?? el.closest('fieldset')?.querySelector('legend')?.textContent ?? key;
+      payload[label] = data.getAll(key).join(', ');
+    }
     const btn = form.querySelector('button[type="submit"]');
     btn.disabled = true;
-    status.textContent = sending;
-    status.className = 'form-status';
+    show(sending);
     try {
-      const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-      if (!res.ok) throw new Error(res.status);
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || json.success === 'false' || json.success === false) throw new Error(res.status);
       form.reset();
-      status.textContent = ok;
-      status.className = 'form-status ok';
+      show(ok, 'ok');
     } catch {
-      status.textContent = error;
-      status.className = 'form-status error';
+      show(error, 'error');
     } finally {
       btn.disabled = false;
     }
   });
-}
+});
+
+// Botón de copiar el correo
+document.querySelectorAll('[data-copy]').forEach((btn) => {
+  const label = btn.querySelector('span');
+  const text = label.textContent;
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(btn.dataset.copy);
+      label.textContent = btn.dataset.copied;
+      btn.classList.add('done');
+      setTimeout(() => {
+        label.textContent = text;
+        btn.classList.remove('done');
+      }, 1800);
+    } catch {
+      window.location.href = `mailto:${btn.dataset.copy}`;
+    }
+  });
+});
 
 // Animación de entrada al hacer scroll y contador de cifras (+14, +40…).
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

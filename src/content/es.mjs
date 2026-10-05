@@ -18,6 +18,9 @@ export default (d) => ({
     illustrative: 'Ejemplo ilustrativo',
     theme: 'Diseño',
     themes: ['Diseño 1 · Violeta', 'Diseño 2 · Dorado', 'Diseño 3 · Blanco y negro'],
+    whatsapp: 'Escríbenos por WhatsApp',
+    whatsappText: 'Hola, me gustaría hablar con DALESA.',
+    callMe: 'Te llamamos',
   },
 
   nav: {
@@ -91,7 +94,7 @@ export default (d) => ({
   stats: [
     { value: '+14', label: 'años de experiencia del equipo' },
     { value: '+40', label: 'proyectos en los que hemos participado' },
-    { value: '+6', label: 'sectores: banca, seguros, alimentación, textil, transporte, petróleo y gas…' },
+    { value: '+8', label: 'sectores: banca, seguros, energía, automoción, gran consumo, textil…' },
   ],
   expertise: [
     'IA generativa y agentes',
@@ -111,6 +114,8 @@ export default (d) => ({
     { icon: 'shirt', name: 'Textil' },
     { icon: 'truck', name: 'Transporte' },
     { icon: 'fuel', name: 'Petróleo y gas' },
+    { icon: 'car', name: 'Automoción' },
+    { icon: 'shopping-cart', name: 'Gran consumo' },
   ],
 
   // Casos: uno por bloque. `service` debe coincidir con un id de `services`.
@@ -299,7 +304,33 @@ export default (d) => ({
     casesTitle: 'Casos',
     casesLead: 'Algunos proyectos en los que hemos trabajado.',
     finalTitle: '¿Quieres saber cómo la IA puede ayudar a tu empresa?',
-    finalText: 'Escríbenos. La primera conversación corre de nuestra cuenta.',
+    finalText: 'Escríbenos o te llamamos. La primera conversación corre de nuestra cuenta.',
+
+    // IA responsable: compromisos de cómo trabajamos con IA. Revisadlos antes de publicar.
+    responsible: {
+      title: 'IA segura y responsable',
+      lead: 'Lo primero que nos preguntan es qué pasa con los datos. Esta es nuestra forma de trabajar.',
+      items: [
+        { icon: 'lock', title: 'Tus datos, bajo tu control', text: 'Decidimos contigo dónde se procesan, quién accede y qué información usa la IA. Solo la imprescindible para cada tarea.' },
+        { icon: 'users', title: 'Las personas deciden', text: 'La IA prepara y propone; tu equipo revisa y aprueba lo importante antes de que salga.' },
+        { icon: 'shield-check', title: 'RGPD y Reglamento europeo de IA', text: 'Tenemos en cuenta la normativa de protección de datos y el Reglamento europeo de IA desde el diseño, no al final.' },
+        { icon: 'search', title: 'Sin cajas negras', text: 'Sabes qué hace cada agente, con qué datos y por qué. Todo queda registrado para poder revisarlo.' },
+      ],
+    },
+
+    // Preguntas frecuentes. Revisad las respuestas antes de publicar.
+    faq: {
+      title: 'Preguntas frecuentes',
+      lead: 'Lo que suelen preguntarnos antes de empezar.',
+      items: [
+        { q: '¿Cuánto cuesta?', a: 'Depende del alcance, por eso no damos precios cerrados sin conocer el caso. La primera conversación es gratis y, si encaja, te damos una propuesta con el coste de cada paso antes de empezar.' },
+        { q: '¿Cuánto se tarda en ver resultados?', a: 'Preferimos empezar por algo acotado que se note pronto y crecer desde ahí, en lugar de grandes proyectos que tardan meses en dar fruto. En la propuesta verás los plazos de cada fase.' },
+        { q: '¿Tenemos que cambiar nuestros sistemas?', a: 'No. Trabajamos sobre lo que ya usáis (ERP, SAP, correo, hojas de cálculo, aplicaciones propias) y lo conectamos. Modernizar no significa empezar de cero.' },
+        { q: '¿La IA va a sustituir a mi equipo?', a: 'No es la idea. La IA se encarga de las tareas repetitivas para que tu equipo dedique su tiempo a lo que aporta valor, y las decisiones importantes siguen pasando por personas.' },
+        { q: '¿Trabajáis con empresas pequeñas y medianas?', a: 'Sí. El equipo ha trabajado con grandes bancos, aseguradoras y energéticas, pero también con empresas medianas, como el secadero de jamones de nuestros casos. Lo que importa es que haya algo que mejorar.' },
+        { q: '¿Cómo se mide si ha funcionado?', a: 'Antes de empezar acordamos qué medir: horas dedicadas, errores, tiempos de respuesta… y lo revisamos contigo una vez implantado, en el día a día.' },
+      ],
+    },
   },
 
   servicesPage: {
@@ -355,6 +386,15 @@ export default (d) => ({
     h1: 'Hablemos',
     lead: 'Cuéntanos qué te gustaría mejorar. La primera conversación corre de nuestra cuenta.',
     form: {
+      title: 'Cuéntanos tu caso',
+      note: 'Sin compromiso. La primera conversación corre de nuestra cuenta.',
+      topicsLabel: '¿En qué te podemos ayudar?',
+      topics: [
+        { icon: 'bot', label: 'Agentes de IA' },
+        { icon: 'workflow', label: 'Mejora de procesos' },
+        { icon: 'smartphone', label: 'Modernizar aplicaciones' },
+        { icon: 'lightbulb', label: 'Otra cosa' },
+      ],
       name: 'Nombre',
       company: 'Empresa',
       email: 'Correo electrónico',
@@ -364,7 +404,7 @@ export default (d) => ({
       submit: 'Enviar',
       sending: 'Enviando…',
       ok: 'Gracias. Te responderemos lo antes posible.',
-      error: 'No se ha podido enviar. Escríbenos directamente al correo de la derecha.',
+      error: 'No se ha podido enviar. Escríbenos o llámanos directamente con los datos de esta página.',
       mailSubject: 'Contacto desde la web',
     },
     next: {
@@ -375,9 +415,26 @@ export default (d) => ({
         { icon: 'lightbulb', title: 'Propuesta concreta', text: 'Si encaja, te proponemos mejoras claras y priorizadas.' },
       ],
     },
+    tabs: { write: 'Escríbenos', call: 'Te llamamos' },
+    callback: {
+      title: '¿Prefieres que te llamemos?',
+      note: 'Déjanos tu teléfono y te llamamos nosotros.',
+      name: 'Nombre',
+      phone: 'Teléfono',
+      when: '¿Cuándo te viene mejor?',
+      slots: ['Por la mañana', 'Por la tarde', 'Cuando sea'],
+      submit: 'Pedir llamada',
+      sending: 'Enviando…',
+      ok: 'Hecho. Te llamaremos lo antes posible.',
+      error: 'No se ha podido enviar. Llámanos directamente a los teléfonos de la página.',
+      mailSubject: 'Petición de llamada desde la web',
+    },
+    phonesTitle: 'O llámanos',
     asideTitle: 'También puedes escribirnos',
     emailLabel: 'Correo',
     linkedinLabel: 'LinkedIn',
+    copy: 'Copiar',
+    copied: 'Copiado',
   },
 
   legalPage: {

@@ -5,6 +5,10 @@ export default {
   // Dominio definitivo, sin barra final. Con él se generan canonical, sitemap.xml y robots.txt.
   url: '', // p. ej. 'https://www.dalesa.es'
 
+  // URL pública mientras no haya dominio (GitHub Pages), para la imagen al compartir en
+  // WhatsApp/LinkedIn y la ficha de empresa. La pone el workflow de publicación; con `url` no hace falta.
+  shareUrl: process.env.SHARE_URL ?? '',
+
   // Subruta donde se publica (GitHub Pages de proyecto: '/dalesa-web'). En dominio propio: ''.
   // Se puede sobrescribir con la variable de entorno BASE_PATH.
   base: process.env.BASE_PATH ?? '',
@@ -15,8 +19,20 @@ export default {
   email: 'info@dalesa.com', // provisional
   linkedin: '', // URL de la página de empresa en LinkedIn
 
-  // Endpoint del formulario de contacto (p. ej. Formspree: 'https://formspree.io/f/xxxxxxx').
-  // Mientras esté vacío, el formulario abre el cliente de correo con el mensaje ya redactado.
+  // Teléfonos de atención (sin espacios; la web los muestra como 636 89 21 31).
+  phones: ['636892131', '665514510'],
+  // Número con WhatsApp (botón flotante y enlaces wa.me). Vacío para quitarlo.
+  whatsapp: '636892131',
+
+  // Correos de DALESA que reciben los mensajes de los formularios (contacto y «Te llamamos»).
+  // Con al menos uno, los formularios envían por FormSubmit (formsubmit.co, gratis y sin cuenta):
+  // el primero es el destinatario principal y el resto van en copia. La primera vez que alguien
+  // envíe un formulario, FormSubmit manda al primer correo un email para activarlo.
+  notify: [],
+
+  // Endpoint propio de los formularios (p. ej. Formspree: 'https://formspree.io/f/xxxxxxx').
+  // Si se rellena, tiene prioridad sobre `notify`. Sin ninguno de los dos, los formularios
+  // abren el cliente de correo con el mensaje ya redactado.
   formEndpoint: '',
 
   // Datos para el aviso legal (LSSI) y la política de privacidad (RGPD).

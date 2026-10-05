@@ -8,7 +8,10 @@ Web estática bilingüe (ES/EN) sin dependencias: solo hace falta Node.js.
 | --- | --- |
 | Textos en español / inglés (servicios, casos, cifras, legal…) | `src/content/es.mjs` / `src/content/en.mjs` |
 | Empresas con las que ha trabajado el equipo (logos en `public/logos/`) | `src/content/clients.mjs` |
-| Email, LinkedIn, dominio, formulario, datos fiscales | `site.config.mjs` |
+| Email, teléfonos, WhatsApp, LinkedIn, dominio, datos fiscales | `site.config.mjs` |
+| Correos que reciben los formularios (contacto y «Te llamamos») | `notify` en `site.config.mjs` |
+| IA responsable y preguntas frecuentes de la portada | `home.responsible` y `home.faq` en `src/content/es.mjs` / `en.mjs` |
+| Imagen al compartir en WhatsApp/LinkedIn | `public/brand/og-es.png` y `og-en.png` (1200×630) |
 | Colores de los tres diseños (violeta, dorado, blanco y negro) | `public/styles.css` (al principio: `:root`, `[data-theme="oro"]`, `[data-theme="mono"]`) |
 | Logo (máscaras que se pintan con el color del diseño) y favicons | `public/brand/` y `.brand-mark` / `.brand-word` en `public/styles.css` |
 | Ilustraciones (casos, servicios, hero) | `src/visuals.mjs` |

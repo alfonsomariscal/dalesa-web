@@ -17,6 +17,9 @@ export default (d) => ({
     illustrative: 'Illustrative example',
     theme: 'Design',
     themes: ['Design 1 · Violet', 'Design 2 · Gold', 'Design 3 · Black and white'],
+    whatsapp: 'Message us on WhatsApp',
+    whatsappText: 'Hello, I would like to talk to DALESA.',
+    callMe: 'We call you',
   },
 
   nav: {
@@ -88,7 +91,7 @@ export default (d) => ({
   stats: [
     { value: '14+', label: 'years of team experience' },
     { value: '40+', label: 'projects we have worked on' },
-    { value: '6+', label: 'industries: banking, insurance, food, textiles, transport, oil & gas…' },
+    { value: '8+', label: 'industries: banking, insurance, energy, automotive, consumer goods, textiles…' },
   ],
   expertise: [
     'Generative AI & agents',
@@ -107,6 +110,8 @@ export default (d) => ({
     { icon: 'shirt', name: 'Textiles' },
     { icon: 'truck', name: 'Transport' },
     { icon: 'fuel', name: 'Oil & gas' },
+    { icon: 'car', name: 'Automotive' },
+    { icon: 'shopping-cart', name: 'Consumer goods' },
   ],
 
   // Case studies: same order and structure as es.mjs.
@@ -292,7 +297,31 @@ export default (d) => ({
     casesTitle: 'Case studies',
     casesLead: 'Some of the projects we have worked on.',
     finalTitle: 'Want to know how AI can help your business?',
-    finalText: 'Get in touch. The first conversation is on us.',
+    finalText: 'Write to us or we will call you. The first conversation is on us.',
+
+    responsible: {
+      title: 'Safe, responsible AI',
+      lead: 'The first thing people ask us is what happens to their data. This is how we work.',
+      items: [
+        { icon: 'lock', title: 'Your data, under your control', text: 'We decide with you where it is processed, who can access it and what information the AI uses. Only what each task needs.' },
+        { icon: 'users', title: 'People make the decisions', text: 'The AI prepares and suggests; your team reviews and approves anything important before it goes out.' },
+        { icon: 'shield-check', title: 'GDPR and the EU AI Act', text: 'We take data protection law and the EU AI Act into account from the design stage, not as an afterthought.' },
+        { icon: 'search', title: 'No black boxes', text: 'You know what each agent does, with which data and why. Everything is logged so it can be reviewed.' },
+      ],
+    },
+
+    faq: {
+      title: 'Frequently asked questions',
+      lead: 'What people usually ask us before getting started.',
+      items: [
+        { q: 'How much does it cost?', a: 'It depends on the scope, so we do not quote fixed prices without understanding the case. The first conversation is free and, if it is a fit, we give you a proposal with the cost of each step before we start.' },
+        { q: 'How long until we see results?', a: 'We prefer to start with something focused that pays off early and grow from there, rather than large projects that take months to deliver. The proposal sets out the timing of each phase.' },
+        { q: 'Do we need to change our systems?', a: 'No. We work with what you already use (ERP, SAP, email, spreadsheets, in-house applications) and connect it. Modernising does not mean starting from scratch.' },
+        { q: 'Will AI replace my team?', a: 'That is not the idea. AI takes care of repetitive tasks so your team can spend its time on what adds value, and important decisions still go through people.' },
+        { q: 'Do you work with small and medium-sized companies?', a: 'Yes. The team has worked with large banks, insurers and energy companies, but also with mid-sized businesses such as the ham curing plant in our case studies. What matters is that there is something to improve.' },
+        { q: 'How do we know it has worked?', a: 'Before we start, we agree on what to measure: hours spent, errors, response times… and we review it with you once it is up and running, day to day.' },
+      ],
+    },
   },
 
   servicesPage: {
@@ -347,6 +376,15 @@ export default (d) => ({
     h1: "Let's talk",
     lead: 'Tell us what you would like to improve. The first conversation is on us.',
     form: {
+      title: 'Tell us about your case',
+      note: 'No commitment. The first conversation is on us.',
+      topicsLabel: 'How can we help?',
+      topics: [
+        { icon: 'bot', label: 'AI agents' },
+        { icon: 'workflow', label: 'Process improvement' },
+        { icon: 'smartphone', label: 'Modernise applications' },
+        { icon: 'lightbulb', label: 'Something else' },
+      ],
       name: 'Name',
       company: 'Company',
       email: 'Email',
@@ -356,7 +394,7 @@ export default (d) => ({
       submit: 'Send',
       sending: 'Sending…',
       ok: 'Thank you. We will get back to you as soon as possible.',
-      error: 'The message could not be sent. Please email us directly at the address shown.',
+      error: 'The message could not be sent. Please email or call us directly using the details on this page.',
       mailSubject: 'Contact from the website',
     },
     next: {
@@ -367,9 +405,26 @@ export default (d) => ({
         { icon: 'lightbulb', title: 'A concrete proposal', text: 'If it is a fit, we propose clear, prioritised improvements.' },
       ],
     },
+    tabs: { write: 'Write to us', call: 'We call you' },
+    callback: {
+      title: 'Would you rather we call you?',
+      note: 'Leave us your phone number and we will call you.',
+      name: 'Name',
+      phone: 'Phone',
+      when: 'When suits you best?',
+      slots: ['Morning', 'Afternoon', 'Any time'],
+      submit: 'Request a call',
+      sending: 'Sending…',
+      ok: 'Done. We will call you as soon as possible.',
+      error: 'The request could not be sent. Please call us directly on the numbers on this page.',
+      mailSubject: 'Call request from the website',
+    },
+    phonesTitle: 'Or call us',
     asideTitle: 'You can also reach us at',
     emailLabel: 'Email',
     linkedinLabel: 'LinkedIn',
+    copy: 'Copy',
+    copied: 'Copied',
   },
 
   legalPage: {

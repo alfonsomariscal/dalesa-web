@@ -1,10 +1,11 @@
 // Cuerpo de cada página. Cada función recibe `t` (textos del idioma) y `site` (site.config.mjs)
 // y devuelve { title, description, body }.
-import { routes, icon } from './layout.mjs';
+import { routes, icon, brandIcon, phoneHref, phoneLabel, whatsappHref } from './layout.mjs';
 import { visuals, serviceArt, heroChart, heroNetwork } from './visuals.mjs';
 import clients from './content/clients.mjs';
 
 const r = (t, k) => routes[k][t.lang];
+const callHref = (t) => `${r(t, 'contact')}#${t.lang === 'es' ? 'llamada' : 'call'}`;
 const caseId = (c) => c.id;
 const serviceTitle = (t, id) => t.services.find((s) => s.id === id)?.title ?? '';
 
@@ -146,7 +147,10 @@ const finalCta = (t) => `
             <h2>${t.home.finalTitle}</h2>
             <p>${t.home.finalText}</p>
           </div>
-          <a class="btn btn-light" href="${r(t, 'contact')}">${t.ui.cta} ${arrow()}</a>
+          <div class="cta-band-actions">
+            <a class="btn btn-light" href="${r(t, 'contact')}">${t.ui.cta} ${arrow()}</a>
+            <a class="btn btn-outline-light" href="${callHref(t)}">${icon('telephone', 'icon icon-sm')}${t.ui.callMe}</a>
+          </div>
         </div>
       </div>
     </section>`;
@@ -178,7 +182,7 @@ export const pages = {
             <a class="btn btn-primary" href="${r(t, 'contact')}">${h.ctaPrimary} ${arrow()}</a>
             <a class="btn btn-ghost" href="#servicios">${h.ctaSecondary}</a>
           </div>
-          <p class="note">${icon('check', 'icon icon-sm')}${h.note}</p>
+          <p class="note">${icon('check', 'icon icon-sm')}${h.note}<a class="note-link" href="${callHref(t)}">${icon('telephone', 'icon icon-xs')}${t.ui.callMe}</a></p>
         </div>
         <div class="hero-visual">
           <figure class="agent-demo" aria-label="${t.ui.illustrative}: ${h.demo.title}">
@@ -247,7 +251,18 @@ export const pages = {
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="ia-responsable">
+      <div class="container">
+        ${sectionHead(h.responsible.title, h.responsible.lead)}
+        <div class="grid grid-4">
+          ${h.responsible.items
+            .map((it, i) => `<div class="card value-card" ${reveal(i)}><span class="icon-badge">${icon(it.icon)}</span><h3>${it.title}</h3><p>${it.text}</p></div>`)
+            .join('\n          ')}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
       <div class="container team-grid">
         <div ${reveal()}>
           <h2 class="section-title">${h.teamTitle}</h2>
@@ -258,13 +273,28 @@ export const pages = {
       </div>
     </section>
 
-    <section class="section section-alt">
+    <section class="section">
       <div class="container">
         ${sectionHead(h.casesTitle, h.casesLead, `<a class="link-arrow" href="${r(t, 'cases')}">${t.ui.allCases} ${arrow()}</a>`)}
         <div class="grid grid-2">${t.cases
           .filter((c) => c.featured)
           .map((c, i) => caseCard(t, c, i))
           .join('')}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="preguntas">
+      <div class="container faq-grid">
+        <div class="faq-head" ${reveal()}>
+          <h2 class="section-title">${h.faq.title}</h2>
+          <p class="lead">${h.faq.lead}</p>
+          <a class="link-arrow" href="${r(t, 'contact')}">${t.ui.cta} ${arrow()}</a>
+        </div>
+        <div class="faq-list">
+          ${h.faq.items
+            .map((f, i) => `<details class="faq-item" ${reveal(i)}><summary>${f.q}${icon('chevron-right', 'icon icon-sm faq-chevron')}</summary><p>${f.a}</p></details>`)
+            .join('\n          ')}
         </div>
       </div>
     </section>
@@ -395,40 +425,121 @@ ${finalCta(t)}`,
   contact: (t, site) => {
     const p = t.contactPage;
     const f = p.form;
+    const c = p.callback;
+    const field = (name, label, ic, attrs = '') =>
+      `<label class="field">${icon(ic, 'icon icon-sm field-icon')}<input name="${name}" placeholder=" " ${attrs}><span class="field-label">${label}</span></label>`;
+    // Envío: endpoint propio, o FormSubmit con los correos de `notify`, o (sin nada) el cliente de correo.
+    const notify = site.notify || [];
+    const endpoint = site.formEndpoint || (notify.length ? `https://formsubmit.co/ajax/${notify[0]}` : '');
+    const service = (subject) =>
+      !site.formEndpoint && notify.length
+        ? `<input type="hidden" name="_subject" value="${subject}"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false">${notify.length > 1 ? `<input type="hidden" name="_cc" value="${notify.slice(1).join(',')}">` : ''}`
+        : '';
+    const formAttrs = (kind, x) =>
+      `method="POST" action="${endpoint.replace('/ajax/', '/') || '#'}" data-kind="${kind}" data-endpoint="${endpoint}" data-email="${site.email}" data-subject="${x.mailSubject}" data-sending="${x.sending}" data-ok="${x.ok}" data-error="${x.error}"`;
+    const consent = `<label class="checkbox"><input type="checkbox" name="consent" required><span>${f.consent.replace('{privacy}', r(t, 'privacy'))}</span></label>
+          <div class="visually-hidden" aria-hidden="true"><input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></div>`;
+    const phones = site.phones || [];
     return {
       title: p.title,
       description: p.description,
       body: `
-    ${pageHeader('send', t.nav.contact, p.h1, p.lead)}
-    <section class="section section-tight">
-      <div class="container contact-grid">
-        <form class="card contact-form" method="POST" action="${site.formEndpoint || '#'}"
-              data-endpoint="${site.formEndpoint}" data-email="${site.email}" data-subject="${f.mailSubject}"
-              data-sending="${f.sending}" data-ok="${f.ok}" data-error="${f.error}">
-          <div class="field-row">
-            <label>${f.name}<input name="name" autocomplete="name" required></label>
-            <label>${f.company}<input name="company" autocomplete="organization"></label>
-          </div>
-          <label>${f.email}<input name="email" type="email" autocomplete="email" required></label>
-          <label>${f.message}<textarea name="message" rows="6" required placeholder="${f.messageHint}"></textarea></label>
-          <label class="checkbox"><input type="checkbox" name="consent" required><span>${f.consent.replace('{privacy}', r(t, 'privacy'))}</span></label>
-          <div class="visually-hidden" aria-hidden="true"><input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></div>
-          <button class="btn btn-primary" type="submit">${f.submit} ${icon('send', 'icon icon-sm')}</button>
-          <p class="form-status" role="status" aria-live="polite"></p>
-        </form>
-        <aside class="contact-aside">
-          <h2>${p.next.title}</h2>
-          <ol class="next-steps">
+    <section class="contact-hero">
+      <div class="page-header-bg" aria-hidden="true"></div>
+      <div class="container contact-layout">
+        <div class="contact-intro" ${reveal()}>
+          <p class="eyebrow eyebrow-icon">${icon('send', 'icon icon-sm')}${t.nav.contact}</p>
+          <h1>${p.h1}</h1>
+          <p class="lead">${p.lead}</p>
+        </div>
+        <div class="contact-more">
+          <h2 class="contact-steps-title">${p.next.title}</h2>
+          <ol class="contact-steps">
             ${p.next.items
-              .map((it, i) => `<li ${reveal(i)}><span class="icon-badge">${icon(it.icon)}</span><div><strong>${it.title}</strong><span>${it.text}</span></div></li>`)
+              .map((it, i) => `<li ${reveal(i + 1)}><span class="contact-step-icon">${icon(it.icon, 'icon icon-sm')}<b>${i + 1}</b></span><div><strong>${it.title}</strong><span>${it.text}</span></div></li>`)
               .join('\n            ')}
           </ol>
-          <div class="contact-box">
-            <p>${p.asideTitle}</p>
-            ${site.email ? `<a href="mailto:${site.email}">${icon('mail', 'icon icon-sm')}${site.email}</a>` : ''}
-            ${site.linkedin ? `<a href="${site.linkedin}" rel="noopener">${icon('linkedin', 'icon icon-sm')}LinkedIn</a>` : ''}
+          <div class="contact-direct">
+            ${
+              site.email
+                ? `<div class="contact-direct-row">
+              <span class="contact-direct-icon">${icon('mail')}</span>
+              <div><p>${p.asideTitle}</p><a href="mailto:${site.email}">${site.email}</a></div>
+              <button class="copy-btn" type="button" data-copy="${site.email}" data-copied="${p.copied}">${icon('copy', 'icon icon-xs')}<span>${p.copy}</span></button>
+            </div>`
+                : ''
+            }
+            ${
+              site.whatsapp
+                ? `<div class="contact-direct-row">
+              <span class="contact-direct-icon contact-direct-wa">${brandIcon('whatsapp')}</span>
+              <div><p>WhatsApp</p><a href="${whatsappHref(site, t)}" target="_blank" rel="noopener">${phoneLabel(site.whatsapp)}</a></div>
+            </div>`
+                : ''
+            }
+            ${
+              phones.length
+                ? `<div class="contact-direct-row">
+              <span class="contact-direct-icon">${icon('telephone')}</span>
+              <div><p>${p.phonesTitle}</p><div class="phone-list">${phones.map((n) => `<a href="${phoneHref(n)}">${phoneLabel(n)}</a>`).join('')}</div></div>
+            </div>`
+                : ''
+            }
           </div>
-        </aside>
+          ${site.linkedin ? `<a class="contact-linkedin" href="${site.linkedin}" rel="noopener">${icon('linkedin', 'icon icon-sm')}LinkedIn</a>` : ''}
+        </div>
+
+        <div class="contact-card" ${reveal(1)}>
+          <div class="contact-tabs" role="tablist" aria-label="${t.nav.contact}">
+            <button type="button" role="tab" id="tab-write" aria-controls="panel-write" aria-selected="true">${icon('message-square', 'icon icon-sm')}${p.tabs.write}</button>
+            <button type="button" role="tab" id="tab-call" aria-controls="panel-call" aria-selected="false" tabindex="-1">${icon('telephone', 'icon icon-sm')}${p.tabs.call}</button>
+          </div>
+
+          <form class="contact-form" id="panel-write" role="tabpanel" aria-labelledby="tab-write" ${formAttrs('contact', f)} data-topics="${f.topicsLabel}">
+            <div class="contact-card-head">
+              <h2>${f.title}</h2>
+              <p>${icon('check', 'icon icon-xs')}${f.note}</p>
+            </div>
+            <fieldset class="topics">
+              <legend>${f.topicsLabel}</legend>
+              <div class="topic-list">
+                ${f.topics.map((tp) => `<label class="topic"><input type="checkbox" name="topics" value="${tp.label}"><span>${icon(tp.icon, 'icon icon-sm')}${tp.label}</span></label>`).join('\n                ')}
+              </div>
+            </fieldset>
+            <div class="field-row">
+              ${field('name', f.name, 'user', 'autocomplete="name" required')}
+              ${field('company', f.company, 'building-2', 'autocomplete="organization"')}
+            </div>
+            ${field('email', f.email, 'mail', 'type="email" autocomplete="email" required')}
+            <label class="field field-area">${icon('message-square', 'icon icon-sm field-icon')}<textarea name="message" rows="5" placeholder=" " required aria-describedby="message-hint"></textarea><span class="field-label">${f.message}</span></label>
+            <p class="field-hint" id="message-hint">${f.messageHint}</p>
+            ${consent}
+            ${service(f.mailSubject)}
+            <button class="btn btn-primary btn-block" type="submit">${f.submit} ${icon('send', 'icon icon-sm')}</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <form class="contact-form" id="panel-call" role="tabpanel" aria-labelledby="tab-call" ${formAttrs('callback', c)} data-when="${c.when}">
+            <div class="contact-card-head">
+              <h2>${c.title}</h2>
+              <p>${icon('check', 'icon icon-xs')}${c.note}</p>
+            </div>
+            <div class="field-row">
+              ${field('name', c.name, 'user', 'autocomplete="name" required')}
+              ${field('phone', c.phone, 'telephone', 'type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9+ ]{9,}" required')}
+            </div>
+            <fieldset class="topics">
+              <legend>${c.when}</legend>
+              <div class="topic-list">
+                ${c.slots.map((sl, i) => `<label class="topic"><input type="radio" name="when" value="${sl}"${i === c.slots.length - 1 ? ' checked' : ''}><span>${icon('clock', 'icon icon-sm')}${sl}</span></label>`).join('\n                ')}
+              </div>
+            </fieldset>
+            ${consent}
+            ${service(c.mailSubject)}
+            <button class="btn btn-primary btn-block" type="submit">${c.submit} ${icon('telephone', 'icon icon-sm')}</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
       </div>
     </section>`,
     };

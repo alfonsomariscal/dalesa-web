@@ -89,5 +89,6 @@ if (site.preview) {
 console.log(`✔ ${urls.length + 1} páginas generadas en ${OUT}/${base ? ` (subruta ${base})` : ''}`);
 if (pending.size) console.warn(`⚠ Quedan ${pending.size} textos [PENDIENTE] distintos, marcados en amarillo en la web.`);
 if (missingLegal.length) console.warn(`⚠ Faltan datos legales en site.config.mjs (obligatorios antes de lanzar): ${missingLegal.join(', ')}.`);
+if (!site.formEndpoint && !(site.notify || []).length) console.warn('⚠ Sin `notify` ni `formEndpoint` en site.config.mjs: los formularios abren el cliente de correo en vez de enviar.');
 if (site.preview) console.warn('⚠ Modo preview: la web pide a los buscadores que no la indexen.');
 if (!site.url && !site.preview) console.warn('⚠ Falta `url` en site.config.mjs: no se generan canonical, sitemap.xml ni robots.txt.');

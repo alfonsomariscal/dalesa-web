@@ -1,5 +1,5 @@
 // Rutas de cada página por idioma y plantilla común (cabecera, pie, <head>).
-import lucide from './icons.mjs';
+import lucide, { brands } from './icons.mjs';
 
 export const routes = {
   home: { es: '/', en: '/en/' },
@@ -27,6 +27,31 @@ export const logo = (name) =>
 // Diseños de color disponibles. El primero es el de por defecto.
 export const themes = ['violeta', 'oro', 'mono'];
 
+export const brandIcon = (name, cls = 'icon') =>
+  `<svg class="${cls}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${brands[name] ?? ''}</svg>`;
+
+// Teléfonos: '636892131' → '636 89 21 31' y enlace tel: con prefijo de España.
+export const phoneLabel = (n) => n.replace(/^(\d{3})(\d{2})(\d{2})(\d{2})$/, '$1 $2 $3 $4');
+export const phoneHref = (n) => `tel:+34${n}`;
+export const whatsappHref = (site, t) => `https://wa.me/34${site.whatsapp}?text=${encodeURIComponent(t.ui.whatsappText)}`;
+
+// Ficha de empresa para buscadores (schema.org). `pub` es la URL pública con la que se comparte.
+const organization = (t, site, pub) =>
+  JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: site.name,
+    ...(pub && { url: `${pub}/`, logo: `${pub}/brand/favicon-oro.png` }),
+    description: t.home.description,
+    ...(site.email && { email: site.email }),
+    ...(site.phones?.length && {
+      telephone: `+34${site.phones[0]}`,
+      contactPoint: site.phones.map((n) => ({ '@type': 'ContactPoint', telephone: `+34${n}`, contactType: 'customer service', areaServed: 'ES', availableLanguage: ['es', 'en'] })),
+    }),
+    knowsAbout: t.services.map((s) => s.title),
+    ...(site.linkedin && { sameAs: [site.linkedin] }),
+  });
+
 export const markPending = (html) => html.replace(PENDING_RE, (m) => `<mark class="pending">${m}</mark>`);
 export const pendingIn = (html) => html.match(PENDING_RE) || [];
 
@@ -34,6 +59,8 @@ export function layout({ t, site, key, title, description, body, noindex = false
   const lang = t.lang;
   const other = lang === 'es' ? 'en' : 'es';
   const base = site.url.replace(/\/$/, '');
+  // URL pública para la imagen al compartir y la ficha de empresa (dominio, o la de GitHub Pages).
+  const pub = base || (site.shareUrl || '').replace(/\/$/, '');
   const abs = (p) => (base ? base + p : p);
   const r = (k) => routes[k][lang];
   const path = routes[key]?.[lang] ?? r('home');
@@ -51,6 +78,8 @@ export function layout({ t, site, key, title, description, body, noindex = false
 
   const socials = [
     site.email ? `<a href="mailto:${site.email}">${icon('mail')}<span>${site.email}</span></a>` : '',
+    ...(site.phones || []).map((n) => `<a href="${phoneHref(n)}">${icon('telephone')}<span>${phoneLabel(n)}</span></a>`),
+    site.whatsapp ? `<a href="${whatsappHref(site, t)}" target="_blank" rel="noopener">${brandIcon('whatsapp')}<span>WhatsApp</span></a>` : '',
     site.linkedin ? `<a href="${site.linkedin}" rel="noopener">${icon('linkedin')}<span>LinkedIn</span></a>` : '',
   ].join('');
 
@@ -70,6 +99,12 @@ export function layout({ t, site, key, title, description, body, noindex = false
   <meta property="og:description" content="${description}">
   <meta property="og:locale" content="${t.locale}">
   ${base ? `<meta property="og:url" content="${abs(path)}">` : ''}
+  ${pub ? `<meta property="og:image" content="${pub}/brand/og-${lang}.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="${site.name} · ${t.home.description}">
+  <meta name="twitter:card" content="summary_large_image">` : ''}
+  <script type="application/ld+json">${organization(t, site, pub)}</script>
   <meta name="theme-color" content="#0b0d17" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
   <link rel="icon" href="/brand/favicon-violeta.png" type="image/png">
@@ -128,6 +163,7 @@ ${markPending(body)}
     </div>
     <div class="container footer-bottom">© ${new Date().getFullYear()} ${site.name}. ${t.ui.rights}</div>
   </footer>
+  ${site.whatsapp ? `<a class="wa-float" href="${whatsappHref(site, t)}" target="_blank" rel="noopener" aria-label="${t.ui.whatsapp}" title="${t.ui.whatsapp}">${brandIcon('whatsapp')}<span>WhatsApp</span></a>` : ''}
 </body>
 </html>
 `;
