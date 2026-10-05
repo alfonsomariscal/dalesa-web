@@ -25,9 +25,6 @@ export const icon = (name, cls = 'icon') =>
 export const logo = (name) =>
   `<span class="brand-mark" aria-hidden="true"></span><span class="brand-word" aria-hidden="true"></span><span class="visually-hidden">${name}</span>`;
 
-// Diseños de color disponibles. El primero es el de por defecto.
-export const themes = ['violeta', 'oro', 'mono'];
-
 export const brandIcon = (name, cls = 'icon') =>
   `<svg class="${cls}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${brands[name] ?? ''}</svg>`;
 
@@ -117,12 +114,11 @@ export function layout({ t, site, key, title, description, body, noindex = false
   <meta property="og:image:alt" content="${site.name} · ${t.home.description}">
   <meta name="twitter:card" content="summary_large_image">` : ''}
   <script type="application/ld+json">${organization(t, site, pub)}</script>
-  <meta name="theme-color" content="#0b0d17" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
-  <link rel="icon" href="/brand/favicon-violeta.png" type="image/png">
+  <meta name="theme-color" content="#0a0907">
+  <link rel="icon" href="/brand/favicon-oro.png" type="image/png">
   <link rel="preload" href="/fonts/manrope-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/styles.css">
-  <script>(function(d){d.classList.add('js');try{var q=new URLSearchParams(location.search).get('diseno'),t=q||localStorage.getItem('dalesa-theme');if(q)localStorage.setItem('dalesa-theme',q);if(${JSON.stringify(themes.slice(1))}.indexOf(t)>-1)d.dataset.theme=t}catch(e){}})(document.documentElement)</script>
+  <script>document.documentElement.classList.add('js');try{localStorage.removeItem('dalesa-theme')}catch(e){}</script>
   <script src="/main.js" defer></script>
   ${analyticsTag(site.analytics)}
 </head>
@@ -133,14 +129,6 @@ export function layout({ t, site, key, title, description, body, noindex = false
       <a class="brand" href="${r('home')}" aria-label="${site.name}">
         ${logo(site.name)}
       </a>
-      <div class="theme-switch" role="group" aria-label="${t.ui.theme}">
-        ${themes
-          .map(
-            (th, i) =>
-              `<button class="theme-opt" type="button" data-theme-set="${th}" aria-pressed="${i === 0}" title="${t.ui.themes[i]}"><span class="swatch swatch-${th}" aria-hidden="true"></span><span class="visually-hidden">${t.ui.themes[i]}</span></button>`,
-          )
-          .join('')}
-      </div>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-bars" aria-hidden="true"></span><span class="visually-hidden">${t.ui.menu}</span>
       </button>

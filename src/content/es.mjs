@@ -16,8 +16,6 @@ export default (d) => ({
     all: 'Todos',
     rights: 'Todos los derechos reservados.',
     illustrative: 'Ejemplo ilustrativo',
-    theme: 'Diseño',
-    themes: ['Diseño 1 · Violeta', 'Diseño 2 · Dorado', 'Diseño 3 · Blanco y negro'],
     whatsapp: 'Escríbenos por WhatsApp',
     whatsappText: 'Hola, me gustaría hablar con DALESA.',
     callMe: 'Te llamamos',
@@ -618,7 +616,6 @@ export default (d) => ({
           d.analytics
             ? `Este sitio no utiliza cookies. Para saber cuántas personas nos visitan y qué páginas consultan usamos ${d.analytics}, una herramienta de estadísticas que no usa cookies ni recoge datos personales: solo cuenta visitas y acciones de forma agregada y anónima. Por eso no mostramos un aviso de cookies.`
             : 'Este sitio no utiliza cookies propias ni de terceros con fines analíticos o publicitarios, ni carga recursos de servicios externos al navegar. Por eso no mostramos un aviso de cookies.',
-          'La web solo guarda en tu navegador el diseño de colores que elijas, para recordarlo en tu próxima visita. Ese dato no sale de tu dispositivo.',
         ],
       },
     ],

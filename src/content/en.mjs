@@ -15,8 +15,6 @@ export default (d) => ({
     all: 'All',
     rights: 'All rights reserved.',
     illustrative: 'Illustrative example',
-    theme: 'Design',
-    themes: ['Design 1 · Violet', 'Design 2 · Gold', 'Design 3 · Black and white'],
     whatsapp: 'Message us on WhatsApp',
     whatsappText: 'Hello, I would like to talk to DALESA.',
     callMe: 'We call you',
@@ -609,7 +607,6 @@ export default (d) => ({
           d.analytics
             ? `This site does not use cookies. To know how many people visit us and which pages they read we use ${d.analytics}, a statistics tool that uses no cookies and collects no personal data: it only counts visits and actions in aggregate, anonymously. That is why we do not show a cookie banner.`
             : 'This site does not use first- or third-party cookies for analytics or advertising, and does not load resources from external services while you browse. That is why we do not show a cookie banner.',
-          'The site only stores in your browser the colour design you choose, so it is remembered on your next visit. That setting never leaves your device.',
         ],
       },
     ],

@@ -12,18 +12,13 @@ Web estática bilingüe (ES/EN) sin dependencias: solo hace falta Node.js.
 | Correos que reciben los formularios (contacto y «Te llamamos») | `notify` en `site.config.mjs` |
 | IA responsable y preguntas frecuentes de la portada | `home.responsible` y `home.faq` en `src/content/es.mjs` / `en.mjs` |
 | Imagen al compartir en WhatsApp/LinkedIn | `public/brand/og-es.png` y `og-en.png` (1200×630) |
-| Colores de los tres diseños (violeta, dorado, blanco y negro) | `public/styles.css` (al principio: `:root`, `[data-theme="oro"]`, `[data-theme="mono"]`) |
-| Logo (máscaras que se pintan con el color del diseño) y favicons | `public/brand/` y `.brand-mark` / `.brand-word` en `public/styles.css` |
+| Colores (dorado sobre negro, como el logo) | `public/styles.css`, al principio (`:root`) |
+| Logo (máscaras que se pintan con el dorado) y favicon | `public/brand/` y `.brand-mark` / `.brand-word` en `public/styles.css` |
 | Ilustraciones (casos, servicios, hero) | `src/visuals.mjs` |
 | Iconos (Lucide, ISC) | `src/icons.mjs`; para añadir uno, copiar su SVG de lucide.dev |
 | Tipografía (Manrope, OFL) | `public/fonts/` |
 
 Lo que falta por rellenar aparece como `[PENDIENTE: …]` resaltado en amarillo, y el build dice cuántos quedan.
-
-## Diseños de color
-
-El selector de arriba a la derecha cambia entre los tres diseños y recuerda la elección en el navegador.
-Se puede enlazar uno directamente con `?diseno=violeta`, `?diseno=oro` o `?diseno=mono`.
 
 ## Demos (capturas de proyectos de ejemplo)
 

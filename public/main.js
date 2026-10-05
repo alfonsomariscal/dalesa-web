@@ -1,4 +1,4 @@
-// Selector de diseño, menú móvil, filtro de casos y envío del formulario de contacto.
+// Menú móvil, filtro de casos, formularios de contacto y analítica.
 
 // Analítica sin cookies: cuenta acciones (no personas). Funciona con Plausible, Umami o GoatCounter
 // si están configurados en site.config.mjs; si no, no hace nada.
@@ -18,26 +18,6 @@ document.addEventListener('click', (e) => {
   else if (href.startsWith('mailto:')) track('Correo');
   else if (a.dataset.track) track(a.dataset.track);
 });
-
-// Selector de diseño (colores). El diseño inicial lo pone el script del <head> para que no parpadee.
-const root = document.documentElement;
-const themeButtons = document.querySelectorAll('[data-theme-set]');
-const favicon = document.querySelector('link[rel="icon"]');
-const applyTheme = (theme) => {
-  if (theme === 'violeta') delete root.dataset.theme;
-  else root.dataset.theme = theme;
-  themeButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.themeSet === theme)));
-  if (favicon) favicon.href = favicon.href.replace(/favicon-\w+\.png/, `favicon-${theme}.png`);
-};
-applyTheme(root.dataset.theme || 'violeta');
-themeButtons.forEach((btn) =>
-  btn.addEventListener('click', () => {
-    applyTheme(btn.dataset.themeSet);
-    try {
-      localStorage.setItem('dalesa-theme', btn.dataset.themeSet);
-    } catch {}
-  }),
-);
 
 // Menú móvil
 const toggle = document.querySelector('.nav-toggle');
