@@ -42,8 +42,9 @@ export const shot = (url, png, w, h, scale = 2) =>
     `--screenshot=${png}`, url,
   ], { stdio: 'ignore' });
 
-// Genera cada pantalla (HTML + PNG a 1440×900) y una composición en portátil con la primera.
-export function buildDesktop(name, screens) {
+// Genera cada pantalla (HTML + PNG a 1440×900) y una composición en portátil con la primera
+// (montaje.png). Con { each: true }, además una por pantalla (montaje-<pantalla>.png).
+export function buildDesktop(name, screens, { each = false } = {}) {
   const out = join(ROOT, 'demos', name, 'out');
   const png = join(ROOT, 'demos', 'capturas', name);
   mkdirSync(out, { recursive: true });
@@ -54,19 +55,22 @@ export function buildDesktop(name, screens) {
     shot(`file://${f}`, join(png, `${file}.png`), 1440, 900);
     console.log(`✔ ${name}/${file}.png`);
   }
-  const first = Object.keys(screens)[0];
-  const montage = `<!doctype html><html><head><meta charset="utf-8"><style>
+  const laptop = (file, dest) => {
+    const montage = `<!doctype html><html><head><meta charset="utf-8"><style>
 html,body{margin:0;width:1900px;height:1260px;overflow:hidden;background:transparent}
 .laptop{position:absolute;left:140px;top:40px;width:1620px}
 .lid{background:linear-gradient(160deg,#2b2b2e,#0d0d0f);border-radius:34px 34px 0 0;padding:26px 26px 30px;box-shadow:0 0 0 2px #4a4a4e inset}
 .lid img{display:block;width:100%;border-radius:8px}
 .base{height:34px;margin:0 -70px;background:linear-gradient(#d9d9dc,#a9a9ae);border-radius:0 0 26px 26px;position:relative;box-shadow:0 40px 60px -30px rgb(0 0 0 / .5)}
 .base::before{content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);width:240px;height:12px;background:#9a9aa0;border-radius:0 0 12px 12px}
-</style></head><body><div class="laptop"><div class="lid"><img src="file://${join(png, `${first}.png`)}"></div><div class="base"></div></div></body></html>`;
-  const m = join(out, 'montaje.html');
-  writeFileSync(m, montage);
-  shot(`file://${m}`, join(png, 'montaje.png'), 1900, 1260, 1);
-  console.log(`✔ ${name}/montaje.png`);
+</style></head><body><div class="laptop"><div class="lid"><img src="file://${join(png, `${file}.png`)}"></div><div class="base"></div></div></body></html>`;
+    const m = join(out, `${dest}.html`);
+    writeFileSync(m, montage);
+    shot(`file://${m}`, join(png, `${dest}.png`), 1900, 1260, 1);
+    console.log(`✔ ${name}/${dest}.png`);
+  };
+  laptop(Object.keys(screens)[0], 'montaje');
+  if (each) for (const file of Object.keys(screens)) laptop(file, `montaje-${file}`);
 }
 
 // Ilustraciones planas de producto (las mismas que la app móvil).

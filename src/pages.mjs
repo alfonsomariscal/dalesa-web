@@ -107,7 +107,15 @@ const serviceCard = (t, s, i, featured) => `
         </div>
       </article>`;
 
-const caseVisual = (t, c) => `
+// Un caso con `image` enseña pantallas de una demo (public/casos/<image>.webp); si no, su ilustración.
+const caseVisual = (t, c) =>
+  c.image
+    ? `
+        <div class="case-art case-art-image">
+          <img src="/casos/${c.image}.webp" width="${EXAMPLE_IMG[c.image][0]}" height="${EXAMPLE_IMG[c.image][1]}" alt="${c.v.alt}" loading="lazy" decoding="async">
+          <span class="case-art-note">${t.ui.illustrative}</span>
+        </div>`
+    : `
         <div class="case-art">
           ${visuals[c.visual]?.(c.v) ?? ''}
           <span class="case-art-note">${t.ui.illustrative}</span>
@@ -127,7 +135,7 @@ const caseCard = (t, c, i) => `
 
 // Ficha completa (página de casos)
 const caseFeature = (t, c, i) => `
-      <article class="case-feature${i % 2 ? ' reverse' : ''}" id="${caseId(c)}" data-service="${caseServices(c).join(' ')}" ${reveal()}>
+      <article class="case-feature${i % 2 ? ' reverse' : ''}${c.image ? ' case-feature-wide' : ''}" id="${caseId(c)}" data-service="${caseServices(c).join(' ')}" ${reveal()}>
         ${caseVisual(t, c)}
         <div class="case-content">
           <p class="case-meta">${caseTag(c)}<span>${c.client}</span><span>· ${caseServiceTitles(t, c)}</span></p>
@@ -142,12 +150,13 @@ const caseFeature = (t, c, i) => `
         </div>
       </article>`;
 
-// Imágenes del proceso completo (public/proceso-completo/, generadas con demos/exportar.py) y su tamaño.
+// Imágenes de los ejemplos paso a paso de Casos de uso (public/proceso-completo/, generadas con
+// demos/exportar.py) y su tamaño. La carpeta conserva el nombre de la antigua página «Proceso completo».
 const EXAMPLE_IMG = JSON.parse(readFileSync(new URL('./content/example-images.json', import.meta.url)));
 const exampleImg = (name, alt, lazy = true) =>
   `<img src="/proceso-completo/${name}.webp" width="${EXAMPLE_IMG[name][0]}" height="${EXAMPLE_IMG[name][1]}" alt="${alt}"${lazy ? ' loading="lazy" decoding="async"' : ''}>`;
-// Paso del proceso completo que enseña cada servicio.
-const EXAMPLE_FOR = { ia: 'factura', procesos: '', modernizacion: 'pedido' };
+// Caso de uso (sector o paso) que enseña cada servicio.
+const EXAMPLE_FOR = { ia: 'factura', procesos: 'alimentacion', modernizacion: 'banca' };
 
 const finalCta = (t) => `
     <section class="section">
@@ -191,7 +200,7 @@ export const pages = {
           <p class="lead">${h.lead}</p>
           <div class="actions">
             <a class="btn btn-primary" href="${r(t, 'contact')}">${h.ctaPrimary} ${arrow()}</a>
-            <a class="btn btn-ghost" href="${r(t, 'example')}" data-track="Proceso completo · portada">${icon('workflow', 'icon icon-sm')}${h.ctaSecondary}</a>
+            <a class="btn btn-ghost" href="${r(t, 'cases')}" data-track="Casos de uso · portada">${icon('workflow', 'icon icon-sm')}${h.ctaSecondary}</a>
           </div>
           <p class="note">${icon('check', 'icon icon-sm')}${h.note}<a class="note-link" href="${callHref(t)}">${icon('telephone', 'icon icon-xs')}${t.ui.callMe}</a></p>
         </div>
@@ -228,14 +237,14 @@ export const pages = {
 
     <section class="section example-teaser-section">
       <div class="container">
-        <a class="example-teaser" href="${r(t, 'example')}" data-track="Proceso completo · bloque" ${reveal()}>
+        <a class="example-teaser" href="${r(t, 'cases')}" data-track="Casos de uso · bloque" ${reveal()}>
           <div class="example-teaser-copy">
             <p class="eyebrow eyebrow-icon">${icon('workflow', 'icon icon-sm')}${t.examplePage.eyebrow}</p>
             <h2>${t.examplePage.teaserTitle}</h2>
             <p>${t.examplePage.teaserText}</p>
             <span class="btn btn-light">${t.examplePage.teaserCta} ${arrow()}</span>
           </div>
-          <div class="example-teaser-art">${exampleImg('fiori', t.examplePage.steps[2].alt)}</div>
+          <div class="example-teaser-art">${exampleImg('fiori', t.examplePage.processes[0].steps[2].alt)}</div>
         </a>
       </div>
     </section>
@@ -347,7 +356,7 @@ ${finalCta(t)}`,
           <h2>${s.title}</h2>
           <p class="lead">${s.short}</p>
           <p>${s.intro}</p>
-          <a class="link-arrow" href="${r(t, 'example')}${EXAMPLE_FOR[s.id] ? `#${EXAMPLE_FOR[s.id]}` : ''}">${t.examplePage.serviceLink} ${arrow()}</a>
+          <a class="link-arrow" href="${r(t, 'cases')}${EXAMPLE_FOR[s.id] ? `#${EXAMPLE_FOR[s.id]}` : ''}">${t.examplePage.serviceLink} ${arrow()}</a>
           <div class="service-art-wrap service-art-lg">${serviceArt[s.id] ?? ''}</div>
         </div>
         <div>
@@ -366,19 +375,75 @@ ${finalCta(t)}`,
 
   cases: (t) => {
     const p = t.casesPage;
-    const used = t.services.filter((s) => t.cases.some((c) => caseServices(c).includes(s.id)));
+    const ex = t.examplePage;
+    const step = (pr, s, i) => `
+    <section class="section ${i % 2 ? '' : 'section-alt'}" id="${s.id}">
+      <div class="container example-step${i % 2 ? ' reverse' : ''}">
+        <div class="example-copy" ${reveal()}>
+          <p class="example-num"><b>${ex.stepLabel} ${i + 1}</b><span class="tag">${s.tag}</span></p>
+          <h2>${s.title}</h2>
+          <p class="lead">${s.text}</p>
+          <ul class="checklist">${s.points.map((x) => `<li>${icon('check', 'icon icon-sm')}<span>${x}</span></li>`).join('')}</ul>
+        </div>
+        <figure class="example-shot${EXAMPLE_IMG[s.image][1] > EXAMPLE_IMG[s.image][0] ? ' example-shot-tall' : ''}" ${reveal(1)}>${exampleImg(s.image, s.alt, !(pr === 0 && i === 0))}</figure>
+      </div>
+    </section>`;
+    const groups = p.groups.filter((g) => t.cases.some((c) => c.group === g.id) || ex.processes.some((x) => x.group === g.id));
     return {
       title: p.title,
       description: p.description,
       body: `
     ${pageHeader('briefcase', t.nav.cases, p.h1, p.lead)}
-    <section class="section section-tight">
-      <div class="container">
-        <div class="filters" role="group" aria-label="${t.nav.services}" hidden>
-          <button type="button" class="filter" aria-pressed="true" data-filter="all">${icon('layers', 'icon icon-sm')}${t.ui.all}</button>
-          ${used.map((s) => `<button type="button" class="filter" aria-pressed="false" data-filter="${s.id}">${icon(s.icon, 'icon icon-sm')}${s.title}</button>`).join('\n          ')}
+    <div class="container narrow example-note"><p class="note">${icon('lightbulb', 'icon icon-sm')}${p.note}</p></div>
+    <div class="container">
+      <div class="process-tabs" role="tablist" aria-label="${p.chooseLabel}">
+        ${groups
+          .map(
+            (g, k) =>
+              `<button type="button" role="tab" id="tab-${g.id}" aria-controls="proc-${g.id}" aria-selected="${k === 0}" data-process="${g.id}"${k ? ' tabindex="-1"' : ''}>${icon(g.icon)}<span><b>${g.tab}</b></span></button>`,
+          )
+          .join('\n        ')}
+      </div>
+    </div>
+    ${groups
+      .map((g, k) => {
+        const real = t.cases.filter((c) => c.group === g.id);
+        const pr = ex.processes.find((x) => x.group === g.id);
+        return `
+    <div class="process" id="proc-${g.id}" role="tabpanel" aria-labelledby="tab-${g.id}">
+      ${
+        real.length
+          ? `<section class="section section-tight usecase-real">
+        <div class="container">
+          <p class="usecase-label">${icon('badge-check', 'icon icon-sm')}${real.length > 1 ? p.realTitlePlural : p.realTitle}</p>
+          <div class="cases-list">${real.map((c, i) => caseFeature(t, c, i)).join('')}</div>
         </div>
-        <div class="cases-list">${t.cases.map((c, i) => caseFeature(t, c, i)).join('')}
+      </section>`
+          : ''
+      }
+      ${
+        pr
+          ? `<div class="usecase-example">
+        <div class="container process-intro">
+          <p class="usecase-label">${icon('workflow', 'icon icon-sm')}${p.exampleTitle}</p>
+          <p class="muted usecase-company">${p.exampleNote} <b>${pr.company}</b></p>
+          <p class="lead">${pr.intro}</p>
+        </div>
+        <nav class="container service-jump example-jump" aria-label="${p.exampleTitle}">
+          ${pr.steps.map((s, i) => `<a href="#${s.id}"><b>${i + 1}</b>${s.tag}</a>`).join('')}
+        </nav>
+        ${pr.steps.map((s, i) => step(k, s, i)).join('')}
+      </div>`
+          : ''
+      }
+    </div>`;
+      })
+      .join('')}
+    <section class="section">
+      <div class="container">
+        ${sectionHead(ex.changesTitle, '')}
+        <div class="grid grid-4">
+          ${ex.changes.map((c, i) => `<div class="card value-card" ${reveal(i)}><span class="icon-badge">${icon(c.icon)}</span><h3>${c.title}</h3><p>${c.text}</p></div>`).join('\n          ')}
         </div>
       </div>
     </section>
@@ -442,45 +507,6 @@ ${finalCta(t)}`,
       <div class="container">
         ${clientsGrid(p.clientsTitle)}
         ${sectorsStrip(t, p.sectorsTitle)}
-      </div>
-    </section>
-${finalCta(t)}`,
-    };
-  },
-
-  example: (t) => {
-    const p = t.examplePage;
-    return {
-      title: p.title,
-      description: p.description,
-      body: `
-    ${pageHeader('workflow', p.eyebrow, p.h1, p.lead)}
-    <div class="container narrow example-note"><p class="note">${icon('lightbulb', 'icon icon-sm')}${p.note}</p></div>
-    <nav class="container service-jump example-jump" aria-label="${p.eyebrow}">
-      ${p.steps.map((s, i) => `<a href="#${s.id}"><b>${i + 1}</b>${s.tag}</a>`).join('')}
-    </nav>
-    ${p.steps
-      .map(
-        (s, i) => `
-    <section class="section ${i % 2 ? '' : 'section-alt'}" id="${s.id}">
-      <div class="container example-step${i % 2 ? ' reverse' : ''}">
-        <div class="example-copy" ${reveal()}>
-          <p class="example-num"><b>${p.stepLabel} ${i + 1}</b><span class="tag">${s.tag}</span></p>
-          <h2>${s.title}</h2>
-          <p class="lead">${s.text}</p>
-          <ul class="checklist">${s.points.map((x) => `<li>${icon('check', 'icon icon-sm')}<span>${x}</span></li>`).join('')}</ul>
-        </div>
-        <figure class="example-shot" ${reveal(1)}>${exampleImg(s.image, s.alt, i > 0)}</figure>
-      </div>
-    </section>`,
-      )
-      .join('')}
-    <section class="section">
-      <div class="container">
-        ${sectionHead(p.changesTitle, '')}
-        <div class="grid grid-4">
-          ${p.changes.map((c, i) => `<div class="card value-card" ${reveal(i)}><span class="icon-badge">${icon(c.icon)}</span><h3>${c.title}</h3><p>${c.text}</p></div>`).join('\n          ')}
-        </div>
       </div>
     </section>
 ${finalCta(t)}`,

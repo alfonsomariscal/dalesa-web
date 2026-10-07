@@ -6,7 +6,6 @@ export const routes = {
   services: { es: '/servicios/', en: '/en/services/' },
   cases: { es: '/casos/', en: '/en/case-studies/' },
   about: { es: '/nosotros/', en: '/en/about/' },
-  example: { es: '/proceso-completo/', en: '/en/end-to-end/' },
   contact: { es: '/contacto/', en: '/en/contact/' },
   legal: { es: '/aviso-legal/', en: '/en/legal-notice/' },
   privacy: { es: '/privacidad/', en: '/en/privacy/' },
@@ -75,8 +74,8 @@ export function layout({ t, site, key, title, description, body, noindex = false
   const path = routes[key]?.[lang] ?? r('home');
   const altPath = routes[key]?.[other] ?? routes.home[other];
 
-  const navItems = ['services', 'example', 'cases', 'about', 'contact']
-    .map((k) => `<li><a href="${r(k)}"${k === key ? ' aria-current="page"' : ''}>${k === 'example' ? t.nav.exampleShort : t.nav[k]}</a></li>`)
+  const navItems = ['services', 'cases', 'about', 'contact']
+    .map((k) => `<li><a href="${r(k)}"${k === key ? ' aria-current="page"' : ''}>${t.nav[k]}</a></li>`)
     .join('');
 
   const alternates = routes[key]
@@ -153,7 +152,7 @@ ${markPending(body)}
       </div>
       <nav class="footer-nav" aria-label="Footer">
         <ul>
-          ${['services', 'example', 'cases', 'about', 'contact'].map((k) => `<li><a href="${r(k)}">${t.nav[k]}</a></li>`).join('')}
+          ${['services', 'cases', 'about', 'contact'].map((k) => `<li><a href="${r(k)}">${t.nav[k]}</a></li>`).join('')}
         </ul>
         <ul>
           <li><a href="${r('legal')}">${t.nav.legal}</a></li>

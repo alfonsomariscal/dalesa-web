@@ -22,7 +22,7 @@ Lo que falta por rellenar aparece como `[PENDIENTE: …]` resaltado en amarillo,
 
 ## Demos (capturas de proyectos de ejemplo)
 
-Cinco demos de Montera (las usa la página «Proceso completo»), una distribuidora alimentaria **ficticia**, para enseñar el tipo de trabajo sin usar
+Demos de cuatro empresas **ficticias**, Montera (distribución alimentaria), Velarte (moda), MyOnBank (banca) y Nordaria Seguros, que usa la página «Casos de uso» (ejemplos paso a paso dentro de cada sector). Montera es una distribuidora alimentaria **ficticia**, para enseñar el tipo de trabajo sin usar
 material de clientes. Cada una tiene su código en `demos/<nombre>/build.mjs` y genera sus capturas en
 `public/demos/<nombre>/` (incluido `montaje.png`, con la pantalla dentro de un móvil o un portátil):
 
@@ -33,8 +33,13 @@ material de clientes. Cada una tiene su código en `demos/<nombre>/build.mjs` y 
 | Portal web de clientes | `demos/portal` |
 | Agente de IA que revisa facturas de proveedores | `demos/agente` |
 | Panel de ventas y previsión de demanda | `demos/panel` |
+| Velarte (moda): app de tienda, reposición con IA y talla recomendada | `demos/textil` |
+| Velarte (moda): panel de tallas y devoluciones | `demos/tallas` |
+| MyOnBank (banca): migración de la app con agentes, skills y SDD | `demos/banca` |
+| MyOnBank (banca): la app nativa nueva | `demos/banca-app` |
+| Nordaria Seguros: modelo de IA que predice la repetición de siniestros | `demos/seguros` |
 
-Para regenerar una tras cambiar textos o datos: `node demos/<nombre>/build.mjs` (Node 20+, con Chrome
+Para regenerar una tras cambiar textos o datos: `node demos/<nombre>/build.mjs` y después `python3 demos/exportar.py` (pasa las capturas a WebP para la web) (Node 20+, con Chrome
 instalado; la de Fiori necesita conexión para cargar OpenUI5).
 
 ## Ver en local

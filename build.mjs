@@ -73,6 +73,20 @@ for (const [lang, content] of Object.entries(langs)) {
   }
 }
 
+// La antigua página «Proceso completo» se fusionó en «Casos de uso»: sus direcciones redirigen
+// conservando el ancla (#velarte → #moda, #talla se mantiene).
+const OLD_PROCESS = { montera: 'alimentacion', velarte: 'moda', myonbank: 'banca' };
+for (const [from, lang] of [['/proceso-completo/', 'es'], ['/en/end-to-end/', 'en']]) {
+  const to = routes.cases[lang];
+  write(
+    from,
+    `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>${site.name}</title>
+<link rel="canonical" href="${to}"><meta http-equiv="refresh" content="0; url=${to}">
+<script>var m=${JSON.stringify(OLD_PROCESS)},h=location.hash.slice(1);location.replace(document.querySelector('link[rel=canonical]').getAttribute('href')+(h?'#'+(m[h]||h):''))</script>
+</head><body><a href="${to}">${to}</a></body></html>`,
+  );
+}
+
 // 404 en español (la mayoría de hostings sirven /404.html).
 write('404.html', layout({ t: es(dataFor('es')), site, key: '404', noindex: true, ...notFound(es(dataFor('es'))) }));
 

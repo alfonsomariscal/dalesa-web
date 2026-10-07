@@ -23,13 +23,11 @@ export default (d) => ({
 
   nav: {
     services: 'Servicios',
-    cases: 'Casos',
+    cases: 'Casos de uso',
     about: 'Nosotros',
     contact: 'Contacto',
     legal: 'Aviso legal',
     privacy: 'Privacidad y cookies',
-    example: 'Proceso completo',
-    exampleShort: 'Proceso completo',
   },
 
   services: [
@@ -126,10 +124,12 @@ export default (d) => ({
   cases: [
     {
       id: 'textil',
+      group: 'moda',
       icon: 'shirt',
       featured: true,
       service: ['ia', 'modernizacion'],
       visual: 'sizes',
+      image: 'textil',
       sector: 'Textil',
       client: 'Gran cadena internacional de moda',
       title: 'App para encargados de tienda y talla acertada con IA',
@@ -148,7 +148,7 @@ export default (d) => ({
         'Encargados con la información de su tienda siempre en el bolsillo y una mejora significativa en el acierto de talla, sabiendo qué prendas tallan grande o pequeño.',
       tech: ['Apps iOS y Android', 'Machine learning', 'Ciencia de datos', 'IA generativa'],
       v: {
-        alt: 'Ilustración: recomendación de talla a partir de las medidas, los pedidos y las devoluciones',
+        alt: 'Pantallas de ejemplo de la app: ventas de la tienda, stock por talla, pedido de reposición y talla recomendada al cliente',
         inputs: ['Tus medidas', 'Tus pedidos', 'Devoluciones'],
         result: 'Talla recomendada',
         confidence: 'Esta prenda talla pequeño',
@@ -158,6 +158,7 @@ export default (d) => ({
     },
     {
       id: 'seguros-siniestros',
+      group: 'seguros',
       icon: 'shield-check',
       featured: true,
       service: 'ia',
@@ -187,6 +188,7 @@ export default (d) => ({
     },
     {
       id: 'seguros-movilidad',
+      group: 'seguros',
       icon: 'shield-check',
       service: 'modernizacion',
       visual: 'claim',
@@ -216,6 +218,7 @@ export default (d) => ({
     },
     {
       id: 'alimentacion',
+      group: 'alimentacion',
       icon: 'ham',
       featured: true,
       service: 'procesos',
@@ -245,6 +248,7 @@ export default (d) => ({
     },
     {
       id: 'banca',
+      group: 'banca',
       icon: 'landmark',
       featured: true,
       service: 'modernizacion',
@@ -278,7 +282,7 @@ export default (d) => ({
     lead:
       'Implantamos agentes de inteligencia artificial, rediseñamos procesos y creamos o modernizamos aplicaciones web y móviles, para que tu equipo deje de perder horas en tareas repetitivas.',
     ctaPrimary: 'Cuéntanos tu caso',
-    ctaSecondary: 'Ver un proceso completo',
+    ctaSecondary: 'Ver casos de uso',
     note: 'La primera conversación corre de nuestra cuenta.',
     demo: {
       title: 'Agente de consultas',
@@ -347,10 +351,22 @@ export default (d) => ({
   },
 
   casesPage: {
-    title: `Casos · ${d.name}`,
-    description: 'Proyectos de inteligencia artificial, mejora de procesos y aplicaciones web y móviles.',
-    h1: 'Proyectos reales, resultados que se notan',
-    lead: 'Algunos proyectos en los que hemos trabajado. Por confidencialidad, no siempre citamos el nombre del cliente.',
+    title: `Casos de uso · ${d.name}`,
+    description: 'Casos de uso de inteligencia artificial, mejora de procesos y aplicaciones web y móviles, por sector: proyectos reales y ejemplos paso a paso.',
+    h1: 'Casos de uso, de principio a fin',
+    lead: 'Elige un sector. En cada uno verás proyectos reales en los que ha trabajado el equipo y, cuando lo hay, un ejemplo paso a paso de cómo se ve un proyecto así.',
+    note: 'Por confidencialidad no citamos a nuestros clientes. En los ejemplos paso a paso, los nombres, las empresas y las cifras son ficticios.',
+    chooseLabel: 'Elige un sector',
+    realTitle: 'Proyecto real',
+    realTitlePlural: 'Proyectos reales',
+    exampleTitle: 'Así se ve, paso a paso',
+    exampleNote: 'Ejemplo ilustrativo con una empresa ficticia:',
+    groups: [
+      { id: 'moda', tab: 'Moda', icon: 'shirt' },
+      { id: 'banca', tab: 'Banca', icon: 'landmark' },
+      { id: 'alimentacion', tab: 'Alimentación y distribución', icon: 'shopping-cart' },
+      { id: 'seguros', tab: 'Seguros', icon: 'shield-check' },
+    ],
   },
 
   aboutPage: {
@@ -386,85 +402,312 @@ export default (d) => ({
 
   // Proceso completo de ejemplo con una empresa inventada (Montera). Imágenes en public/proceso-completo/.
   examplePage: {
-    title: `Proceso completo · ${d.name}`,
-    description:
-      'Cómo sería un proyecto completo con DALESA en una distribuidora alimentaria: app móvil, portal de clientes, SAP Fiori, agente de IA y panel de previsión.',
-    eyebrow: 'Un proceso completo',
-    h1: 'Un pedido, de principio a fin',
-    lead:
-      'Así es un proceso completo en una distribuidora de alimentación, del pedido en la calle a la previsión de demanda, pasando por SAP y la inteligencia artificial. Está construido a partir del tipo de proyectos que hacemos.',
-    note: 'Por confidencialidad con nuestros clientes, los nombres, las empresas y las cifras son ficticios.',
+    eyebrow: 'Casos de uso',
     stepLabel: 'Paso',
-    steps: [
+    processes: [
       {
-        id: 'pedido',
-        image: 'movil',
-        tag: 'App móvil',
-        title: 'El comercial toma el pedido en la ruta',
-        text: 'Javier visita bares y tiendas con una app en el móvil: ve su ruta del día, la ficha de cada cliente y lo que suele pedir. El asistente de IA le avisa de lo que el cliente está a punto de necesitar.',
-        points: [
-          'Ruta del día con mapa y estado de cada visita',
-          'Sugerencias de la IA según el historial del cliente',
-          'Firma del cliente y foto del albarán, sin papeles',
-          'El pedido entra en SAP sin teclearlo dos veces',
-        ],
-        alt: 'Cuatro pantallas de la app móvil: ruta del día, ficha del cliente, nuevo pedido y confirmación de entrega',
+        id: 'montera',
+        group: 'alimentacion',
+        tab: 'Distribución alimentaria',
+        company: 'Montera',
+        icon: 'shopping-cart',
+        intro: 'Montera es una distribuidora de ibéricos, quesos y conservas para bares, restaurantes y tiendas. Así va un pedido, del bar al panel de dirección.',
+        steps: [
+        {
+          id: 'pedido',
+          image: 'movil',
+          tag: 'App móvil',
+          title: 'El comercial toma el pedido en la ruta',
+          text: 'Javier visita bares y tiendas con una app en el móvil: ve su ruta del día, la ficha de cada cliente y lo que suele pedir. El asistente de IA le avisa de lo que el cliente está a punto de necesitar.',
+          points: [
+            'Ruta del día con mapa y estado de cada visita',
+            'Sugerencias de la IA según el historial del cliente',
+            'Firma del cliente y foto del albarán, sin papeles',
+            'El pedido entra en SAP sin teclearlo dos veces',
+          ],
+          alt: 'Cuatro pantallas de la app móvil: ruta del día, ficha del cliente, nuevo pedido y confirmación de entrega',
+        },
+        {
+          id: 'portal',
+          image: 'portal',
+          tag: 'Portal web',
+          title: 'El cliente sigue su pedido y repite el habitual',
+          text: 'Rosa, la dueña de La Tasca, entra en el portal de clientes: ve cuándo llega el reparto, descarga sus facturas y repite su pedido de siempre en un par de clics, con los precios de su tarifa.',
+          points: [
+            'Seguimiento del reparto en tiempo real',
+            'Facturas y albaranes siempre a mano',
+            'Productos habituales sugeridos antes de que se agoten',
+            'Catálogo y carrito con su tarifa y sus promociones',
+          ],
+          alt: 'Portal web de clientes en un portátil: seguimiento del pedido, productos habituales y facturas',
+        },
+        {
+          id: 'compras',
+          image: 'fiori',
+          tag: 'SAP Fiori',
+          title: 'Compras repone stock y se aprueba en SAP Fiori',
+          text: 'Para reponer, compras lanza un pedido al proveedor. La responsable lo aprueba en una app SAP Fiori hecha a medida, desde el ordenador o desde el móvil, con las posiciones y el presupuesto a la vista.',
+          points: [
+            'Pedidos pendientes ordenados por urgencia',
+            'Posiciones, condiciones y presupuesto en una pantalla',
+            'Aprobar o rechazar con una nota para el solicitante',
+            'La misma app en el ordenador, la tableta y el móvil',
+          ],
+          alt: 'App SAP Fiori de aprobación de pedidos de compra en un portátil y en un móvil',
+        },
+        {
+          id: 'factura',
+          image: 'agente',
+          tag: 'Agente de IA',
+          title: 'El agente de IA revisa la factura del proveedor',
+          text: 'Cuando llega la factura por correo, el agente la lee, la cruza con el pedido, el albarán y la tarifa en SAP y detecta que el jamón viene más caro de lo pactado. Propone retener la diferencia y reclamarla, con el correo ya redactado. La decisión es de una persona.',
+          points: [
+            'Lee facturas en PDF que llegan por correo',
+            'Comprueba proveedor, cantidades y precios en SAP',
+            'Registra sola las correctas y explica las que no cuadran',
+            'Responde preguntas sobre cada factura',
+          ],
+          alt: 'Agente de IA revisando una factura de proveedor: datos extraídos, comprobaciones y propuesta',
+        },
+        {
+          id: 'panel',
+          image: 'panel',
+          tag: 'Panel e IA',
+          title: 'Dirección lo ve todo y se anticipa',
+          text: 'Todo lo anterior acaba en un panel con las ventas, los márgenes y las rutas, y una previsión de demanda hecha con IA. El asistente avisa antes de que falte stock por un festivo, de lo que va a caducar y de los clientes que empiezan a pedir menos.',
+          points: [
+            'Ventas, margen y rutas actualizados cada mañana',
+            'Previsión de demanda que tiene en cuenta festivos y pedidos abiertos',
+            'Avisos de stock, caducidades y clientes en riesgo',
+            'Cada aviso, con la acción propuesta',
+          ],
+          alt: 'Panel de ventas y previsión de demanda en un portátil',
+        },
+      ],
       },
       {
-        id: 'portal',
-        image: 'portal',
-        tag: 'Portal web',
-        title: 'El cliente sigue su pedido y repite el habitual',
-        text: 'Rosa, la dueña de La Tasca, entra en el portal de clientes: ve cuándo llega el reparto, descarga sus facturas y repite su pedido de siempre en un par de clics, con los precios de su tarifa.',
-        points: [
-          'Seguimiento del reparto en tiempo real',
-          'Facturas y albaranes siempre a mano',
-          'Productos habituales sugeridos antes de que se agoten',
-          'Catálogo y carrito con su tarifa y sus promociones',
+        id: 'velarte',
+        group: 'moda',
+        tab: 'Moda',
+        company: 'Velarte',
+        icon: 'shirt',
+        intro: 'Velarte es una cadena de moda con tiendas propias y venta online. Así va una prenda, de la tienda a la devolución que ya no llega a producirse.',
+        steps: [
+          {
+            id: 'tienda',
+            image: 'velarte-tienda',
+            tag: 'App de tienda',
+            title: 'La encargada ve su tienda en el móvil',
+            text: 'Laura, encargada de la tienda de Valladolid, sigue las ventas del día frente al objetivo y ve el stock de cada prenda por talla: en su tienda, en el almacén y en las tiendas cercanas.',
+            points: [
+              'Ventas del día, tickets y ticket medio frente al objetivo',
+              'Stock por talla en tienda, almacén y tiendas cercanas',
+              'Aviso cuando una talla está a punto de agotarse',
+              'Lo más vendido del día, de un vistazo',
+            ],
+            alt: 'Dos pantallas de la app de tienda: ventas del día y stock por talla de una camisa',
+          },
+          {
+            id: 'reposicion',
+            image: 'velarte-reposicion',
+            tag: 'IA en la app',
+            title: 'Repone con la sugerencia de la IA',
+            text: 'Con las ventas de la semana y el fin de semana que viene, el asistente propone qué reponer y cuánto. Laura lo revisa, ajusta las cantidades y lo envía: llega al día siguiente.',
+            points: [
+              'Pedido de reposición propuesto por la IA',
+              'Cantidades editables antes de enviar',
+              'Traspasos entre tiendas cuando el almacén no llega a tiempo',
+              'Entrega prevista en la misma pantalla',
+            ],
+            alt: 'Pantalla de la app con el pedido de reposición sugerido por la IA',
+          },
+          {
+            id: 'talla',
+            image: 'velarte-talla',
+            tag: 'App de cliente',
+            title: 'El cliente acierta con su talla',
+            text: 'Al comprar online, la app recomienda la talla con las medidas del cliente, sus pedidos anteriores y lo que hicieron quienes compraron la misma prenda. Si una prenda talla pequeño, lo dice.',
+            points: [
+              'Talla recomendada para cada prenda y cada cliente',
+              'Explicación clara de por qué esa talla',
+              'Aviso cuando una prenda talla pequeño o grande',
+              'Menos devoluciones y menos cambios de talla',
+            ],
+            alt: 'Pantalla de la app de cliente con la talla recomendada para una camisa',
+          },
+          {
+            id: 'devoluciones',
+            image: 'velarte-devoluciones',
+            tag: 'Panel e IA',
+            title: 'Producto ve qué prendas no tallan bien',
+            text: 'El equipo de producto ve cuántos pedidos se devuelven por la talla, qué prendas tallan pequeño o grande y cómo evoluciona desde que se recomienda la talla. El asistente propone qué hacer con cada prenda.',
+            points: [
+              'Devoluciones por la talla, semana a semana',
+              'Prendas que tallan pequeño o grande, con el cambio más habitual',
+              'Avisos de talla publicados en la web y en la app',
+              'Propuestas para ajustar el patrón con el proveedor',
+            ],
+            alt: 'Panel de tallas y devoluciones en un portátil',
+          },
         ],
-        alt: 'Portal web de clientes en un portátil: seguimiento del pedido, productos habituales y facturas',
       },
       {
-        id: 'compras',
-        image: 'fiori',
-        tag: 'SAP Fiori',
-        title: 'Compras repone stock y se aprueba en SAP Fiori',
-        text: 'Para reponer, compras lanza un pedido al proveedor. La responsable lo aprueba en una app SAP Fiori hecha a medida, desde el ordenador o desde el móvil, con las posiciones y el presupuesto a la vista.',
-        points: [
-          'Pedidos pendientes ordenados por urgencia',
-          'Posiciones, condiciones y presupuesto en una pantalla',
-          'Aprobar o rechazar con una nota para el solicitante',
-          'La misma app en el ordenador, la tableta y el móvil',
+        id: 'myonbank',
+        group: 'banca',
+        tab: 'Banca',
+        company: 'MyOnBank',
+        icon: 'landmark',
+        intro:
+          'MyOnBank es un banco con una app móvil híbrida de 2014, lenta y difícil de mantener. Así la migramos a una app nativa con agentes de IA, skills y desarrollo guiado por especificaciones (SDD), sin perder ni una regla de negocio.',
+        steps: [
+          {
+            id: 'descubrimiento',
+            image: 'myonbank-descubrimiento',
+            tag: 'Agentes de IA',
+            title: 'Los agentes leen la app antigua y sacan sus reglas',
+            text:
+              'Varios agentes recorren el código de la app antigua y sacan el inventario de pantallas, casos de uso, reglas de negocio e integraciones. Cada regla lleva su origen exacto en el código, y un agente verificador la comprueba.',
+            points: [
+              '142 pantallas, 64 casos de uso y 213 reglas de negocio inventariados',
+              'Cada regla, con el fichero y la línea de donde sale',
+              'El código que ya no se usa se detecta y no se migra',
+              'Lo que no está claro se marca para que lo confirme negocio',
+            ],
+            alt: 'Espacio de trabajo de la migración en un portátil: descubrimiento de reglas de negocio con su origen en el código',
+          },
+          {
+            id: 'especificacion',
+            image: 'myonbank-especificacion',
+            tag: 'SDD',
+            title: 'Cada caso de uso, una especificación aprobada',
+            text:
+              'Antes de escribir una línea de código, cada caso de uso se convierte en una especificación: las reglas que cumple, los criterios de aceptación, el contrato de la API y las pantallas. Negocio, seguridad y arquitectura la aprueban.',
+            points: [
+              'Especificaciones versionadas, que entienden las personas y los agentes',
+              'Criterios de aceptación en formato Dado / Cuando / Entonces',
+              'Aprobación de negocio, seguridad y arquitectura',
+              'El verificador avisa si falta alguna regla',
+            ],
+            alt: 'Especificación de la transferencia inmediata con reglas, criterios de aceptación, contrato de API y aprobaciones',
+          },
+          {
+            id: 'generacion',
+            image: 'myonbank-generacion',
+            tag: 'Agentes y skills',
+            title: 'Los agentes generan la app nativa con las skills del banco',
+            text:
+              'Con cada especificación aprobada, los agentes de iOS y Android generan el código en SwiftUI y Jetpack Compose siguiendo las skills del banco: su sistema de diseño y sus normas de seguridad y accesibilidad. Cada parte del código indica qué regla cumple, y una persona revisa cada cambio.',
+            points: [
+              'Código nativo en SwiftUI y Jetpack Compose',
+              'Skills con el sistema de diseño, la seguridad y la accesibilidad del banco',
+              'Trazabilidad: cada regla, en el código que la cumple',
+              'Revisión humana de cada cambio antes de integrarlo',
+            ],
+            alt: 'Tablero de generación con agentes de iOS y Android y código SwiftUI con las reglas anotadas',
+          },
+          {
+            id: 'paridad',
+            image: 'myonbank-paridad',
+            tag: 'Pruebas',
+            title: 'La app nueva hace lo mismo que la antigua',
+            text:
+              'Los mismos escenarios se ejecutan contra la app antigua y la nueva. Si el resultado cambia, se explica: o es una mejora que aprueba negocio, o se corrige.',
+            points: [
+              '418 escenarios ejecutados en las dos apps',
+              'Cada diferencia, con su decisión',
+              'Avance de la migración semana a semana',
+              'Nada se publica con diferencias abiertas',
+            ],
+            alt: 'Panel de pruebas de paridad entre la app antigua y la nueva',
+          },
+          {
+            id: 'app',
+            image: 'myonbank-app',
+            tag: 'App nativa',
+            title: 'El cliente estrena una app nativa',
+            text:
+              'El resultado es una app nativa moderna, rápida y fácil de usar: saldo de un vistazo, envíos en segundos con Face ID y control total de la tarjeta, con las mismas reglas de siempre, ahora mejor explicadas.',
+            points: [
+              'App nativa para iOS y Android',
+              'Más segura: Face ID, firma con código y tarjeta que se congela al momento',
+              'Más intuitiva y moderna',
+              'Mensajes claros sobre límites, horarios y firma',
+              'Más fácil de mantener y de hacer crecer',
+            ],
+            alt: 'Cuatro pantallas de la app nativa: inicio, enviar dinero, tarjeta y envío confirmado',
+          },
         ],
-        alt: 'App SAP Fiori de aprobación de pedidos de compra en un portátil y en un móvil',
       },
       {
-        id: 'factura',
-        image: 'agente',
-        tag: 'Agente de IA',
-        title: 'El agente de IA revisa la factura del proveedor',
-        text: 'Cuando llega la factura por correo, el agente la lee, la cruza con el pedido, el albarán y la tarifa en SAP y detecta que el jamón viene más caro de lo pactado. Propone retener la diferencia y reclamarla, con el correo ya redactado. La decisión es de una persona.',
-        points: [
-          'Lee facturas en PDF que llegan por correo',
-          'Comprueba proveedor, cantidades y precios en SAP',
-          'Registra sola las correctas y explica las que no cuadran',
-          'Responde preguntas sobre cada factura',
+        id: 'nordaria',
+        group: 'seguros',
+        tab: 'Seguros',
+        company: 'Nordaria Seguros',
+        icon: 'shield-check',
+        intro:
+          'Nordaria es una aseguradora de hogar. Entrenamos un modelo de IA con sus propios datos para predecir qué viviendas van a volver a tener un siniestro y actuar antes de que ocurra.',
+        steps: [
+          {
+            id: 'datos',
+            image: 'nordaria-datos',
+            tag: 'Datos',
+            title: 'Sus datos, unidos y listos para entrenar',
+            text:
+              'Diez años de pólizas, siniestros e informes de peritos se unen en una sola tabla por vivienda y se cruzan con el año de construcción y el clima de cada zona. Antes de entrenar se limpian y se seudonimizan los datos personales.',
+            points: [
+              '2,1 millones de pólizas y 1,2 millones de siniestros',
+              'Catastro y meteorología por código postal',
+              '184 variables por póliza',
+              'Datos personales seudonimizados',
+            ],
+            alt: 'Pantalla de datos del proyecto de IA: fuentes, calidad y preparación',
+          },
+          {
+            id: 'modelo',
+            image: 'nordaria-modelo',
+            tag: 'Modelo de IA',
+            title: 'Un modelo que acierta más que las reglas de siempre',
+            text:
+              'El modelo aprende de los siniestros pasados a predecir qué viviendas tendrán otro siniestro de agua en los próximos 12 meses. Se entrena con el pasado y se prueba con un año completo que no ha visto: en el 10 % de más riesgo detecta el 47 % de las repeticiones, frente al 19 % de las reglas actuales.',
+            points: [
+              'Capacidad para distinguir (AUC) de 0,86',
+              'Validado con un año completo de datos nuevos',
+              'Sabemos qué variables pesan más',
+              'Revisado para no discriminar',
+            ],
+            alt: 'Ficha del modelo con su precisión, los grupos de riesgo y las variables que más pesan',
+          },
+          {
+            id: 'prediccion',
+            image: 'nordaria-prediccion',
+            tag: 'Predicción',
+            title: 'Cada póliza, con su predicción explicada',
+            text:
+              'Para cada vivienda el modelo da la probabilidad de que el siniestro se repita y explica por qué: siniestros previos, fontanería antigua, una reparación provisional, heladas. También predice el coste final, el riesgo de fraude y la probabilidad de que el cliente se dé de baja.',
+            points: [
+              'Probabilidad de repetición en 12 meses',
+              'El porqué de cada predicción, en puntos',
+              'Coste final, fraude y baja del cliente',
+              'Una recomendación concreta para cada caso',
+            ],
+            alt: 'Predicción de repetición del siniestro para una póliza, con la explicación y otras predicciones',
+          },
+          {
+            id: 'resultados',
+            image: 'nordaria-resultados',
+            tag: 'Resultados',
+            title: 'De la predicción a la acción, y medido',
+            text:
+              'Las viviendas de más riesgo reciben una revisión preventiva y un detector de fugas, y las que están a punto de irse, una llamada del mediador. El resultado se mide frente a un grupo de control y los modelos se vigilan y se reentrenan cada mes.',
+            points: [
+              '38 % menos siniestros repetidos desde julio',
+              '1,9 millones de euros de ahorro neto estimado',
+              '22 % menos bajas en el grupo de riesgo',
+              'Cada nueva versión la aprueba una persona',
+            ],
+            alt: 'Panel de resultados del programa de prevención y vigilancia de los modelos',
+          },
         ],
-        alt: 'Agente de IA revisando una factura de proveedor: datos extraídos, comprobaciones y propuesta',
-      },
-      {
-        id: 'panel',
-        image: 'panel',
-        tag: 'Panel e IA',
-        title: 'Dirección lo ve todo y se anticipa',
-        text: 'Todo lo anterior acaba en un panel con las ventas, los márgenes y las rutas, y una previsión de demanda hecha con IA. El asistente avisa antes de que falte stock por un festivo, de lo que va a caducar y de los clientes que empiezan a pedir menos.',
-        points: [
-          'Ventas, margen y rutas actualizados cada mañana',
-          'Previsión de demanda que tiene en cuenta festivos y pedidos abiertos',
-          'Avisos de stock, caducidades y clientes en riesgo',
-          'Cada aviso, con la acción propuesta',
-        ],
-        alt: 'Panel de ventas y previsión de demanda en un portátil',
       },
     ],
     changesTitle: 'Lo que cambia',
@@ -474,11 +717,11 @@ export default (d) => ({
       { icon: 'users', title: 'Las personas deciden', text: 'La IA prepara, compara y avisa; aprobar, reclamar o pedir sigue en manos del equipo.' },
       { icon: 'plug', title: 'Sobre lo que ya tienes', text: 'Todo se apoya en SAP y en las herramientas de siempre, sin cambiar de sistemas.' },
     ],
-    teaserTitle: 'Un proceso completo, de principio a fin',
+    teaserTitle: 'Casos de uso, de principio a fin',
     teaserText:
-      'Un proceso completo en una distribuidora de alimentación: del pedido en la calle a la previsión de demanda, pasando por el portal de clientes, SAP Fiori y un agente de IA.',
-    teaserCta: 'Ver el proceso completo',
-    serviceLink: 'Verlo en un proceso completo',
+      'Proyectos reales y ejemplos paso a paso en moda, banca, alimentación y seguros: apps, SAP Fiori, agentes de IA y migraciones con IA.',
+    teaserCta: 'Ver los casos de uso',
+    serviceLink: 'Verlo en un caso de uso',
   },
 
   contactPage: {

@@ -18,5 +18,61 @@
   "panel": [
     1600,
     973
+  ],
+  "velarte-tienda": [
+    1600,
+    1538
+  ],
+  "velarte-reposicion": [
+    1060,
+    1923
+  ],
+  "velarte-talla": [
+    1060,
+    1923
+  ],
+  "velarte-devoluciones": [
+    1600,
+    973
+  ],
+  "myonbank-descubrimiento": [
+    1600,
+    973
+  ],
+  "myonbank-especificacion": [
+    1600,
+    973
+  ],
+  "myonbank-generacion": [
+    1600,
+    973
+  ],
+  "myonbank-paridad": [
+    1600,
+    973
+  ],
+  "myonbank-app": [
+    1600,
+    800
+  ],
+  "nordaria-datos": [
+    1600,
+    973
+  ],
+  "nordaria-modelo": [
+    1600,
+    973
+  ],
+  "nordaria-prediccion": [
+    1600,
+    973
+  ],
+  "nordaria-resultados": [
+    1600,
+    973
+  ],
+  "textil": [
+    1600,
+    851
   ]
 }

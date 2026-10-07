@@ -1,4 +1,4 @@
-// Menú móvil, filtro de casos, formularios de contacto y analítica.
+// Menú móvil, selector de casos de uso, formularios de contacto y analítica.
 
 // Analítica sin cookies: cuenta acciones (no personas). Funciona con Plausible, Umami o GoatCounter
 // si están configurados en site.config.mjs; si no, no hace nada.
@@ -19,6 +19,43 @@ document.addEventListener('click', (e) => {
   else if (a.dataset.track) track(a.dataset.track);
 });
 
+// Casos de uso: selector de sector. Sin JS se ven todos los sectores seguidos.
+// #moda abre ese sector; el id de un caso o de un paso (#talla) abre su sector y baja hasta él.
+const procTabs = [...document.querySelectorAll('.process-tabs [role="tab"]')];
+if (procTabs.length) {
+  const showProcess = (id, focus = false) =>
+    procTabs.forEach((t) => {
+      const on = t.dataset.process === id;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(`proc-${t.dataset.process}`).hidden = !on;
+      if (on && focus) t.focus();
+    });
+  procTabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => {
+      showProcess(tab.dataset.process);
+      history.replaceState(null, '', `#${tab.dataset.process}`);
+    });
+    tab.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (d) showProcess(procTabs[(i + d + procTabs.length) % procTabs.length].dataset.process, true);
+    });
+  });
+  const fromHash = () => {
+    const h = decodeURIComponent(location.hash.slice(1));
+    const isProcess = procTabs.some((t) => t.dataset.process === h);
+    const target = !isProcess && h ? document.getElementById(h) : null;
+    showProcess(isProcess ? h : target?.closest('.process')?.id.replace('proc-', '') || procTabs[0].dataset.process);
+    // Al ocultar el otro proceso la página cambia de alto: se vuelve a bajar al paso al terminar de cargar.
+    if (target) {
+      requestAnimationFrame(() => target.scrollIntoView({ behavior: 'instant' }));
+      if (document.readyState !== 'complete') window.addEventListener('load', () => target.scrollIntoView({ behavior: 'instant' }), { once: true });
+    }
+  };
+  fromHash();
+  window.addEventListener('hashchange', fromHash);
+}
+
 // Menú móvil
 const toggle = document.querySelector('.nav-toggle');
 const nav = document.getElementById('site-nav');
@@ -35,21 +72,6 @@ if (toggle && nav) {
       toggle.focus();
     }
   });
-}
-
-// Filtro de casos por servicio
-const filters = document.querySelector('.filters');
-if (filters) {
-  const buttons = filters.querySelectorAll('.filter');
-  const cards = document.querySelectorAll('.cases-list .case-feature');
-  if (buttons.length > 2) filters.hidden = false;
-  buttons.forEach((btn) =>
-    btn.addEventListener('click', () => {
-      const f = btn.dataset.filter;
-      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
-      cards.forEach((c) => (c.hidden = f !== 'all' && !c.dataset.service.split(' ').includes(f)));
-    }),
-  );
 }
 
 // Pestañas de contacto: «Escríbenos» / «Te llamamos». Sin JS se ven los dos formularios.

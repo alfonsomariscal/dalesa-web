@@ -488,6 +488,12 @@ mark.pending { background: var(--pending-bg); color: var(--pending-text); paddin
   border: 1px solid var(--border);
 }
 .case-art::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(var(--grid-line) 1.2px, transparent 1.2px); background-size: 16px 16px; }
+.case-feature.case-feature-wide { grid-template-columns: 1.25fr .75fr; gap: 48px; }
+.case-feature.case-feature-wide.reverse { grid-template-columns: .75fr 1.25fr; }
+@media (max-width: 900px) { .case-feature.case-feature-wide, .case-feature.case-feature-wide.reverse { grid-template-columns: 1fr; } }
+.case-art-image { aspect-ratio: auto; display: grid; place-items: center; padding: 26px 12px 12px; }
+.case-art-image::before { display: none; }
+.case-art-image img { width: 100%; height: auto; position: relative; }
 .case-art-note { position: absolute; right: 12px; top: 8px; font-size: .68rem; color: var(--muted); opacity: .8; }
 .case-visual { position: relative; width: 100%; height: 100%; font-family: var(--font); }
 
@@ -755,6 +761,40 @@ html:not(.js) .contact-form + .contact-form { padding-top: 28px; border-top: 1px
 .form-status.ok, .form-status.error { padding: 12px 16px; border-radius: 14px; }
 .form-status.ok { color: var(--accent-2); background: var(--accent-2-soft); }
 .form-status.error { color: #d9480f; background: color-mix(in srgb, #d9480f 10%, transparent); }
+
+/* Casos de uso: proyecto real y ejemplo paso a paso dentro de cada sector */
+.usecase-label { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px; font-size: .82rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.usecase-real { padding-top: 48px; padding-bottom: 72px; }
+.usecase-example { border-top: 1px solid var(--border); padding-top: 24px; }
+.usecase-company { margin: -8px 0 10px; font-size: .95rem; }
+/* Selector de sectores (casos de uso) */
+.process-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 12px 0 4px; }
+html:not(.js) .process-tabs { display: none; }
+.process-tabs button {
+  display: inline-flex; align-items: center; gap: 14px; padding: 12px 22px 12px 12px; border-radius: 18px; cursor: pointer;
+  font: inherit; text-align: left; color: var(--muted); background: var(--surface); border: 1px solid var(--border);
+  transition: border-color .15s ease, background-color .15s ease, color .15s ease;
+}
+.process-tabs button .icon { width: 44px; height: 44px; padding: 11px; border-radius: 14px; background: var(--surface-alt); color: var(--accent); flex: none; }
+.process-tabs button span { display: grid; line-height: 1.25; }
+.process-tabs button b { font-size: 1.02rem; }
+.process-tabs button small { font-size: .85rem; }
+.process-tabs button:hover { color: var(--text); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+.process-tabs button[aria-selected="true"] { color: var(--text); background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 70%, transparent); box-shadow: var(--shadow); }
+.process-tabs button[aria-selected="true"] .icon { background: var(--gold); color: var(--on-accent); }
+@media (max-width: 560px) {
+  .process-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .process-tabs button { gap: 10px; padding: 10px 12px 10px 10px; border-radius: 16px; }
+  .process-tabs button .icon { width: 36px; height: 36px; padding: 9px; border-radius: 11px; }
+  .process-tabs button b { font-size: .9rem; }
+  .process-tabs button small { font-size: .78rem; }
+}
+.process-intro { margin-top: 36px; }
+.process-intro .lead { margin: 0 0 22px; max-width: 760px; }
+.process .example-jump { margin-top: 0; }
+.process[hidden] { display: none; }
+.example-shot-tall { display: grid; place-items: center; }
+.example-shot.example-shot-tall img { width: auto; max-width: 100%; height: auto; max-height: 620px; object-fit: contain; }
 
 /* Ejemplo de un proceso completo ===================================== */
 .example-note { margin-top: -12px; margin-bottom: 8px; }
